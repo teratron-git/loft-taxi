@@ -1,5 +1,10 @@
+* {
+    outline: none;
+}
+
 html {
     font-size: 10px;
+
 }
 
 body {
@@ -40,9 +45,14 @@ body {
 }
 
 .login-page__loginForm-item {
-    background-color: brown;
-    width: 503px;
-    height: 566px;
+    background-color: ivory;
+    width: 450px;
+    height: 507px;
+    font-size: 1.6em;
+    padding: 50px;
+    text-align: left;
+    position: relative;
+    border-radius: 1%;
 }
 
 .app {
@@ -81,16 +91,17 @@ body {
     align-self: center;
     line-height: 30px;
     border: 1px solid transparent ;
+    border-radius: 20%;
     text-align: center;
     margin: 5px;
-    transition: background-color 2s;
+    transition: background-color 1s;
 }
 
 .header-item:hover {
     cursor: pointer;
     border: 1px solid black;
     background-color: darkgrey;
-    transition:  background-color 1s;
+    transition:  background-color 0.5s;
 }
 
 .map-page, .profile-page {
@@ -100,4 +111,110 @@ body {
     font-size: 5em;
     line-height: calc(100vh - 70px);
     text-align: center;
+    text-shadow: black 1px 1px;
+}
+
+.map-page {
+    background-color: rgb(0, 104, 104);
+
+}
+
+
+input {
+    display: block;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    width: 100%;
+    border: 0 solid #ffffff;
+    border-bottom: 1px solid #cccccc ;
+    font: normal 16px/normal "Calibri", sans-serif;
+    color: rgba(0, 0, 0, 1);
+    -o-text-overflow: clip;
+    text-overflow: clip;
+    background: ivory;
+    -webkit-box-shadow: 0 0 0 0 rgb(0, 0, 0) inset;
+    box-shadow: 0 0 0 0 rgb(0, 0, 0) inset;
+    -webkit-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+    -moz-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+    -o-transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+    transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
+
+}
+
+input:focus {
+    border-bottom: 1px solid #000000 !important;
+    transition: all ease 1s;
+}
+
+#surname-div {
+    width: 210px;
+    display: inline-block;
+    margin: 0 auto;
+    position: absolute;
+    right: 50px;
+}
+
+#name-div {
+    width: 210px;
+    display: inline-block;
+    margin: 0 auto;
+    position: absolute;
+    left: 50px;
+}
+
+ #surname {
+    /* background:red; */
+
+
+}
+
+label {
+    display: block; 
+    margin-top: 50px;
+    font-size: 0.7em;
+}
+
+label[for="password"] {
+    margin-top: 150px;
+    display: block; 
+}
+
+.header-form {
+    font-size: 3em;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.header-form__add {
+    margin-bottom: 20px; 
+}
+
+.header-form__add span {
+    cursor: pointer;
+    color: royalblue;
+    margin-left: 5px;
+}
+
+button {
+        margin-top: 60px;       
+        width: 248px;
+        height: 51px;
+        border-radius: 4px;
+        background-color: #ffc617;
+        position: absolute;
+        right: 0;
+        margin-right: 50px;
+        outline: none;
+        border: 0;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all ease 0.5s;
+        border: 1px solid transparent;
+}
+
+button:hover {
+    background-color: #eeb506;
+    border: 1px solid royalblue;
+    
 }
