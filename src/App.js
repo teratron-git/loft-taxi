@@ -1,9 +1,9 @@
 import React from 'react';
-import './index.css';
 import { LoginPage } from './components/LoginPage';
 import { RegPage } from './components/RegPage';
 import { MapPage } from './components/MapPage';
 import { ProfilePage } from './components/ProfilePage';
+import './index.css';
 
 class App extends React.Component {
 	state = { page: 'login' };

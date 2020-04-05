@@ -10,8 +10,16 @@ export class LoginForm extends React.Component {
 	// 	console.log('height', height);
 	// 	console.log('state', this.state);
 	// };
+	state = { email: '', password: '' };
 	clickHandler = (page) => {
 		this.props.getPage(page);
+	};
+	changeHandler = (e) => {
+		this.setState({ [e.target.name]: e.target.value });
+	};
+	submitHandler = (e) => {
+		e.preventDefault();
+		this.clickHandler('map');
 	};
 	render() {
 		return (
@@ -26,19 +34,31 @@ export class LoginForm extends React.Component {
 						Новый пользователь?
 						<span onClick={() => this.clickHandler('reg')}>Зарегистрироваться</span>
 					</div>
-					<form action="#">
+					<form onSubmit={this.submitHandler}>
 						<label htmlFor="email">Адрес эл. почты*:</label>
-						<input type="text" id="email" name="email" required autoComplete="off" autoFocus />
+						<input
+							type="text"
+							id="email"
+							name="email"
+							value={this.state.email}
+							onChange={this.changeHandler}
+							required
+							autoComplete="off"
+							autoFocus
+						/>
 						<label htmlFor="password" style={{ marginTop: '50px' }}>
 							Пароль*:
 						</label>
-						<input type="password" id="password" name="password" required autoComplete="off" />
-						<button
-							className="button"
-							type="button"
-							style={{ width: '100px' }}
-							onClick={() => this.clickHandler('map')}
-						>
+						<input
+							type="password"
+							id="password"
+							name="password"
+							value={this.state.password}
+							onChange={this.changeHandler}
+							required
+							autoComplete="off"
+						/>
+						<button className="button" style={{ width: '100px' }}>
 							Войти
 						</button>
 					</form>
