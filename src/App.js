@@ -6,14 +6,10 @@ import { MapPage } from './components/MapPage';
 import { ProfilePage } from './components/ProfilePage';
 
 class App extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			page: 'reg',
-		};
-	}
+	state = { page: 'login' };
+
 	getPage = (page) => {
-		this.setState({ page: page });
+		this.setState({ page });
 	};
 	render() {
 		const { page } = this.state;

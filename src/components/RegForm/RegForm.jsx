@@ -1,12 +1,7 @@
 import React from 'react';
 
 export class RegForm extends React.Component {
-	clickHandler = (e) => {
-		let page = e.target.getAttribute('page');
-		this.props.getPage(page);
-		console.log(page);
-	};
-	getPage = (page) => {
+	clickHandler = (page) => {
 		this.props.getPage(page);
 	};
 	render() {
@@ -16,29 +11,31 @@ export class RegForm extends React.Component {
 					<div className="header-form">Регистрация</div>
 					<div className="header-form__add">
 						Уже зарегистрированы?
-						<span page="login" onClick={this.clickHandler}>
+						<span page="login" onClick={() => this.clickHandler('login')}>
 							Войти
 						</span>
 					</div>
-					<label for="email">Адрес эл. почты*:</label>
-					<input type="text" id="email" name="email" required autocomplete="off" autoFocus />
-					<div id="name-div">
-						<label for="name" if>
-							Имя*:
-						</label>
-						<input type="text" id="name" name="name" required autocomplete="off" />
-					</div>
-					<div id="surname-div">
-						<label for="surname" if>
-							Фамилия*:
-						</label>
-						<input type="text" id="surname" name="surname" required autocomplete="off" />
-					</div>
-					<label for="password">Пароль*:</label>
-					<input type="password" id="password" name="password" required autocomplete="off" />
-					<button class="popup-form__btn button" page="map" onClick={this.clickHandler}>
-						Зарегистрироваться
-					</button>
+					<form action="#">
+						<label htmlFor="email">Адрес эл. почты*:</label>
+						<input type="text" id="email" name="email" required autoComplete="off" autoFocus />
+						<div id="name-div">
+							<label htmlFor="name">Имя*:</label>
+							<input type="text" id="name" name="name" required autoComplete="off" />
+						</div>
+						<div id="surname-div">
+							<label htmlFor="surname">Фамилия*:</label>
+							<input type="text" id="surname" name="surname" required autoComplete="off" />
+						</div>
+						<label htmlFor="password">Пароль*:</label>
+						<input type="password" id="password" name="password" required autoComplete="off" />
+						<button
+							className="popup-form__btn button"
+							type="button"
+							onClick={() => this.clickHandler('map')}
+						>
+							Зарегистрироваться
+						</button>
+					</form>
 				</div>
 			</div>
 		);

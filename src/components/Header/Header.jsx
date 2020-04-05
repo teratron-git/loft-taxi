@@ -9,7 +9,6 @@ const list = [
 export class Header extends React.Component {
 	clickHandler = (page) => {
 		this.props.getPage(page);
-		console.log(page);
 	};
 	render() {
 		return (
