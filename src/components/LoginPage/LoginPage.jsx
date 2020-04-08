@@ -2,6 +2,7 @@ import React from 'react';
 import { Header } from '../Header';
 import { Logo } from '../Logo';
 import { LoginForm } from '../LoginForm';
+import PropTypes from 'prop-types';
 
 export class LoginPage extends React.Component {
 	getPage = (page) => {
@@ -19,3 +20,7 @@ export class LoginPage extends React.Component {
 		);
 	}
 }
+
+LoginPage.propTypes = {
+	getPage: PropTypes.func,
+};

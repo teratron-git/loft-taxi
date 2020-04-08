@@ -1,6 +1,7 @@
 import React from 'react';
 import { Header } from '../Header';
 import mapboxgl from 'mapbox-gl';
+import PropTypes from 'prop-types';
 
 export class MapPage extends React.Component {
 	getPage = (page) => {
@@ -29,3 +30,7 @@ export class MapPage extends React.Component {
 		);
 	}
 }
+
+MapPage.propTypes = {
+	getPage: PropTypes.func,
+};

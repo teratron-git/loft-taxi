@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export class LoginForm extends React.Component {
 	state = { email: '', password: '' };
@@ -54,3 +55,7 @@ export class LoginForm extends React.Component {
 		);
 	}
 }
+
+LoginForm.propTypes = {
+	getPage: PropTypes.func,
+};

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Header } from '../Header';
+import PropTypes from 'prop-types';
 
 export class ProfilePage extends React.Component {
 	getPage = (page) => {
@@ -14,3 +15,7 @@ export class ProfilePage extends React.Component {
 		);
 	}
 }
+
+ProfilePage.propTypes = {
+	getPage: PropTypes.func,
+};

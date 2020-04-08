@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 export class RegForm extends React.Component {
 	state = { email: '', name: '', surname: '', password: '' };
@@ -74,3 +75,7 @@ export class RegForm extends React.Component {
 		);
 	}
 }
+
+RegForm.propTypes = {
+	getPage: PropTypes.func,
+};
