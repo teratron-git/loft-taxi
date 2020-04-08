@@ -1,15 +1,6 @@
 import React from 'react';
 
 export class LoginForm extends React.Component {
-	// Пока не удаляю, есть открытый вопрос по этому месту:
-	// state = { height: '' };
-	// changeSize = (size) => {
-	// 	let height = document.querySelector('.login-page__loginForm-item').style.height;
-	// 	height = size + 'px';
-	// 	this.setState({ height });
-	// 	console.log('height', height);
-	// 	console.log('state', this.state);
-	// };
 	state = { email: '', password: '' };
 	clickHandler = (page) => {
 		this.props.getPage(page);
@@ -24,11 +15,7 @@ export class LoginForm extends React.Component {
 	render() {
 		return (
 			<div className="login-page__loginForm">
-				<div
-					className="login-page__loginForm-item"
-					// onClick={() => this.changeSize(100)}
-					style={{ height: '400px' }}
-				>
+				<div className="login-page__loginForm-item" style={{ height: '400px' }}>
 					<div className="header-form">Вход</div>
 					<div className="header-form__add">
 						Новый пользователь?
