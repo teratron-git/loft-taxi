@@ -3,16 +3,20 @@ import PropTypes from 'prop-types';
 
 export class LoginForm extends React.Component {
 	state = { email: '', password: '' };
+
 	clickHandler = (page) => {
 		this.props.getPage(page);
 	};
+
 	changeHandler = (e) => {
 		this.setState({ [e.target.name]: e.target.value });
 	};
+
 	submitHandler = (e) => {
 		e.preventDefault();
 		this.clickHandler('map');
 	};
+
 	render() {
 		return (
 			<div className="login-page__loginForm">

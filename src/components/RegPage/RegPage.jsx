@@ -8,6 +8,7 @@ export class RegPage extends React.Component {
 	getPage = (page) => {
 		this.props.getPage(page);
 	};
+
 	render() {
 		return (
 			<div className="app">
