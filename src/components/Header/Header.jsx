@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Button from '@material-ui/core/Button';
 
 const list = [
 	{ id: 'map', name: 'Карта' },
@@ -17,9 +18,9 @@ export class Header extends React.Component {
 			<div className="header">
 				<div className="header-logo"></div>
 				{list.map((item) => (
-					<div className="header-item" key={item.id} onClick={() => this.clickHandler(item.id)}>
+					<Button className="header-item" key={item.id} onClick={() => this.clickHandler(item.id)}>
 						{item.name}
-					</div>
+					</Button>
 				))}
 			</div>
 		);

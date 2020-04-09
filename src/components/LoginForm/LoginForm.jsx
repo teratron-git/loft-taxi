@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Input from '@material-ui/core/Input';
+import Button from '@material-ui/core/Button';
 
 export class LoginForm extends React.Component {
 	state = { email: '', password: '' };
@@ -28,10 +30,11 @@ export class LoginForm extends React.Component {
 					</div>
 					<form onSubmit={this.submitHandler}>
 						<label htmlFor="email">Адрес эл. почты*:</label>
-						<input
+						<Input
 							type="text"
 							id="email"
 							name="email"
+							className="input"
 							value={this.state.email}
 							onChange={this.changeHandler}
 							required
@@ -41,18 +44,26 @@ export class LoginForm extends React.Component {
 						<label htmlFor="password" style={{ marginTop: '50px' }}>
 							Пароль*:
 						</label>
-						<input
+						<Input
 							type="password"
 							id="password"
 							name="password"
+							className="input"
 							value={this.state.password}
 							onChange={this.changeHandler}
 							required
 							autoComplete="off"
 						/>
-						<button className="button" style={{ width: '100px' }}>
+
+						<Button
+							type="submit"
+							variant="contained"
+							color="primary"
+							className="button"
+							style={{ width: '100px' }}
+						>
 							Войти
-						</button>
+						</Button>
 					</form>
 				</div>
 			</div>
