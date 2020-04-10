@@ -1,21 +1,37 @@
 import React from 'react';
 import { Header } from '../Header';
+import { Logo } from '../Logo';
+import { LoginForm } from '../LoginForm';
 import PropTypes from 'prop-types';
+import { AuthContext } from '../AuthContext';
+import { useContext } from 'react';
 
-export class ProfilePage extends React.Component {
-	getPage = (page) => {
-		this.props.getPage(page);
+export const ProfilePage = (props) => {
+	const authContext = useContext(AuthContext);
+
+	const getPage = (page) => {
+		props.getPage(page);
 	};
 
-	render() {
-		return (
-			<div className="app">
-				<Header getPage={this.getPage} />
-				<div className="profile-page">Содержимое профиля</div>
-			</div>
-		);
-	}
-}
+	return (
+		<>
+			{authContext.isLoggedIn ? (
+				<div className="app">
+					<Header getPage={getPage} />
+					<div className="profile-page">Содержимое профиля</div>
+				</div>
+			) : (
+				<div className="app">
+					<Header getPage={getPage} />
+					<div className="login-page">
+						<Logo />
+						<LoginForm getPage={getPage} />
+					</div>
+				</div>
+			)}
+		</>
+	);
+};
 
 ProfilePage.propTypes = {
 	getPage: PropTypes.func,

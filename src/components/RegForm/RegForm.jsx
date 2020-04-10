@@ -26,7 +26,7 @@ export class RegForm extends React.Component {
 					<div className="header-form">Регистрация</div>
 					<div className="header-form__add">
 						Уже зарегистрированы?
-						<span onClick={() => this.clickHandler('login')}>Войти</span>
+						<span onClick={() => this.clickHandler('logout')}>Войти</span>
 					</div>
 					<form onSubmit={this.submitHandler}>
 						<label htmlFor="email">Адрес эл. почты*:</label>

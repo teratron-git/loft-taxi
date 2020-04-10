@@ -6,7 +6,7 @@ import { ProfilePage } from './components/ProfilePage';
 import './index.css';
 
 class App extends React.Component {
-	state = { page: 'login' };
+	state = { page: 'logout' };
 
 	getPage = (page) => {
 		this.setState({ page });
@@ -15,7 +15,7 @@ class App extends React.Component {
 		const { page } = this.state;
 		return (
 			<>
-				{page === 'login' && <LoginPage getPage={this.getPage} />}
+				{page === 'logout' && <LoginPage getPage={this.getPage} />}
 				{page === 'reg' && <RegPage getPage={this.getPage} />}
 				{page === 'map' && <MapPage getPage={this.getPage} />}
 				{page === 'profile' && <ProfilePage getPage={this.getPage} />}
