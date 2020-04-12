@@ -5,14 +5,16 @@ export const AuthContext = React.createContext();
 export class AuthProvider extends React.Component {
 	state = { isLoggedIn: false };
 
-	login = async (email, password) => {
-		await this.setState({ isLoggedIn: true });
-		console.log(`isLoggedIn: ${this.state.isLoggedIn}, email: ${email}, password: ${password}`);
+	login = (email, password) => {
+		this.setState({ isLoggedIn: true }, () => {
+			console.log(`isLoggedIn: ${this.state.isLoggedIn}, email: ${email}, password: ${password}`);
+		});
 	};
 
-	logout = async () => {
-		await this.setState({ isLoggedIn: false });
-		console.log(`isLoggedIn: ${this.state.isLoggedIn}`);
+	logout = () => {
+		this.setState({ isLoggedIn: false }, () => {
+			console.log(`isLoggedIn: ${this.state.isLoggedIn}`);
+		});
 	};
 
 	render() {

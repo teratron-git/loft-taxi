@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
-import { AuthContext } from '../AuthContext';
+import { AuthContext } from '../../AuthContext';
 import { useState } from 'react';
 import { useContext } from 'react';
 

@@ -6,8 +6,8 @@ import { useEffect } from 'react';
 import { useRef } from 'react';
 import { AuthContext } from '../AuthContext';
 import { useContext } from 'react';
-import { Logo } from '../Logo';
-import { LoginForm } from '../LoginForm';
+import { Logo } from '../shared/Logo';
+import { LoginForm } from '../LoginPage/LoginForm';
 
 export const MapPage = (props) => {
 	const authContext = useContext(AuthContext);

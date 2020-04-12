@@ -1,7 +1,7 @@
 import React from 'react';
 import { Header } from '../Header';
-import { Logo } from '../Logo';
-import { RegForm } from '../RegForm';
+import { Logo } from '../shared/Logo';
+import { RegForm } from './RegForm';
 import PropTypes from 'prop-types';
 
 export class RegPage extends React.Component {
