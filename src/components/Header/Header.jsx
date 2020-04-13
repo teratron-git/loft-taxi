@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import { AuthContext } from '../AuthContext';
 import { useContext } from 'react';
+import { Link } from 'react-router-dom';
 
 const list = [
 	{ id: 'map', name: 'Карта' },
@@ -27,9 +28,11 @@ export const Header = (props) => {
 		<div className="header">
 			<div className="header-logo"></div>
 			{list.map((item) => (
-				<Button className="header-item" key={item.id} onClick={() => clickHandler(item.id)}>
-					{item.name}
-				</Button>
+				<Link to={item.id}>
+					<Button className="header-item" key={item.id} onClick={() => clickHandler(item.id)}>
+						{item.name}
+					</Button>
+				</Link>
 			))}
 		</div>
 	);

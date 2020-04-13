@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import { AuthContext } from '../../AuthContext';
 import { useState } from 'react';
 import { useContext } from 'react';
+import { Link } from 'react-router-dom';
 
 export const LoginForm = (props) => {
 	const [email, setEmail] = useState('');
@@ -35,7 +36,9 @@ export const LoginForm = (props) => {
 				<div className="header-form">Вход</div>
 				<div className="header-form__add">
 					Новый пользователь?
-					<span onClick={() => clickHandler('reg')}>Зарегистрироваться</span>
+					<Link to="reg">
+						<span onClick={() => clickHandler('reg')}>Зарегистрироваться</span>
+					</Link>
 				</div>
 				<form onSubmit={submitHandler}>
 					<label htmlFor="email">Адрес эл. почты*:</label>

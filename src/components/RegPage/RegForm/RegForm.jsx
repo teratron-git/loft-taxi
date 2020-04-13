@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom';
 
 export class RegForm extends React.Component {
 	state = { email: '', name: '', surname: '', password: '' };
@@ -26,7 +27,9 @@ export class RegForm extends React.Component {
 					<div className="header-form">Регистрация</div>
 					<div className="header-form__add">
 						Уже зарегистрированы?
-						<span onClick={() => this.clickHandler('logout')}>Войти</span>
+						<Link to="logout">
+							<span onClick={() => this.clickHandler('logout')}>Войти</span>
+						</Link>
 					</div>
 					<form onSubmit={this.submitHandler}>
 						<label htmlFor="email">Адрес эл. почты*:</label>
