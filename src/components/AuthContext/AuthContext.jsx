@@ -6,11 +6,11 @@ export class AuthProvider extends React.Component {
 	state = { isLoggedIn: false };
 
 	login = (email, password) => {
-		this.setState({ isLoggedIn: true });
+		this.setState({ isLoggedIn: true }, () => console.log(this.state.isLoggedIn));
 	};
 
 	logout = () => {
-		this.setState({ isLoggedIn: false });
+		this.setState({ isLoggedIn: false }, () => console.log(this.state.isLoggedIn));
 	};
 
 	render() {

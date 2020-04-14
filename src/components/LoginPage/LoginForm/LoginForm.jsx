@@ -5,16 +5,16 @@ import Button from '@material-ui/core/Button';
 import { AuthContext } from '../../AuthContext';
 import { useState } from 'react';
 import { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect, Switch } from 'react-router-dom';
+import { MapPage } from '../../MapPage';
+import { ProfilePage } from '../../ProfilePage';
+import { LoginPage } from '../LoginPage';
+import { RegPage } from '../../RegPage';
 
 export const LoginForm = (props) => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const authContext = useContext(AuthContext);
-
-	const clickHandler = (page) => {
-		props.getPage(page);
-	};
 
 	const changeEmailHandler = (e) => {
 		setEmail(e.target.value);
@@ -25,9 +25,7 @@ export const LoginForm = (props) => {
 	};
 
 	const submitHandler = (e) => {
-		e.preventDefault();
 		authContext.login(email, password);
-		clickHandler('map');
 	};
 
 	return (
@@ -36,11 +34,11 @@ export const LoginForm = (props) => {
 				<div className="header-form">Вход</div>
 				<div className="header-form__add">
 					Новый пользователь?
-					<Link to="reg">
-						<span onClick={() => clickHandler('reg')}>Зарегистрироваться</span>
+					<Link to="/reg">
+						<span>Зарегистрироваться</span>
 					</Link>
 				</div>
-				<form onSubmit={submitHandler}>
+				<form>
 					<label htmlFor="email">Адрес эл. почты*:</label>
 					<Input
 						type="text"
@@ -66,16 +64,17 @@ export const LoginForm = (props) => {
 						required
 						autoComplete="off"
 					/>
-
-					<Button
-						type="submit"
-						variant="contained"
-						color="primary"
-						className="button"
-						style={{ width: '100px' }}
-					>
-						Войти
-					</Button>
+					<Link type="submit" to="map" onClick={submitHandler}>
+						<Button
+							type="submit"
+							variant="contained"
+							color="primary"
+							className="button"
+							style={{ width: '100px' }}
+						>
+							Войти
+						</Button>
+					</Link>
 				</form>
 			</div>
 		</div>

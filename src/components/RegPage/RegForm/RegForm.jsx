@@ -7,17 +7,12 @@ import { Link } from 'react-router-dom';
 export class RegForm extends React.Component {
 	state = { email: '', name: '', surname: '', password: '' };
 
-	clickHandler = (page) => {
-		this.props.getPage(page);
-	};
-
 	changeHandler = (e) => {
 		this.setState({ [e.target.name]: e.target.value });
 	};
 
 	submitHandler = (e) => {
 		e.preventDefault();
-		this.clickHandler('map');
 	};
 
 	render() {
@@ -28,7 +23,7 @@ export class RegForm extends React.Component {
 					<div className="header-form__add">
 						Уже зарегистрированы?
 						<Link to="logout">
-							<span onClick={() => this.clickHandler('logout')}>Войти</span>
+							<span>Войти</span>
 						</Link>
 					</div>
 					<form onSubmit={this.submitHandler}>

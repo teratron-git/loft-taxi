@@ -14,24 +14,16 @@ const list = [
 export const Header = (props) => {
 	const authContext = useContext(AuthContext);
 
-	const clickHandler = (page) => {
-		page = authContext.isLoggedIn ? page : 'logout';
-
-		if (page === 'logout') {
-			authContext.logout();
-		}
-
-		props.getPage(page);
+	const clickHandler = () => {
+		if (window.location.pathname === '/logout') authContext.logout();
 	};
 
 	return (
 		<div className="header">
 			<div className="header-logo"></div>
 			{list.map((item) => (
-				<Link to={item.id}>
-					<Button className="header-item" key={item.id} onClick={() => clickHandler(item.id)}>
-						{item.name}
-					</Button>
+				<Link to={item.id} className="header-item" key={item.id} onClick={() => clickHandler()}>
+					{item.name}
 				</Link>
 			))}
 		</div>
