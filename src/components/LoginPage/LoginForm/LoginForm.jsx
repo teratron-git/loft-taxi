@@ -16,21 +16,31 @@ import { changeEmail, changePassword, changeIsLoggedIn } from '../../../store/ac
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-const LoginForm = (props) => {
-	const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
+const LoginForm = ({
+	email,
+	password,
+	isLoggedIn,
+	changeEmail,
+	changePassword,
+	changeIsLoggedIn,
+}) => {
+	// const [email, setEmail] = useState('');
+	// const [password, setPassword] = useState('');
 
-	const authContext = useContext(AuthContext);
+	// const authContext = useContext(AuthContext);
 
 	const dataAuth = { email, password };
 	const urlAuth = 'https://loft-taxi.glitch.me/auth';
 
 	const changeEmailHandler = (e) => {
-		setEmail(e.target.value);
+		// setEmail(e.target.value);
+		changeEmail(e.target.value);
+		console.log(e.target.value);
 	};
 
 	const changePasswordHandler = (e) => {
-		setPassword(e.target.value);
+		// setPassword(e.target.value);
+		changePassword(e.target.value);
 	};
 
 	const submitHandler = (e) => {
@@ -40,12 +50,15 @@ const LoginForm = (props) => {
 			console.log(data.success);
 
 			// let sData = localStorage.isLoggedIn ? JSON.parse(localStorage.isLoggedIn) : {};
+			changeIsLoggedIn(data.success);
+
 			let sData = data.success;
 			localStorage.isLoggedIn = JSON.stringify(sData);
 		});
 	};
 
-	console.log('Пропс из логинки', props);
+	console.log('Пропс из логинки', email, password, isLoggedIn);
+
 	return (
 		<div className="login-page__loginForm">
 			<div className="login-page__loginForm-item" style={{ height: '400px' }}>
