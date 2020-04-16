@@ -10,11 +10,20 @@ import { MapPage } from '../../MapPage';
 import { ProfilePage } from '../../ProfilePage';
 import { LoginPage } from '../LoginPage';
 import { RegPage } from '../../RegPage';
+import { sendDataToServer } from '../../shared/sendData';
+// import { mapStateToProps, mapDispatchToProps } from '../../../App';
+import { changeEmail, changePassword, changeIsLoggedIn } from '../../../store/actions';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
-export const LoginForm = (props) => {
+const LoginForm = (props) => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+
 	const authContext = useContext(AuthContext);
+
+	const dataAuth = { email, password };
+	const urlAuth = 'https://loft-taxi.glitch.me/auth';
 
 	const changeEmailHandler = (e) => {
 		setEmail(e.target.value);
@@ -25,9 +34,18 @@ export const LoginForm = (props) => {
 	};
 
 	const submitHandler = (e) => {
-		authContext.login(email, password);
+		e.preventDefault();
+		let result = sendDataToServer(urlAuth, dataAuth);
+		result.then((data) => {
+			console.log(data.success);
+
+			// let sData = localStorage.isLoggedIn ? JSON.parse(localStorage.isLoggedIn) : {};
+			let sData = data.success;
+			localStorage.isLoggedIn = JSON.stringify(sData);
+		});
 	};
 
+	console.log('Пропс из логинки', props);
 	return (
 		<div className="login-page__loginForm">
 			<div className="login-page__loginForm-item" style={{ height: '400px' }}>
@@ -38,7 +56,7 @@ export const LoginForm = (props) => {
 						<span>Зарегистрироваться</span>
 					</Link>
 				</div>
-				<form>
+				<form onSubmit={submitHandler}>
 					<label htmlFor="email">Адрес эл. почты*:</label>
 					<Input
 						type="text"
@@ -64,17 +82,15 @@ export const LoginForm = (props) => {
 						required
 						autoComplete="off"
 					/>
-					<Link type="submit" to="map" onClick={submitHandler}>
-						<Button
-							type="submit"
-							variant="contained"
-							color="primary"
-							className="button"
-							style={{ width: '100px' }}
-						>
-							Войти
-						</Button>
-					</Link>
+					<Button
+						type="submit"
+						variant="contained"
+						color="primary"
+						className="button"
+						style={{ width: '100px' }}
+					>
+						Войти
+					</Button>
 				</form>
 			</div>
 		</div>
@@ -84,3 +100,21 @@ export const LoginForm = (props) => {
 LoginForm.propTypes = {
 	getPage: PropTypes.func,
 };
+
+const mapStateToProps = (state) => {
+	return {
+		email: state.email,
+		password: state.password,
+		isLoggedIn: state.isLoggedIn,
+	};
+};
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		changeEmail: bindActionCreators(changeEmail, dispatch),
+		changePassword: bindActionCreators(changePassword, dispatch),
+		changeIsLoggedIn: bindActionCreators(changeIsLoggedIn, dispatch),
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

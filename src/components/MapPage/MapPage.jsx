@@ -7,7 +7,7 @@ import { useRef } from 'react';
 import { AuthContext } from '../AuthContext';
 import { useContext } from 'react';
 import { Logo } from '../shared/Logo';
-import { LoginForm } from '../LoginPage/LoginForm';
+import LoginForm from '../LoginPage/LoginForm';
 
 export const MapPage = (props) => {
 	const authContext = useContext(AuthContext);
@@ -18,7 +18,7 @@ export const MapPage = (props) => {
 	};
 
 	useEffect(() => {
-		if (authContext.isLoggedIn) {
+		if (localStorage.isLoggedIn) {
 			mapboxgl.accessToken =
 				'pk.eyJ1IjoidGVyYXRyb24iLCJhIjoiY2s4c3dyOGZ4MDNoMjNlbGtvYzJ3NzBsciJ9.h0f9Px2X_1Go39lBV5kq7Q';
 			let map = new mapboxgl.Map({
@@ -32,7 +32,7 @@ export const MapPage = (props) => {
 
 	return (
 		<>
-			{authContext.isLoggedIn ? (
+			{localStorage.isLoggedIn ? (
 				<div className="app">
 					<Header getPage={getPage} />
 					<div className="map-page" ref={myMapRef}></div>

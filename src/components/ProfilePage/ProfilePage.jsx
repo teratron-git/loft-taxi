@@ -1,7 +1,7 @@
 import React from 'react';
 import { Header } from '../Header';
 import { Logo } from '../shared/Logo';
-import { LoginForm } from '../LoginPage/LoginForm';
+import LoginForm from '../LoginPage/LoginForm';
 import PropTypes from 'prop-types';
 import { AuthContext } from '../AuthContext';
 import { useContext } from 'react';
@@ -15,7 +15,7 @@ export const ProfilePage = (props) => {
 
 	return (
 		<>
-			{authContext.isLoggedIn ? (
+			{localStorage.isLoggedIn ? (
 				<div className="app">
 					<Header getPage={getPage} />
 					<div className="profile-page">Содержимое профиля</div>
