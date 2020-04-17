@@ -1,17 +1,36 @@
 import React from 'react';
-import { Header } from '../Header';
+import Header from '../Header';
 import mapboxgl from 'mapbox-gl';
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { useRef } from 'react';
 import { Logo } from '../shared/Logo';
 import LoginForm from '../LoginPage/LoginForm';
+import {
+	changeEmail,
+	changePassword,
+	changeIsLoggedIn,
+	changeIsSubmit,
+} from '../../store/auth/actions';
+import { connect } from 'react-redux';
 
-export const MapPage = (props) => {
+const MapPage = (props) => {
+	let {
+		map,
+		email,
+		password,
+		isLoggedIn,
+		isSubmit,
+		changeEmail,
+		changePassword,
+		changeIsLoggedIn,
+		changeIsSubmit,
+	} = props;
+
 	const myMapRef = useRef();
 
 	useEffect(() => {
-		if (localStorage.isLoggedIn) {
+		if (isLoggedIn) {
 			mapboxgl.accessToken =
 				'pk.eyJ1IjoidGVyYXRyb24iLCJhIjoiY2s4c3dyOGZ4MDNoMjNlbGtvYzJ3NzBsciJ9.h0f9Px2X_1Go39lBV5kq7Q';
 			let map = new mapboxgl.Map({
@@ -25,7 +44,7 @@ export const MapPage = (props) => {
 
 	return (
 		<>
-			{localStorage.isLoggedIn ? (
+			{isLoggedIn ? (
 				<div className="app">
 					<Header />
 					<div className="map-page" ref={myMapRef}></div>
@@ -46,3 +65,22 @@ export const MapPage = (props) => {
 MapPage.propTypes = {
 	getPage: PropTypes.func,
 };
+
+export const mapStateToProps = (state) => {
+	return {
+		email: state.auth.email,
+		password: state.auth.password,
+		isLoggedIn: state.auth.isLoggedIn,
+		isSubmit: state.auth.isSubmit,
+		map: '',
+	};
+};
+
+export const mapDispatchToProps = {
+	changeEmail,
+	changePassword,
+	changeIsLoggedIn,
+	changeIsSubmit,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MapPage);

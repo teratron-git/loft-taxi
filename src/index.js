@@ -1,18 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { App } from './App';
+import App from './App';
 import { theme } from 'loft-taxi-mui-theme';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { BrowserRouter } from 'react-router-dom';
-import { createStore } from 'redux';
+import { createStore, compose, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import rootReducer from './store/reducers';
-
+import { serverRequestMiddleware } from './store/middlewares';
 import './index.css';
 
-const store = createStore(rootReducer);
-console.log('store:', store.getState());
-
+const store = createStore(
+	rootReducer,
+	compose(
+		applyMiddleware(serverRequestMiddleware),
+		window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (noop) => noop
+	)
+);
 console.log('store:', store.getState());
 // localStorage.isLoggedIn = localStorage.isLoggedIn ? false : localStorage.isLoggedIn;
 

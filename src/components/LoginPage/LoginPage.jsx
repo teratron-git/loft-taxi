@@ -1,5 +1,5 @@
 import React from 'react';
-import { Header } from '../Header';
+import Header from '../Header';
 import { Logo } from '../shared/Logo';
 import LoginForm from './LoginForm';
 import PropTypes from 'prop-types';

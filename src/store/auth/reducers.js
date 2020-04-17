@@ -1,19 +1,23 @@
-import { AUTH_CHANGE_EMAIL, AUTH_CHANGE_PASSWORD, AUTH_CHANGE_ISLOGGEDIN } from './actions';
+import { changeEmail, changePassword, changeIsLoggedIn, changeIsSubmit } from './actions';
 
 const initialState = {
 	email: '',
 	password: '',
 	isLoggedIn: false,
+	isSubmit: false,
 };
 
 export const authReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case AUTH_CHANGE_EMAIL:
+		case changeEmail.toString():
 			return { ...state, email: action.payload };
-		case AUTH_CHANGE_PASSWORD:
+		case changePassword.toString():
 			return { ...state, password: action.payload };
-		case AUTH_CHANGE_ISLOGGEDIN:
-			return { ...state, isLoggedIn: action.payload };
+		case changeIsLoggedIn.toString():
+			// localStorage.loft = JSON.stringify(state);
+			return { ...state, isLoggedIn: action.payload, isSubmit: false };
+		case changeIsSubmit.toString():
+			return { ...state, isSubmit: action.payload };
 
 		default:
 			return state;

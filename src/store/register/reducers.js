@@ -1,9 +1,4 @@
-import {
-	REGISTER_CHANGE_EMAIL,
-	REGISTER_CHANGE_PASSWORD,
-	REGISTER_CHANGE_NAME,
-	REGISTER_CHANGE_SURNAME,
-} from './actions';
+import { changeEmail, changePassword, changeName, changeSurname } from './actions';
 
 const initialState = {
 	email: '',
@@ -14,13 +9,13 @@ const initialState = {
 
 export const registerReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case REGISTER_CHANGE_EMAIL:
+		case changeEmail.toString():
 			return { ...state, email: action.payload };
-		case REGISTER_CHANGE_PASSWORD:
+		case changePassword.toString():
 			return { ...state, password: action.payload };
-		case REGISTER_CHANGE_NAME:
+		case changeName.toString():
 			return { ...state, name: action.payload };
-		case REGISTER_CHANGE_SURNAME:
+		case changeSurname.toString():
 			return { ...state, surname: action.payload };
 
 		default:
