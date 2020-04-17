@@ -4,9 +4,6 @@ import { RegPage } from './components/RegPage';
 import { MapPage } from './components/MapPage';
 import { ProfilePage } from './components/ProfilePage';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { changeEmail, changePassword, changeIsLoggedIn } from './store/auth/actions';
-import { bindActionCreators } from 'redux';
 import './index.css';
 
 export const App = (props) => {
