@@ -2,44 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
-import { AuthContext } from '../../AuthContext';
-import { useState } from 'react';
-import { useContext } from 'react';
-import { Link, Redirect, Switch } from 'react-router-dom';
-import { MapPage } from '../../MapPage';
-import { ProfilePage } from '../../ProfilePage';
-import { LoginPage } from '../LoginPage';
-import { RegPage } from '../../RegPage';
+import { Link } from 'react-router-dom';
 import { sendDataToServer } from '../../shared/sendData';
-// import { mapStateToProps, mapDispatchToProps } from '../../../App';
-import { changeEmail, changePassword, changeIsLoggedIn } from '../../../store/actions';
-import { bindActionCreators } from 'redux';
+import { changeEmail, changePassword, changeIsLoggedIn } from '../../../store/auth/actions';
 import { connect } from 'react-redux';
 
-const LoginForm = ({
-	email,
-	password,
-	isLoggedIn,
-	changeEmail,
-	changePassword,
-	changeIsLoggedIn,
-}) => {
-	// const [email, setEmail] = useState('');
-	// const [password, setPassword] = useState('');
-
-	// const authContext = useContext(AuthContext);
+const LoginForm = (props) => {
+	let { email, password, isLoggedIn, changeEmail, changePassword, changeIsLoggedIn } = props;
 
 	const dataAuth = { email, password };
 	const urlAuth = 'https://loft-taxi.glitch.me/auth';
 
 	const changeEmailHandler = (e) => {
-		// setEmail(e.target.value);
 		changeEmail(e.target.value);
-		console.log(e.target.value);
 	};
 
 	const changePasswordHandler = (e) => {
-		// setPassword(e.target.value);
 		changePassword(e.target.value);
 	};
 
@@ -48,16 +26,17 @@ const LoginForm = ({
 		let result = sendDataToServer(urlAuth, dataAuth);
 		result.then((data) => {
 			console.log(data.success);
+			isLoggedIn = data.success;
 
 			// let sData = localStorage.isLoggedIn ? JSON.parse(localStorage.isLoggedIn) : {};
-			changeIsLoggedIn(data.success);
+			changeIsLoggedIn(isLoggedIn);
 
 			let sData = data.success;
 			localStorage.isLoggedIn = JSON.stringify(sData);
 		});
 	};
 
-	console.log('Пропс из логинки', email, password, isLoggedIn);
+	console.log('Пропс из логинки', props);
 
 	return (
 		<div className="login-page__loginForm">
@@ -116,18 +95,16 @@ LoginForm.propTypes = {
 
 const mapStateToProps = (state) => {
 	return {
-		email: state.email,
-		password: state.password,
-		isLoggedIn: state.isLoggedIn,
+		email: state.auth.email,
+		password: state.auth.password,
+		isLoggedIn: state.auth.isLoggedIn,
 	};
 };
 
-const mapDispatchToProps = (dispatch) => {
-	return {
-		changeEmail: bindActionCreators(changeEmail, dispatch),
-		changePassword: bindActionCreators(changePassword, dispatch),
-		changeIsLoggedIn: bindActionCreators(changeIsLoggedIn, dispatch),
-	};
+const mapDispatchToProps = {
+	changeEmail,
+	changePassword,
+	changeIsLoggedIn,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

@@ -4,15 +4,12 @@ import { RegPage } from './components/RegPage';
 import { MapPage } from './components/MapPage';
 import { ProfilePage } from './components/ProfilePage';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import { AuthContext } from './components/AuthContext';
-import { useContext } from 'react';
 import { connect } from 'react-redux';
-import { changeEmail, changePassword, changeIsLoggedIn } from './store/actions';
+import { changeEmail, changePassword, changeIsLoggedIn } from './store/auth/actions';
 import { bindActionCreators } from 'redux';
 import './index.css';
 
-const App = (props) => {
-	const authContext = useContext(AuthContext);
+export const App = (props) => {
 	console.log('JSON', JSON.parse(localStorage.isLoggedIn));
 	console.log('props', props);
 	return (
@@ -29,21 +26,3 @@ const App = (props) => {
 		</>
 	);
 };
-
-export const mapStateToProps = (state) => {
-	return {
-		email: state.email,
-		password: state.password,
-		isLoggedIn: state.isLoggedIn,
-	};
-};
-
-export const mapDispatchToProps = (dispatch) => {
-	return {
-		changeEmail: bindActionCreators(changeEmail, dispatch),
-		changePassword: bindActionCreators(changePassword, dispatch),
-		changeIsLoggedIn: bindActionCreators(changeIsLoggedIn, dispatch),
-	};
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);

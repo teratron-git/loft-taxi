@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
-import { AuthContext } from '../AuthContext';
-import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 const list = [
@@ -12,11 +10,8 @@ const list = [
 ];
 
 export const Header = (props) => {
-	const authContext = useContext(AuthContext);
-
 	const clickHandler = () => {
 		if (window.location.pathname === '/logout') {
-			authContext.logout();
 			localStorage.isLoggedIn = JSON.stringify(false);
 		}
 	};

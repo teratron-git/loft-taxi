@@ -2,42 +2,53 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
-import { AuthContext } from '../../AuthContext';
-import { useState } from 'react';
-import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { sendDataToServer } from '../../shared/sendData';
+import {
+	changeEmail,
+	changePassword,
+	changeName,
+	changeSurname,
+} from '../../../store/register/actions';
+import { connect } from 'react-redux';
 
-export const RegForm = (props) => {
-	const [email, setEmail] = useState('');
-	const [password, setPassword] = useState('');
-	const [name, setName] = useState('');
-	const [surname, setSurname] = useState('');
-	const authContext = useContext(AuthContext);
+const RegForm = (props) => {
+	let {
+		email,
+		password,
+		name,
+		surname,
+		changePassword,
+		changeEmail,
+		changeName,
+		changeSurname,
+	} = props;
 
 	const dataRegister = { email, password, name, surname };
 	const urlRegister = 'https://loft-taxi.glitch.me/register';
 
 	const changeEmailHandler = (e) => {
-		setEmail(e.target.value);
+		changeEmail(e.target.value);
 	};
 
 	const changePasswordHandler = (e) => {
-		setPassword(e.target.value);
+		changePassword(e.target.value);
 	};
 
 	const changeNameHandler = (e) => {
-		setName(e.target.value);
+		changeName(e.target.value);
 	};
 
 	const changeSurnameHandler = (e) => {
-		setSurname(e.target.value);
+		changeSurname(e.target.value);
 	};
 
 	const submitHandler = (e) => {
 		e.preventDefault();
 		sendDataToServer(urlRegister, dataRegister);
 	};
+
+	console.log('Пропс из регистрации', props);
 
 	return (
 		<div className="login-page__loginForm">
@@ -111,3 +122,21 @@ export const RegForm = (props) => {
 RegForm.propTypes = {
 	getPage: PropTypes.func,
 };
+
+const mapStateToProps = (state) => {
+	return {
+		email: state.register.email,
+		password: state.register.password,
+		name: state.register.name,
+		surname: state.register.surname,
+	};
+};
+
+const mapDispatchToProps = {
+	changeEmail,
+	changePassword,
+	changeName,
+	changeSurname,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegForm);
