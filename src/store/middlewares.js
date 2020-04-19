@@ -1,9 +1,6 @@
-import {
-	changeEmail,
-	changePassword,
-	changeIsLoggedIn,
-	changeIsSubmit,
-} from '../store/auth/actions';
+import { actions } from '../store/auth/actions';
+
+let { logIn, logInSuccess, logInFailure } = actions;
 
 export const serverRequestMiddleware = (store) => (next) => (action) => {
 	const sendDataToServer = async (url, data) => {
@@ -24,23 +21,30 @@ export const serverRequestMiddleware = (store) => (next) => (action) => {
 		return result;
 	};
 
-	if (action.type === changeIsSubmit.toString()) {
-		console.log(store.getState());
+	let result = next(action);
+
+	if (action.payload.isSubmit) {
+		console.log('---', store.getState());
 
 		const dataAuth = {
 			email: store.getState().auth.email,
 			password: store.getState().auth.password,
 		};
+
 		const urlAuth = 'https://loft-taxi.glitch.me/auth';
+
 		let result = sendDataToServer(urlAuth, dataAuth);
+
 		result.then((data) => {
-			console.log(data.success);
-			store.dispatch(changeIsLoggedIn(data.success));
+			console.log('Авторизация успешна?', data.success);
+			store.dispatch(logInSuccess(data.success));
+			if (!data.success) console.log('ОШИБКА', data.error);
+
 			// let sData = localStorage.isLoggedIn ? JSON.parse(localStorage.isLoggedIn) : {};
 			// isLoggedIn(isLoggedIn);
-			let sData = data.success;
+			// let sData = data.success;
 		});
 	}
 
-	return next(action);
+	return result;
 };

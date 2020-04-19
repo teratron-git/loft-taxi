@@ -3,37 +3,32 @@ import PropTypes from 'prop-types';
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
 import { Link, Redirect } from 'react-router-dom';
-import {
-	changeEmail,
-	changePassword,
-	changeIsLoggedIn,
-	changeIsSubmit,
-} from '../../../store/auth/actions';
+import { actions } from '../../../store/auth/actions';
 import { connect } from 'react-redux';
+import { useState } from 'react';
+
+let { logIn, logInSuccess, logInFailure } = actions;
 
 const LoginForm = (props) => {
-	let {
-		email,
-		password,
-		isLoggedIn,
-		isSubmit,
-		changeEmail,
-		changePassword,
-		changeIsLoggedIn,
-		changeIsSubmit,
-	} = props;
+	let [email, setEmail] = useState('');
+	let [password, setPassword] = useState('');
+	let { isLoggedIn,  isError, logIn } = props;
 
 	const changeEmailHandler = (e) => {
-		changeEmail(e.target.value);
+		setEmail(e.target.value);
 	};
 
 	const changePasswordHandler = (e) => {
-		changePassword(e.target.value);
+		setPassword(e.target.value);
 	};
 
 	const submitHandler = (e) => {
 		e.preventDefault();
-		changeIsSubmit(true);
+		let isSubmit = true;
+		logIn({ email, password, isSubmit });
+		isSubmit = false;
+
+		// changeIsSubmit(true);
 	};
 
 	console.log('Пропс из логинки', props);
@@ -101,15 +96,13 @@ export const mapStateToProps = (state) => {
 		email: state.auth.email,
 		password: state.auth.password,
 		isLoggedIn: state.auth.isLoggedIn,
-		isSubmit: state.auth.isSubmit,
 	};
 };
 
 export const mapDispatchToProps = {
-	changeEmail,
-	changePassword,
-	changeIsLoggedIn,
-	changeIsSubmit,
+	logIn,
+	logInSuccess,
+	logInFailure,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
