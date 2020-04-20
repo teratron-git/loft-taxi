@@ -1,6 +1,8 @@
 import { createAction } from 'redux-actions';
+import * as constants from './constants';
 
-export const changeEmail = createAction('REGISTER_CHANGE_EMAIL');
-export const changePassword = createAction('REGISTER_CHANGE_PASSWORD');
-export const changeName = createAction('REGISTER_CHANGE_NAME');
-export const changeSurname = createAction('REGISTER_CHANGE_SURNAME');
+export const actions = {
+	reg: createAction(constants.REG),
+	regSuccess: createAction(constants.REG_SUCCESS),
+	regFailure: createAction(constants.REG_FAILURE),
+};

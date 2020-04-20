@@ -4,48 +4,42 @@ import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import { sendDataToServer } from '../../shared/sendData';
-import {
-	changeEmail,
-	changePassword,
-	changeName,
-	changeSurname,
-} from '../../../store/register/actions';
+import { actions } from '../../../store/register/actions';
 import { connect } from 'react-redux';
+import { useState } from 'react';
+
+let { reg, regSuccess, regFailure } = actions;
 
 const RegForm = (props) => {
-	let {
-		email,
-		password,
-		name,
-		surname,
-		changePassword,
-		changeEmail,
-		changeName,
-		changeSurname,
-	} = props;
+	let [email, setEmail] = useState('');
+	let [password, setPassword] = useState('');
+	let [name, setName] = useState('');
+	let [surname, setSurname] = useState('');
 
-	const dataRegister = { email, password, name, surname };
-	const urlRegister = 'https://loft-taxi.glitch.me/register';
+	let { reg, regSuccess, regFailure } = props;
 
 	const changeEmailHandler = (e) => {
-		changeEmail(e.target.value);
+		setEmail(e.target.value);
 	};
 
 	const changePasswordHandler = (e) => {
-		changePassword(e.target.value);
+		setPassword(e.target.value);
 	};
 
 	const changeNameHandler = (e) => {
-		changeName(e.target.value);
+		setName(e.target.value);
 	};
 
 	const changeSurnameHandler = (e) => {
-		changeSurname(e.target.value);
+		setSurname(e.target.value);
 	};
 
 	const submitHandler = (e) => {
 		e.preventDefault();
-		sendDataToServer(urlRegister, dataRegister);
+
+		let isSubmit = true;
+		reg({ email, password, name, surname, isSubmit });
+		isSubmit = false;
 	};
 
 	console.log('Пропс из регистрации', props);
@@ -133,10 +127,9 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = {
-	changeEmail,
-	changePassword,
-	changeName,
-	changeSurname,
+	reg,
+	regSuccess,
+	regFailure,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(RegForm);

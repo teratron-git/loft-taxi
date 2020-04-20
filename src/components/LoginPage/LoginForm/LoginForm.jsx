@@ -12,7 +12,7 @@ let { logIn, logInSuccess, logInFailure } = actions;
 const LoginForm = (props) => {
 	let [email, setEmail] = useState('');
 	let [password, setPassword] = useState('');
-	let { isLoggedIn,  isError, logIn } = props;
+	let { isLoggedIn, isError, logIn } = props;
 
 	const changeEmailHandler = (e) => {
 		setEmail(e.target.value);
@@ -27,8 +27,6 @@ const LoginForm = (props) => {
 		let isSubmit = true;
 		logIn({ email, password, isSubmit });
 		isSubmit = false;
-
-		// changeIsSubmit(true);
 	};
 
 	console.log('Пропс из логинки', props);
