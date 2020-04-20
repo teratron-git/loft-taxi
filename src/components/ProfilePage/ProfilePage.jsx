@@ -3,25 +3,13 @@ import Header from '../Header';
 import { Logo } from '../shared/Logo';
 import LoginForm from '../LoginPage/LoginForm';
 import PropTypes from 'prop-types';
-import {
-	changeEmail,
-	changePassword,
-	changeIsLoggedIn,
-	changeIsSubmit,
-} from '../../store/auth/actions';
+import { actions } from '../../store/auth/actions';
 import { connect } from 'react-redux';
 
+let { logIn, logInSuccess, logInFailure } = actions;
+
 export const ProfilePage = (props) => {
-	let {
-		email,
-		password,
-		isLoggedIn,
-		isSubmit,
-		changeEmail,
-		changePassword,
-		changeIsLoggedIn,
-		changeIsSubmit,
-	} = props;
+	let { email, password, isLoggedIn, logIn, logInSuccess, logInFailure } = props;
 	return (
 		<>
 			{isLoggedIn ? (
@@ -51,15 +39,13 @@ export const mapStateToProps = (state) => {
 		email: state.auth.email,
 		password: state.auth.password,
 		isLoggedIn: state.auth.isLoggedIn,
-		isSubmit: state.auth.isSubmit,
 	};
 };
 
 export const mapDispatchToProps = {
-	changeEmail,
-	changePassword,
-	changeIsLoggedIn,
-	changeIsSubmit,
+	logIn,
+	logInSuccess,
+	logInFailure,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfilePage);

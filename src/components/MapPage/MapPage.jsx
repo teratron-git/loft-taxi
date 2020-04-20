@@ -6,26 +6,13 @@ import { useEffect } from 'react';
 import { useRef } from 'react';
 import { Logo } from '../shared/Logo';
 import LoginForm from '../LoginPage/LoginForm';
-import {
-	changeEmail,
-	changePassword,
-	changeIsLoggedIn,
-	changeIsSubmit,
-} from '../../store/auth/actions';
+import { actions } from '../../store/auth/actions';
 import { connect } from 'react-redux';
 
+let { logIn, logInSuccess, logInFailure } = actions;
+
 const MapPage = (props) => {
-	let {
-		map,
-		email,
-		password,
-		isLoggedIn,
-		isSubmit,
-		changeEmail,
-		changePassword,
-		changeIsLoggedIn,
-		changeIsSubmit,
-	} = props;
+	let { map, email, password, isLoggedIn, logIn, logInSuccess, logInFailure } = props;
 
 	const myMapRef = useRef();
 
@@ -71,16 +58,14 @@ export const mapStateToProps = (state) => {
 		email: state.auth.email,
 		password: state.auth.password,
 		isLoggedIn: state.auth.isLoggedIn,
-		isSubmit: state.auth.isSubmit,
 		map: '',
 	};
 };
 
 export const mapDispatchToProps = {
-	changeEmail,
-	changePassword,
-	changeIsLoggedIn,
-	changeIsSubmit,
+	logIn,
+	logInSuccess,
+	logInFailure,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapPage);

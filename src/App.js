@@ -5,14 +5,9 @@ import MapPage from './components/MapPage';
 import ProfilePage from './components/ProfilePage';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import {
-	changeEmail,
-	changePassword,
-	changeIsLoggedIn,
-	changeIsSubmit,
-} from './store/auth/actions';
-
+import { actions } from './store/auth/actions';
 import './index.css';
+let { logIn, logInSuccess, logInFailure } = actions;
 
 const App = (props) => {
 	let { isLoggedIn } = props;
@@ -43,15 +38,13 @@ export const mapStateToProps = (state) => {
 		email: state.auth.email,
 		password: state.auth.password,
 		isLoggedIn: state.auth.isLoggedIn,
-		isSubmit: state.auth.isSubmit,
 	};
 };
 
 export const mapDispatchToProps = {
-	changeEmail,
-	changePassword,
-	changeIsLoggedIn,
-	changeIsSubmit,
+	logIn,
+	logInSuccess,
+	logInFailure,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
