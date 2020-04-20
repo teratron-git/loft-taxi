@@ -16,6 +16,7 @@ export const authReducer = (state = initialState, action) => {
 				...state,
 				email: action.payload.email,
 				password: action.payload.password,
+				isLoggedIn: action.payload.isLoggedIn,
 			};
 
 		case logInSuccess.toString():

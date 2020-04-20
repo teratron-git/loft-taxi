@@ -2,13 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
-import {
-	changeEmail,
-	changePassword,
-	changeIsLoggedIn,
-	changeIsSubmit,
-} from '../../store/auth/actions';
 import { connect } from 'react-redux';
+import { actions } from '../../store/auth/actions';
+
+let { logIn, logInSuccess, logInFailure } = actions;
 
 const list = [
 	{ id: 'map', name: 'Карта' },
@@ -17,14 +14,14 @@ const list = [
 ];
 
 const Header = (props) => {
-	let { changeIsLoggedIn } = props;
+	let { logIn, isLoggedIn } = props;
 
 	const clickHandler = (e) => {
 		if (e.currentTarget.id === 'logout') {
 			console.log('Я внутри', window.location.pathname);
 			// localStorage.isLoggedIn = JSON.stringify(false);
-
-			changeIsLoggedIn(false);
+			isLoggedIn = false;
+			logIn({ isLoggedIn });
 			window.history.pushState({}, '', '/logout');
 		}
 		console.log('Я ', window.location);
@@ -54,15 +51,13 @@ export const mapStateToProps = (state) => {
 		email: state.auth.email,
 		password: state.auth.password,
 		isLoggedIn: state.auth.isLoggedIn,
-		isSubmit: state.auth.isSubmit,
 	};
 };
 
 export const mapDispatchToProps = {
-	changeEmail,
-	changePassword,
-	changeIsLoggedIn,
-	changeIsSubmit,
+	logIn,
+	logInSuccess,
+	logInFailure,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
