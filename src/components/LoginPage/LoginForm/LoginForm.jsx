@@ -8,7 +8,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { useState } from 'react';
 
-let { logIn, logInSuccess, logInFailure } = actions;
+let { logIn } = actions;
 
 const LoginForm = (props) => {
 	let [email, setEmail] = useState('');
@@ -30,9 +30,12 @@ const LoginForm = (props) => {
 
 	console.log('Пропс из логинки', props);
 
+	if (isLoggedIn) {
+		return <Redirect to="/dashboard/map" />;
+	}
+
 	return (
 		<>
-			{/* <>{isLoggedIn ? <Redirect to="/map" /> : <Redirect to="/" />}</> */}
 			<div className="login-page__loginForm">
 				<div className="login-page__loginForm-item" style={{ height: '400px' }}>
 					<div className="header-form">Вход</div>
@@ -85,13 +88,12 @@ const LoginForm = (props) => {
 };
 
 LoginForm.propTypes = {
-	getPage: PropTypes.func,
+	isLoggedIn: PropTypes.bool,
+	logIn: PropTypes.func,
 };
 
 export const mapStateToProps = (state) => {
 	return {
-		email: state.auth.email,
-		password: state.auth.password,
 		isLoggedIn: state.auth.isLoggedIn,
 	};
 };
@@ -99,8 +101,6 @@ export const mapStateToProps = (state) => {
 export const mapDispatchToProps = (dispatch) => {
 	return {
 		logIn: bindActionCreators(logIn, dispatch),
-		logInSuccess: bindActionCreators(logInSuccess, dispatch),
-		logInFailure: bindActionCreators(logInFailure, dispatch),
 	};
 };
 

@@ -13,7 +13,3 @@ export const RegPage = () => {
 		</div>
 	);
 };
-
-RegPage.propTypes = {
-	getPage: PropTypes.func,
-};

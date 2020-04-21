@@ -1,7 +1,7 @@
 import { actions as logInActions } from '../store/auth/actions';
 import { actions as registerActions } from '../store/register/actions';
 
-let { logIn, logOut, logInSuccess, logInFailure } = logInActions;
+let { logIn, logInSuccess, logInFailure } = logInActions;
 let { reg, regSuccess, regFailure } = registerActions;
 
 export const serverRequestMiddleware = (store) => (next) => (action) => {
@@ -40,10 +40,6 @@ export const serverRequestMiddleware = (store) => (next) => (action) => {
 			console.log('Авторизация успешна?', data.success);
 			store.dispatch(logInSuccess(data.success));
 			if (!data.success) console.log('ОШИБКА', data.error);
-
-			// let sData = localStorage.isLoggedIn ? JSON.parse(localStorage.isLoggedIn) : {};
-			// isLoggedIn(isLoggedIn);
-			// let sData = data.success;
 		});
 	}
 
@@ -64,10 +60,6 @@ export const serverRequestMiddleware = (store) => (next) => (action) => {
 			console.log('Регистрация успешна?', data.success);
 			store.dispatch(regSuccess(data.success));
 			if (!data.success) console.log('ОШИБКА', data.error);
-
-			// let sData = localStorage.isLoggedIn ? JSON.parse(localStorage.isLoggedIn) : {};
-			// isLoggedIn(isLoggedIn);
-			// let sData = data.success;
 		});
 	}
 

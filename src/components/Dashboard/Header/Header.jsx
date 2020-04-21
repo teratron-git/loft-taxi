@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { actions } from '../../../store/auth/actions';
 import { bindActionCreators } from 'redux';
 
-let { logOut, logInSuccess, logInFailure } = actions;
+let { logOut } = actions;
 
 const list = [
 	{ id: 'map', name: 'Карта' },
@@ -42,22 +42,16 @@ const Header = (props) => {
 };
 
 Header.propTypes = {
-	getPage: PropTypes.func,
+	logOut: PropTypes.func,
 };
 
 export const mapStateToProps = (state) => {
-	return {
-		email: state.auth.email,
-		password: state.auth.password,
-		isLoggedIn: state.auth.isLoggedIn,
-	};
+	return {};
 };
 
 export const mapDispatchToProps = (dispatch) => {
 	return {
 		logOut: bindActionCreators(logOut, dispatch),
-		logInSuccess: bindActionCreators(logInSuccess, dispatch),
-		logInFailure: bindActionCreators(logInFailure, dispatch),
 	};
 };
 

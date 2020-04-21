@@ -18,13 +18,14 @@ const App = (props) => {
 
 	useEffect(() => {
 		checkIsLogin();
-	});
+	}, []);
 
 	return (
 		<>
 			<Switch>
 				<PrivateRoute path="/dashboard" permited={isLoggedIn} component={AppRouter} />
-				<Route path="/" component={LoginPage} />
+				<Route path="/" component={LoginPage} exact />
+				<Route path="/reg" component={RegPage} exact />
 				<Redirect to="/" />
 			</Switch>
 		</>

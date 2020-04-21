@@ -2,14 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
-import { Link } from 'react-router-dom';
-import { sendDataToServer } from '../../shared/sendData';
+import { Link, Redirect } from 'react-router-dom';
 import { actions } from '../../../store/register/actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { useState } from 'react';
 
-let { reg, regSuccess, regFailure } = actions;
+let { reg } = actions;
 
 const RegForm = (props) => {
 	let [email, setEmail] = useState('');
@@ -17,7 +16,7 @@ const RegForm = (props) => {
 	let [name, setName] = useState('');
 	let [surname, setSurname] = useState('');
 
-	let { reg, regSuccess, regFailure } = props;
+	let { reg, isReg } = props;
 
 	const changeEmailHandler = (e) => {
 		setEmail(e.target.value);
@@ -42,6 +41,10 @@ const RegForm = (props) => {
 	};
 
 	console.log('Пропс из регистрации', props);
+
+	if (isReg) {
+		return <Redirect to="/" />;
+	}
 
 	return (
 		<div className="login-page__loginForm">
@@ -113,23 +116,19 @@ const RegForm = (props) => {
 };
 
 RegForm.propTypes = {
-	getPage: PropTypes.func,
+	isReg: PropTypes.bool,
+	Reg: PropTypes.func,
 };
 
 export const mapStateToProps = (state) => {
 	return {
-		email: state.register.email,
-		password: state.register.password,
-		name: state.register.name,
-		surname: state.register.surname,
+		isReg: state.register.isReg,
 	};
 };
 
 export const mapDispatchToProps = (dispatch) => {
 	return {
 		reg: bindActionCreators(reg, dispatch),
-		regSuccess: bindActionCreators(regSuccess, dispatch),
-		regFailure: bindActionCreators(regFailure, dispatch),
 	};
 };
 

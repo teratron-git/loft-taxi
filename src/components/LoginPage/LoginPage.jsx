@@ -15,7 +15,3 @@ export class LoginPage extends React.Component {
 		);
 	}
 }
-
-LoginPage.propTypes = {
-	getPage: PropTypes.func,
-};
