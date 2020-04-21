@@ -1,9 +1,9 @@
 import React from 'react';
 import Header from '../Header';
-import { Logo } from '../shared/Logo';
-import LoginForm from '../LoginPage/LoginForm';
+import { Logo } from '../../shared/Logo';
+import LoginForm from '../../LoginPage/LoginForm';
 import PropTypes from 'prop-types';
-import { actions } from '../../store/auth/actions';
+import { actions } from '../../../store/auth/actions';
 import { connect } from 'react-redux';
 
 let { logIn, logInSuccess, logInFailure } = actions;

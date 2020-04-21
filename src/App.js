@@ -1,8 +1,8 @@
 import React from 'react';
 import { LoginPage } from './components/LoginPage';
 import { RegPage } from './components/RegPage';
-import MapPage from './components/MapPage';
-import ProfilePage from './components/ProfilePage';
+import MapPage from './components/Dashboard/MapPage';
+import ProfilePage from './components/Dashboard/ProfilePage';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { actions } from './store/auth/actions';

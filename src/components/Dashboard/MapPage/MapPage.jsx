@@ -4,9 +4,9 @@ import mapboxgl from 'mapbox-gl';
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { useRef } from 'react';
-import { Logo } from '../shared/Logo';
-import LoginForm from '../LoginPage/LoginForm';
-import { actions } from '../../store/auth/actions';
+import { Logo } from '../../shared/Logo';
+import LoginForm from '../../LoginPage/LoginForm';
+import { actions } from '../../../store/auth/actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 

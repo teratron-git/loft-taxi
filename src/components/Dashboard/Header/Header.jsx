@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { actions } from '../../store/auth/actions';
+import { actions } from '../../../store/auth/actions';
 import { bindActionCreators } from 'redux';
 
 let { logOut, logInSuccess, logInFailure } = actions;
