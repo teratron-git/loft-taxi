@@ -32,7 +32,7 @@ const LoginForm = (props) => {
 
 	return (
 		<>
-			<>{isLoggedIn ? <Redirect to="/map" /> : <Redirect to="/" />}</>
+			{/* <>{isLoggedIn ? <Redirect to="/map" /> : <Redirect to="/" />}</> */}
 			<div className="login-page__loginForm">
 				<div className="login-page__loginForm-item" style={{ height: '400px' }}>
 					<div className="header-form">Вход</div>

@@ -1,6 +1,7 @@
 import { actions } from './actions';
 
-let { logIn, logOut, logInSuccess, logInFailure } = actions;
+let { logIn, logOut, logInSuccess, logInFailure, checkIsLogin } = actions;
+const isLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn'));
 
 const initialState = {
 	email: '',
@@ -20,12 +21,23 @@ export const authReducer = (state = initialState, action) => {
 			};
 
 		case logOut.toString():
+			localStorage.setItem('isLoggedIn', JSON.stringify(false));
 			return {
 				...state,
 				isLoggedIn: false,
 			};
 
+		case checkIsLogin.toString():
+			if (isLoggedIn) {
+				return {
+					...state,
+					isLoggedIn: true,
+				};
+			}
+			return state;
+
 		case logInSuccess.toString():
+			localStorage.setItem('isLoggedIn', JSON.stringify(true));
 			return { ...state, isLoggedIn: action.payload };
 
 		case logInFailure.toString():

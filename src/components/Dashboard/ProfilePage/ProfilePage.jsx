@@ -10,24 +10,7 @@ let { logIn, logInSuccess, logInFailure } = actions;
 
 export const ProfilePage = (props) => {
 	let { email, password, isLoggedIn, logIn, logInSuccess, logInFailure } = props;
-	return (
-		<>
-			{isLoggedIn ? (
-				<div className="app">
-					<Header />
-					<div className="profile-page">Содержимое профиля</div>
-				</div>
-			) : (
-				<div className="app">
-					<Header />
-					<div className="login-page">
-						<Logo />
-						<LoginForm />
-					</div>
-				</div>
-			)}
-		</>
-	);
+	return <div className="profile-page">Содержимое профиля</div>;
 };
 
 ProfilePage.propTypes = {

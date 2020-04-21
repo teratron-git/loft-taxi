@@ -62,10 +62,10 @@ body {
 }
 
 .app {
-    display: flex;
-    flex-direction: column;
+    display: flex !important; ;
+    flex-direction: column !important;;
     /* background-color: burlywood; */
-    min-height: 100vh;
+    min-height: 100vh !important;
 }
 
 .header {
@@ -127,12 +127,16 @@ body {
 }
 
 .map-page {
+    color: red;
+    background-color: rgb(0, 104, 104);
     flex-grow: 1;
+    /* font-size: 5em;
+    line-height: calc(100vh - 70px); */
+    text-align: center;
+
+    min-height: calc(100vh - 70px);
 }
 
-.map-page {
-    background-color: rgb(0, 104, 104);
-}
 
 .input {
     display: block;

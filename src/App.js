@@ -6,32 +6,37 @@ import ProfilePage from './components/Dashboard/ProfilePage';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { actions } from './store/auth/actions';
+import AppRouter from './components/AppRouter';
+import { useEffect } from 'react';
 import './index.css';
-let { logIn, logInSuccess, logInFailure } = actions;
+
+let { logIn, logInSuccess, logInFailure, checkIsLogin } = actions;
 
 const App = (props) => {
-	let { isLoggedIn } = props;
+	let { isLoggedIn, checkIsLogin } = props;
 	console.log('App', props);
+
+	useEffect(() => {
+		checkIsLogin();
+	});
 
 	return (
 		<>
 			<Switch>
-				<Route path="/" component={LoginPage} exact />
-				<Route path="/logout" component={LoginPage} exact />
-				<Route path="/reg" component={RegPage} exact />
-				{/* {!isLoggedIn && <Redirect from="/map" to="/reg" />}
-				{!isLoggedIn && <Redirect from="/profile" to="/reg" />} */}
-				{/* {isLoggedIn ? (
-					<Route path="/map" component={MapPage} exact />
-				) : (
-					window.history.pushState({}, '', '/test')
-				)} */}
-				<Route path="/map" component={MapPage} exact />
-				<Route path="/profile" component={ProfilePage} exact />
+				<PrivateRoute path="/dashboard" permited={isLoggedIn} component={AppRouter} />
+				<Route path="/" component={LoginPage} />
+				<Redirect to="/" />
 			</Switch>
 		</>
 	);
 };
+
+const PrivateRoute = ({ component: Component, permited, ...rest }) => (
+	<Route
+		{...rest}
+		render={(props) => (permited ? <Component {...props} /> : <Redirect to="/" />)}
+	/>
+);
 
 export const mapStateToProps = (state) => {
 	return {
@@ -41,10 +46,11 @@ export const mapStateToProps = (state) => {
 	};
 };
 
-export const mapDispatchToProps = {
-	logIn,
-	logInSuccess,
-	logInFailure,
-};
+export const mapDispatchToProps = (dispatch) => ({
+	logIn: () => dispatch(actions.logIn()),
+	logInSuccess: () => dispatch(actions.logInSuccess()),
+	logInFailure: () => dispatch(actions.logInFailure()),
+	checkIsLogin: () => dispatch(actions.checkIsLogin()),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

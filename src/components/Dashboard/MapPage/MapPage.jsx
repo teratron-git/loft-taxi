@@ -18,36 +18,17 @@ const MapPage = (props) => {
 	const myMapRef = useRef();
 
 	useEffect(() => {
-		if (isLoggedIn) {
-			mapboxgl.accessToken =
-				'pk.eyJ1IjoidGVyYXRyb24iLCJhIjoiY2s4c3dyOGZ4MDNoMjNlbGtvYzJ3NzBsciJ9.h0f9Px2X_1Go39lBV5kq7Q';
-			let map = new mapboxgl.Map({
-				container: myMapRef.current || '',
-				style: 'mapbox://styles/mapbox/streets-v9',
-				center: [30.2656504, 59.8029126],
-				zoom: 15,
-			});
-		}
+		mapboxgl.accessToken =
+			'pk.eyJ1IjoidGVyYXRyb24iLCJhIjoiY2s4c3dyOGZ4MDNoMjNlbGtvYzJ3NzBsciJ9.h0f9Px2X_1Go39lBV5kq7Q';
+		let map = new mapboxgl.Map({
+			container: myMapRef.current || '',
+			style: 'mapbox://styles/mapbox/streets-v9',
+			center: [30.2656504, 59.8029126],
+			zoom: 15,
+		});
 	});
 
-	return (
-		<>
-			{isLoggedIn ? (
-				<div className="app">
-					<Header />
-					<div className="map-page" ref={myMapRef}></div>
-				</div>
-			) : (
-				<div className="app">
-					<Header />
-					<div className="login-page">
-						<Logo />
-						<LoginForm />
-					</div>
-				</div>
-			)}
-		</>
-	);
+	return <div className="map-page" ref={myMapRef}></div>;
 };
 
 MapPage.propTypes = {
