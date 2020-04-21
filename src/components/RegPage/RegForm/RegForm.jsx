@@ -38,9 +38,7 @@ const RegForm = (props) => {
 	const submitHandler = (e) => {
 		e.preventDefault();
 
-		let isSubmit = true;
-		reg({ email, password, name, surname, isSubmit });
-		isSubmit = false;
+		reg({ email, password, name, surname });
 	};
 
 	console.log('Пропс из регистрации', props);

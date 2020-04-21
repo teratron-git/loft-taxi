@@ -1,7 +1,7 @@
 import { actions as logInActions } from '../store/auth/actions';
 import { actions as registerActions } from '../store/register/actions';
 
-let { logIn, logInSuccess, logInFailure } = logInActions;
+let { logIn, logOut, logInSuccess, logInFailure } = logInActions;
 let { reg, regSuccess, regFailure } = registerActions;
 
 export const serverRequestMiddleware = (store) => (next) => (action) => {
@@ -25,7 +25,7 @@ export const serverRequestMiddleware = (store) => (next) => (action) => {
 
 	let result = next(action);
 
-	if (action.type === logIn.toString() && action.payload.isSubmit) {
+	if (action.type === logIn.toString()) {
 		console.log('---LOG', store.getState());
 
 		const dataAuth = {
@@ -47,7 +47,7 @@ export const serverRequestMiddleware = (store) => (next) => (action) => {
 		});
 	}
 
-	if (action.type === reg.toString() && action.payload.isSubmit) {
+	if (action.type === reg.toString()) {
 		console.log('---REG', store.getState());
 
 		const dataRegister = {

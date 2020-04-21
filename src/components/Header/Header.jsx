@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { actions } from '../../store/auth/actions';
 import { bindActionCreators } from 'redux';
 
-let { logIn, logInSuccess, logInFailure } = actions;
+let { logOut, logInSuccess, logInFailure } = actions;
 
 const list = [
 	{ id: 'map', name: 'Карта' },
@@ -15,14 +15,12 @@ const list = [
 ];
 
 const Header = (props) => {
-	let { logIn, isLoggedIn } = props;
+	let { logOut } = props;
 
 	const clickHandler = (e) => {
 		if (e.currentTarget.id === 'logout') {
 			console.log('Я внутри', window.location.pathname);
-			// localStorage.isLoggedIn = JSON.stringify(false);
-			isLoggedIn = false;
-			logIn({ isLoggedIn });
+			logOut();
 			window.history.pushState({}, '', '/logout');
 		}
 		console.log('Я ', window.location);
@@ -57,7 +55,7 @@ export const mapStateToProps = (state) => {
 
 export const mapDispatchToProps = (dispatch) => {
 	return {
-		logIn: bindActionCreators(logIn, dispatch),
+		logOut: bindActionCreators(logOut, dispatch),
 		logInSuccess: bindActionCreators(logInSuccess, dispatch),
 		logInFailure: bindActionCreators(logInFailure, dispatch),
 	};

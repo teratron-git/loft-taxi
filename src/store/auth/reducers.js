@@ -1,6 +1,6 @@
 import { actions } from './actions';
 
-let { logIn, logInSuccess, logInFailure } = actions;
+let { logIn, logOut, logInSuccess, logInFailure } = actions;
 
 const initialState = {
 	email: '',
@@ -17,6 +17,12 @@ export const authReducer = (state = initialState, action) => {
 				email: action.payload.email,
 				password: action.payload.password,
 				isLoggedIn: action.payload.isLoggedIn,
+			};
+
+		case logOut.toString():
+			return {
+				...state,
+				isLoggedIn: false,
 			};
 
 		case logInSuccess.toString():
