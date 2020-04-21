@@ -8,6 +8,7 @@ import { Logo } from '../shared/Logo';
 import LoginForm from '../LoginPage/LoginForm';
 import { actions } from '../../store/auth/actions';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 let { logIn, logInSuccess, logInFailure } = actions;
 
@@ -62,10 +63,12 @@ export const mapStateToProps = (state) => {
 	};
 };
 
-export const mapDispatchToProps = {
-	logIn,
-	logInSuccess,
-	logInFailure,
+export const mapDispatchToProps = (dispatch) => {
+	return {
+		logIn: bindActionCreators(logIn, dispatch),
+		logInSuccess: bindActionCreators(logInSuccess, dispatch),
+		logInFailure: bindActionCreators(logInFailure, dispatch),
+	};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MapPage);

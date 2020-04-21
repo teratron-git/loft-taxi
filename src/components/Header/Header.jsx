@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { actions } from '../../store/auth/actions';
+import { bindActionCreators } from 'redux';
 
 let { logIn, logInSuccess, logInFailure } = actions;
 
@@ -54,10 +55,12 @@ export const mapStateToProps = (state) => {
 	};
 };
 
-export const mapDispatchToProps = {
-	logIn,
-	logInSuccess,
-	logInFailure,
+export const mapDispatchToProps = (dispatch) => {
+	return {
+		logIn: bindActionCreators(logIn, dispatch),
+		logInSuccess: bindActionCreators(logInSuccess, dispatch),
+		logInFailure: bindActionCreators(logInFailure, dispatch),
+	};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

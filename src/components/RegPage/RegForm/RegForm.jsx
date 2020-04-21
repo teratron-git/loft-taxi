@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { sendDataToServer } from '../../shared/sendData';
 import { actions } from '../../../store/register/actions';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { useState } from 'react';
 
 let { reg, regSuccess, regFailure } = actions;
@@ -117,7 +118,7 @@ RegForm.propTypes = {
 	getPage: PropTypes.func,
 };
 
-const mapStateToProps = (state) => {
+export const mapStateToProps = (state) => {
 	return {
 		email: state.register.email,
 		password: state.register.password,
@@ -126,10 +127,12 @@ const mapStateToProps = (state) => {
 	};
 };
 
-const mapDispatchToProps = {
-	reg,
-	regSuccess,
-	regFailure,
+export const mapDispatchToProps = (dispatch) => {
+	return {
+		reg: bindActionCreators(reg, dispatch),
+		regSuccess: bindActionCreators(regSuccess, dispatch),
+		regFailure: bindActionCreators(regFailure, dispatch),
+	};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(RegForm);

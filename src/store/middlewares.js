@@ -25,7 +25,7 @@ export const serverRequestMiddleware = (store) => (next) => (action) => {
 
 	let result = next(action);
 
-	if (action.type == logIn.toString() && action.payload.isSubmit) {
+	if (action.type === logIn.toString() && action.payload.isSubmit) {
 		console.log('---LOG', store.getState());
 
 		const dataAuth = {
@@ -47,7 +47,7 @@ export const serverRequestMiddleware = (store) => (next) => (action) => {
 		});
 	}
 
-	if (action.type == reg.toString() && action.payload.isSubmit) {
+	if (action.type === reg.toString() && action.payload.isSubmit) {
 		console.log('---REG', store.getState());
 
 		const dataRegister = {

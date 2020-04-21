@@ -4,6 +4,7 @@ import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
 import { Link, Redirect } from 'react-router-dom';
 import { actions } from '../../../store/auth/actions';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { useState } from 'react';
 
@@ -97,10 +98,12 @@ export const mapStateToProps = (state) => {
 	};
 };
 
-export const mapDispatchToProps = {
-	logIn,
-	logInSuccess,
-	logInFailure,
+export const mapDispatchToProps = (dispatch) => {
+	return {
+		logIn: bindActionCreators(logIn, dispatch),
+		logInSuccess: bindActionCreators(logInSuccess, dispatch),
+		logInFailure: bindActionCreators(logInFailure, dispatch),
+	};
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
