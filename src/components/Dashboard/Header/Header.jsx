@@ -21,7 +21,6 @@ const Header = (props) => {
 		if (e.currentTarget.id === 'logout') {
 			console.log('Я внутри', window.location.pathname);
 			logOut();
-			window.history.pushState({}, '', '/logout');
 		}
 		console.log('Я ', window.location);
 		console.log(e.currentTarget.id);

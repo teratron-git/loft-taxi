@@ -1,7 +1,6 @@
 import React from 'react';
 import { Logo } from '../shared/Logo';
 import RegForm from './RegForm';
-import PropTypes from 'prop-types';
 
 export const RegPage = () => {
 	return (

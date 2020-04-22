@@ -1,7 +1,5 @@
 import React from 'react';
-import Header from '../Header';
 import mapboxgl from 'mapbox-gl';
-import PropTypes from 'prop-types';
 import { useEffect } from 'react';
 import { useRef } from 'react';
 import { connect } from 'react-redux';
@@ -23,10 +21,6 @@ const MapPage = () => {
 	});
 
 	return <div className="map-page" ref={myMapRef}></div>;
-};
-
-MapPage.propTypes = {
-	getPage: PropTypes.func,
 };
 
 export default connect(null, null)(MapPage);
