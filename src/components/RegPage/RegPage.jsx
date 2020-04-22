@@ -1,21 +1,14 @@
 import React from 'react';
-import { Header } from '../Header';
-import { Logo } from '../Logo';
-import { RegForm } from '../RegForm';
+import { Logo } from '../shared/Logo';
+import RegForm from './RegForm';
 
-export class RegPage extends React.Component {
-	getPage = (page) => {
-		this.props.getPage(page);
-	};
-	render() {
-		return (
-			<div className="app">
-				<Header getPage={this.getPage} />
-				<div className="login-page">
-					<Logo />
-					<RegForm getPage={this.getPage} />
-				</div>
+export const RegPage = () => {
+	return (
+		<div className="app">
+			<div className="login-page">
+				<Logo />
+				<RegForm />
 			</div>
-		);
-	}
-}
+		</div>
+	);
+};
