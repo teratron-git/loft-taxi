@@ -18,7 +18,6 @@ const store = createStore(
 	)
 );
 console.log('store:', store.getState());
-// localStorage.isLoggedIn = localStorage.isLoggedIn ? false : localStorage.isLoggedIn;
 
 ReactDOM.render(
 	<React.StrictMode>

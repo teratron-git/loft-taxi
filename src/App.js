@@ -17,14 +17,12 @@ const App = (props) => {
 	}, []);
 
 	return (
-		<>
-			<Switch>
-				<PrivateRoute path="/dashboard" permited={isLoggedIn} component={AppRouter} />
-				<Route path="/" component={LoginPage} exact />
-				<Route path="/reg" component={RegPage} exact />
-				<Redirect to="/" />
-			</Switch>
-		</>
+		<Switch>
+			<PrivateRoute path="/dashboard" permited={isLoggedIn} component={AppRouter} />
+			<Route path="/" component={LoginPage} exact />
+			<Route path="/reg" component={RegPage} exact />
+			<Redirect to="/" />
+		</Switch>
 	);
 };
 

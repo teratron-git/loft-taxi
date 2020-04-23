@@ -5,7 +5,6 @@ import { Dashboard } from '../../components/Dashboard';
 
 const AppRouter = () => {
 	return (
-		<>
 			<div className="app">
 				<Header />
 				<Switch>
@@ -13,7 +12,6 @@ const AppRouter = () => {
 					<Redirect path="/dashboard/*" to="/dashboard/map"></Redirect>
 				</Switch>
 			</div>
-		</>
 	);
 };
 

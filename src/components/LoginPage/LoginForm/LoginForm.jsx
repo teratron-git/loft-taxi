@@ -35,55 +35,53 @@ const LoginForm = (props) => {
 	}
 
 	return (
-		<>
-			<div className="login-page__loginForm">
-				<div className="login-page__loginForm-item" style={{ height: '400px' }}>
-					<div className="header-form">Вход</div>
-					<div className="header-form__add">
-						Новый пользователь?
-						<Link to="/reg">
-							<span>Зарегистрироваться</span>
-						</Link>
-					</div>
-					<form onSubmit={submitHandler}>
-						<label htmlFor="email">Адрес эл. почты*:</label>
-						<Input
-							type="text"
-							id="email"
-							name="email"
-							className="input"
-							value={email}
-							onChange={changeEmailHandler}
-							required
-							autoComplete="off"
-							autoFocus
-						/>
-						<label htmlFor="password" style={{ marginTop: '50px' }}>
-							Пароль*:
-						</label>
-						<Input
-							type="password"
-							id="password"
-							name="password"
-							className="input"
-							value={password}
-							onChange={changePasswordHandler}
-							required
-							autoComplete="off"
-						/>
-						<Button
-							type="submit"
-							variant="contained"
-							color="primary"
-							className="button"
-							style={{ width: '100px' }}
-						>
-							Войти
-						</Button>
-					</form>
+		<div className="login-page__loginForm">
+			<div className="login-page__loginForm-item" style={{ height: '400px' }}>
+				<div className="header-form">Вход</div>
+				<div className="header-form__add">
+					Новый пользователь?
+					<Link to="/reg">
+						<span>Зарегистрироваться</span>
+					</Link>
 				</div>
+				<form onSubmit={submitHandler}>
+					<label htmlFor="email">Адрес эл. почты*:</label>
+					<Input
+						type="text"
+						id="email"
+						name="email"
+						className="input"
+						value={email}
+						onChange={changeEmailHandler}
+						required
+						autoComplete="off"
+						autoFocus
+					/>
+					<label htmlFor="password" style={{ marginTop: '50px' }}>
+						Пароль*:
+					</label>
+					<Input
+						type="password"
+						id="password"
+						name="password"
+						className="input"
+						value={password}
+						onChange={changePasswordHandler}
+						required
+						autoComplete="off"
+					/>
+					<Button
+						type="submit"
+						variant="contained"
+						color="primary"
+						className="button"
+						style={{ width: '100px' }}
+					>
+						Войти
+					</Button>
+				</form>
 			</div>
-		</>
+		</div>
 	);
 };
 

@@ -22,11 +22,7 @@ const Header = (props) => {
 			console.log('Я внутри', window.location.pathname);
 			logOut();
 		}
-		console.log('Я ', window.location);
-		console.log(e.currentTarget.id);
 	};
-
-	console.log('Хэдер', props);
 
 	return (
 		<div className="header">
