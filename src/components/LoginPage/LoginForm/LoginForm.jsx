@@ -7,6 +7,10 @@ import { actions } from '../../../store/auth/actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { useState } from 'react';
+import styles from './LoginForm.module.css';
+import classNames from 'classnames/bind';
+
+const st = classNames.bind(styles);
 
 let { logIn } = actions;
 
@@ -35,10 +39,10 @@ const LoginForm = (props) => {
 	}
 
 	return (
-		<div className="login-page__loginForm">
-			<div className="login-page__loginForm-item" style={{ height: '400px' }}>
-				<div className="header-form">Вход</div>
-				<div className="header-form__add">
+		<div className={st('login-page__loginForm')}>
+			<div className={st('login-page__loginForm-item')} style={{ height: '400px' }}>
+				<div className={st('header-form')}>Вход</div>
+				<div className={st('header-form__add')}>
 					Новый пользователь?
 					<Link to="/reg">
 						<span>Зарегистрироваться</span>
@@ -50,7 +54,7 @@ const LoginForm = (props) => {
 						type="text"
 						id="email"
 						name="email"
-						className="input"
+						className={st('input')}
 						value={email}
 						onChange={changeEmailHandler}
 						required
@@ -64,7 +68,7 @@ const LoginForm = (props) => {
 						type="password"
 						id="password"
 						name="password"
-						className="input"
+						className={st('input')}
 						value={password}
 						onChange={changePasswordHandler}
 						required
@@ -74,7 +78,7 @@ const LoginForm = (props) => {
 						type="submit"
 						variant="contained"
 						color="primary"
-						className="button"
+						className={st('button')}
 						style={{ width: '100px' }}
 					>
 						Войти

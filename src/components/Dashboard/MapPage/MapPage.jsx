@@ -3,6 +3,10 @@ import mapboxgl from 'mapbox-gl';
 import { useEffect } from 'react';
 import { useRef } from 'react';
 import { connect } from 'react-redux';
+import styles from './MapPage.module.css';
+import classNames from 'classnames/bind';
+
+const st = classNames.bind(styles);
 
 const MapPage = () => {
 	const myMapRef = useRef();
@@ -20,7 +24,7 @@ const MapPage = () => {
 		});
 	});
 
-	return <div className="map-page" ref={myMapRef}></div>;
+	return <div className={st('map-page')} ref={myMapRef}></div>;
 };
 
 export default connect(null, null)(MapPage);

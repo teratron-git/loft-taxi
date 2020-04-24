@@ -1,0 +1,48 @@
+.login-page__loginForm {
+  width: 50%;
+}
+
+.login-page__loginForm-item {
+  background-color: ivory;
+  width: 450px;
+  height: 507px;
+  font-size: 1.6em;
+  padding: 50px;
+  text-align: left;
+  position: relative;
+  border-radius: 1%;
+}
+
+.header-form {
+  font-size: 3em;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.header-form__add {
+  margin-bottom: 20px;
+}
+
+.header-form__add span {
+  cursor: pointer;
+  color: royalblue;
+  margin-left: 5px;
+}
+
+.surname-div {
+  width: 210px;
+  display: inline-block;
+  margin: 0 auto;
+  position: absolute;
+  right: 50px;
+  margin-top: 80px;
+}
+
+.name-div {
+  width: 210px;
+  display: inline-block;
+  margin: 0 auto;
+  position: absolute;
+  left: 50px;
+  margin-top: 80px;
+}

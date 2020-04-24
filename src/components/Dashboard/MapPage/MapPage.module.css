@@ -1,0 +1,7 @@
+.map-page {
+  color: red;
+  background-color: rgb(0, 104, 104);
+  flex-grow: 1;
+  text-align: center;
+  min-height: calc(100vh - 70px);
+}

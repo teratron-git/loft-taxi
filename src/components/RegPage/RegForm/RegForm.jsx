@@ -7,6 +7,10 @@ import { actions } from '../../../store/register/actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { useState } from 'react';
+import styles from './RegForm.module.css';
+import classNames from 'classnames/bind';
+
+const st = classNames.bind(styles);
 
 let { reg } = actions;
 
@@ -47,10 +51,10 @@ const RegForm = (props) => {
 	}
 
 	return (
-		<div className="login-page__loginForm">
-			<div className="login-page__loginForm-item">
-				<div className="header-form">Регистрация</div>
-				<div className="header-form__add">
+		<div className={st('login-page__loginForm')}>
+			<div className={st('login-page__loginForm-item')}>
+				<div className={st('header-form')}>Регистрация</div>
+				<div className={st('header-form__add')}>
 					Уже зарегистрированы?
 					<Link to="/logout">
 						<span>Войти</span>
@@ -62,33 +66,33 @@ const RegForm = (props) => {
 						type="text"
 						id="email"
 						name="email"
-						className="input"
+						className={st('input')}
 						value={email}
 						onChange={changeEmailHandler}
 						required
 						autoComplete="off"
 						autoFocus
 					/>
-					<div id="name-div">
+					<div id="name-div" className={st('name-div')}>
 						<label htmlFor="name">Имя*:</label>
 						<Input
 							type="text"
 							id="name"
 							name="name"
-							className="input"
+							className={st('input')}
 							value={name}
 							onChange={changeNameHandler}
 							required
 							autoComplete="off"
 						/>
 					</div>
-					<div id="surname-div">
+					<div id="surname-div" className={st('surname-div')}>
 						<label htmlFor="surname">Фамилия*:</label>
 						<Input
 							type="text"
 							id="surname"
 							name="surname"
-							className="input"
+							className={st('input')}
 							value={surname}
 							onChange={changeSurnameHandler}
 							required
@@ -100,13 +104,13 @@ const RegForm = (props) => {
 						type="password"
 						id="password"
 						name="password"
-						className="input"
+						className={st('input')}
 						value={password}
 						onChange={changePasswordHandler}
 						required
 						autoComplete="off"
 					/>
-					<Button type="submit" variant="contained" color="primary" className="button">
+					<Button type="submit" variant="contained" color="primary" className={st('button')}>
 						Зарегистрироваться
 					</Button>
 				</form>

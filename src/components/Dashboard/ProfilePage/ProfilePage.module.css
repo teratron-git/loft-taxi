@@ -1,0 +1,9 @@
+.profile-page {
+  color: red;
+  background-color: darkslategray;
+  flex-grow: 1;
+  font-size: 5em;
+  line-height: calc(100vh - 70px);
+  text-align: center;
+  text-shadow: black 1px 1px;
+}
