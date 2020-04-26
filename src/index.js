@@ -7,16 +7,20 @@ import { BrowserRouter } from 'react-router-dom';
 import { createStore, compose, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import rootReducer from './store/reducers';
-import { serverRequestMiddleware } from './store/middlewares';
+import createSagaMiddleware from 'redux-saga';
+import { rootSaga } from './store/sagas'
 import './index.css';
+
+const sagaMiddleware = createSagaMiddleware()
 
 const store = createStore(
 	rootReducer,
 	compose(
-		applyMiddleware(serverRequestMiddleware),
+		applyMiddleware(sagaMiddleware),
 		window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (noop) => noop
 	)
 );
+sagaMiddleware.run(rootSaga);
 console.log('store:', store.getState());
 
 ReactDOM.render(
