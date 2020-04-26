@@ -7,4 +7,5 @@ export const actions = {
 	logInSuccess: createAction(constants.LOGIN_SUCCESS),
 	logInFailure: createAction(constants.LOGIN_FAILURE),
 	checkIsLogin: createAction(constants.CHECK_IS_LOGIN),
+	logInErrorReset: createAction(constants.LOGIN_ERROR_RESET),
 };

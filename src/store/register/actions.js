@@ -5,4 +5,5 @@ export const actions = {
 	reg: createAction(constants.REG),
 	regSuccess: createAction(constants.REG_SUCCESS),
 	regFailure: createAction(constants.REG_FAILURE),
+	regErrorReset: createAction(constants.REG_ERROR_RESET),
 };

@@ -1,6 +1,7 @@
 import { actions } from './actions';
 
-let { logIn, logOut, logInSuccess, logInFailure, checkIsLogin } = actions;
+let { logIn, logOut, logInSuccess, logInFailure, checkIsLogin, logInErrorReset } = actions;
+
 const isLoggedIn = JSON.parse(localStorage.getItem('isLoggedIn'));
 
 const initialState = {
@@ -11,6 +12,8 @@ const initialState = {
 };
 
 export const authReducer = (state = initialState, action) => {
+	console.log('весь стейт', state)
+
 	switch (action.type) {
 		case logIn.toString():
 			return {
@@ -42,6 +45,9 @@ export const authReducer = (state = initialState, action) => {
 
 		case logInFailure.toString():
 			return { ...state, error: action.payload };
+
+		case logInErrorReset.toString():
+			return { ...state, error: '' };
 
 		default:
 			return state;

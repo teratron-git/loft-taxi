@@ -6,13 +6,13 @@ import { Link, Redirect } from 'react-router-dom';
 import { actions } from '../../../store/register/actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './RegForm.module.css';
 import classNames from 'classnames/bind';
 
 const st = classNames.bind(styles);
 
-let { reg } = actions;
+let { reg, regErrorReset } = actions;
 
 const RegForm = (props) => {
 	let [email, setEmail] = useState('');
@@ -20,7 +20,11 @@ const RegForm = (props) => {
 	let [name, setName] = useState('');
 	let [surname, setSurname] = useState('');
 
-	let { reg, isReg } = props;
+	useEffect(() => {
+		regErrorReset();
+	});
+
+	let { reg, isReg, error } = props;
 
 	const changeEmailHandler = (e) => {
 		setEmail(e.target.value);
@@ -110,6 +114,7 @@ const RegForm = (props) => {
 						required
 						autoComplete="off"
 					/>
+					<span className={st('error')}>{error}</span>
 					<Button type="submit" variant="contained" color="primary" className={st('button')}>
 						Зарегистрироваться
 					</Button>
@@ -127,12 +132,14 @@ RegForm.propTypes = {
 export const mapStateToProps = (state) => {
 	return {
 		isReg: state.register.isReg,
+		error: state.register.error,
 	};
 };
 
 export const mapDispatchToProps = (dispatch) => {
 	return {
 		reg: bindActionCreators(reg, dispatch),
+		regErrorReset: bindActionCreators(regErrorReset, dispatch),
 	};
 };
 

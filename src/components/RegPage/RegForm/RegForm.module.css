@@ -46,3 +46,15 @@
   left: 50px;
   margin-top: 80px;
 }
+
+.error {
+  position: absolute;
+  color: red;
+  top: 513px;
+  left: 50px;
+  overflow: hidden;
+  max-width: 100%;
+  max-height: 90px;
+  display: inline-block;
+  transition: all 0.3s ease
+}

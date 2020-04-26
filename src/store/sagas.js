@@ -1,9 +1,9 @@
-import { takeEvery, call, put, select } from 'redux-saga/effects'
+import { takeEvery, call, put, select, delay } from 'redux-saga/effects'
 import { actions as logInActions } from './auth/actions';
 import { actions as registerActions } from './register/actions';
 
-let { logIn, logInSuccess, logInFailure } = logInActions;
-let { reg, regSuccess, regFailure } = registerActions;
+let { logIn, logInSuccess, logInFailure, logInErrorReset } = logInActions;
+let { reg, regSuccess, regFailure, regErrorReset } = registerActions;
 
 const stateData = state => state
 
@@ -51,6 +51,8 @@ export function* rootSaga() {
 		} catch (error) {
 			console.log('ОШИБКА saga', error.message)
 			yield put(logInFailure(error.message))
+			yield delay(3000)
+			yield put(logInErrorReset())
 		}
 	})
 
@@ -68,12 +70,17 @@ export function* rootSaga() {
 		try {
 			const result = yield call(sendDataToServer, urlRegister, dataRegister);
 			console.log('res', result.success)
-			yield put(regSuccess(result.success))
-			if (!result.success) {
+			if (result.success) {
+				yield put(regSuccess(result.success))
+				yield put(regErrorReset())
+			} else {
 				throw new Error(result.error);
 			}
 		} catch (error) {
-			console.log('ОШИБКА', error.message)
+			console.log('ОШИБКА saga', error.message)
+			yield put(regFailure(error.message))
+			yield delay(3000)
+			yield put(regErrorReset())
 		}
 	})
 }
