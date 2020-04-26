@@ -7,7 +7,7 @@ const initialState = {
 	email: '',
 	password: '',
 	isLoggedIn: false,
-	isError: false,
+	error: '',
 };
 
 export const authReducer = (state = initialState, action) => {
@@ -17,7 +17,7 @@ export const authReducer = (state = initialState, action) => {
 				...state,
 				email: action.payload.email,
 				password: action.payload.password,
-				isLoggedIn: action.payload.isLoggedIn,
+				error: ''
 			};
 
 		case logOut.toString():
@@ -41,7 +41,7 @@ export const authReducer = (state = initialState, action) => {
 			return { ...state, isLoggedIn: action.payload };
 
 		case logInFailure.toString():
-			return { ...state, isError: action.payload };
+			return { ...state, error: action.payload };
 
 		default:
 			return state;

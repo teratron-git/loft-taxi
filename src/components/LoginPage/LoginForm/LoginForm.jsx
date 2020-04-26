@@ -17,7 +17,7 @@ let { logIn } = actions;
 const LoginForm = (props) => {
 	let [email, setEmail] = useState('');
 	let [password, setPassword] = useState('');
-	let { isLoggedIn, logIn } = props;
+	let { isLoggedIn, logIn, error } = props;
 
 	const changeEmailHandler = (e) => {
 		setEmail(e.target.value);
@@ -74,6 +74,7 @@ const LoginForm = (props) => {
 						required
 						autoComplete="off"
 					/>
+					<span className={st('error')}>{error}</span>
 					<Button
 						type="submit"
 						variant="contained"
@@ -97,6 +98,7 @@ LoginForm.propTypes = {
 export const mapStateToProps = (state) => {
 	return {
 		isLoggedIn: state.auth.isLoggedIn,
+		error: state.auth.error,
 	};
 };
 

@@ -28,3 +28,10 @@
     color: royalblue;
     margin-left: 5px;
   }
+  
+  .error {
+    position: absolute;
+    color: red;
+    bottom: 113px;
+    left: 50px;
+  }
