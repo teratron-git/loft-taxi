@@ -2,7 +2,7 @@ import { actions } from './actions';
 
 let { logIn, logOut, logInSuccess, logInFailure, checkIsLogin, logInErrorReset } = actions;
 
-const sData = JSON.parse(localStorage.getItem('loft-taxi-state'));
+const sData = JSON.parse(localStorage.getItem('loft-taxi-state')) || { isLoggedIn: false };
 console.log('1', sData)
 
 const initialState = {
@@ -10,6 +10,7 @@ const initialState = {
 	password: '',
 	isLoggedIn: false,
 	error: '',
+	token: ''
 };
 
 export const authReducer = (state = initialState, action) => {
@@ -27,26 +28,34 @@ export const authReducer = (state = initialState, action) => {
 
 		case logOut.toString():
 			console.log('3', sData)
+
 			localStorage.setItem('loft-taxi-state', JSON.stringify({ isLoggedIn: false }));
 
 			return {
 				...state,
 				isLoggedIn: false,
+				token: ''
 			};
 
 		case checkIsLogin.toString():
+			console.log('4', action)
 			if (sData.isLoggedIn) {
 				return {
 					...state,
-					isLoggedIn: true,
+					isLoggedIn: sData.isLoggedIn,
+					token: sData.token
 				};
 			}
 			return state;
 
 		case logInSuccess.toString():
-			localStorage.setItem('loft-taxi-state', JSON.stringify({ isLoggedIn: true }));
+			localStorage.setItem('loft-taxi-state', JSON.stringify({ isLoggedIn: action.payload.success, token: action.payload.token }))
 			// profile: { cardName: null, cardNumber: null, cardExpire: null, cardCvv: null, } }));
-			return { ...state, isLoggedIn: action.payload };
+			return {
+				...state,
+				isLoggedIn: action.payload.success,
+				token: action.payload.token
+			};
 
 		case logInFailure.toString():
 			return { ...state, error: action.payload };

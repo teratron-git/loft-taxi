@@ -1,0 +1,7 @@
+export const STORE_TYPE = 'profile';
+export const CARD = `${STORE_TYPE}/CARD`;
+export const CARD_SUCCESS = `${STORE_TYPE}/CARD_SUCCESS`;
+export const CARD_SUCCESS_UPDATE = `${STORE_TYPE}/CARD_SUCCESS_UPDATE`;
+export const CARD_FAILURE = `${STORE_TYPE}/CARD_FAILURE`;
+export const CARD_FAILURE_UPDATE = `${STORE_TYPE}/CARD_FAILURE_UPDATE`;
+export const CHECK_IS_CARD = `${STORE_TYPE}/CHECK_IS_CARD`;

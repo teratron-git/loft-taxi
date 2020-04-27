@@ -10,9 +10,10 @@ import { MapRouteLayout } from './MapRouteLayout/'
 
 const st = classNames.bind(styles);
 
-const MapPage = () => {
+const MapPage = (props) => {
+	const { isCard } = props;
+	console.log('------------', isCard)
 	const myMapRef = useRef();
-
 	useEffect(() => {
 		let map = null;
 
@@ -25,10 +26,10 @@ const MapPage = () => {
 			zoom: 15,
 		});
 	});
-	const tempCardData = true;
+	const tempCardData = false;
 	return (
 		<>
-			{tempCardData ? <MapRouteLayout /> : <MapNoCardLayout />}
+			{isCard ? <MapRouteLayout /> : <MapNoCardLayout />}
 
 			<div className={st('map-page')} ref={myMapRef}>
 
@@ -37,4 +38,10 @@ const MapPage = () => {
 	);
 };
 
-export default connect(null, null)(MapPage);
+export const mapStateToProps = (state) => {
+	return {
+		isCard: state.profile.isCard,
+	};
+};
+
+export default connect(mapStateToProps, null)(MapPage);

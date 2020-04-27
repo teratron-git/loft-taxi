@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import styles from './ProfilePage.module.css';
 import classNames from 'classnames/bind';
@@ -8,10 +8,43 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import NumberFormat from 'react-number-format';
 import { MCIcon } from 'loft-taxi-mui-theme';
+import { bindActionCreators } from 'redux';
+import { actions } from '../../../store/profile/actions';
+
+let { card } = actions;
 
 const st = classNames.bind(styles);
 
-export const ProfilePage = () => {
+const ProfilePage = (props) => {
+	let [cardName, setCardName] = useState(props.cardName);
+	let [cardNumber, setCardNumber] = useState(props.cardNumber);
+	let [cardExpiry, setCardExpiry] = useState(props.cardExpiry);
+	let [cardCvv, setCardCvv] = useState(props.cardCvv);
+
+	let { isCard, card, error } = props;
+
+	const changeCardNameHandler = (e) => {
+		setCardName(e.target.value);
+	};
+
+	const changeCardNumberHandler = (e) => {
+		setCardNumber(e.target.value);
+	};
+
+	const changeCardExpiryHandler = (e) => {
+		setCardExpiry(e.target.value);
+	};
+
+	const changeCardCvvHandler = (e) => {
+		setCardCvv(e.target.value);
+	};
+
+	const submitHandler = (e) => {
+		e.preventDefault();
+		card({ cardName, cardNumber, cardExpiry, cardCvv });
+	};
+
+	console.log('Пропс из профиля', props);
 
 	return (
 		<div className={st('profile-page')}>
@@ -24,15 +57,15 @@ export const ProfilePage = () => {
 						<Paper elevation={13} className={styles.paper}>
 							<MCIcon className={styles.MCIcon} />
 
-							<form className={styles.form} noValidate>
+							<form className={styles.form} noValidate onSubmit={submitHandler}>
 								<TextField
 									className={st('font-size')}
 									type="text"
 									label="Имя владельца"
 									placeholder="Имя владельца"
 									name="cardName"
-									// value={cardName.value}
-									// onChange={this.handleChange}
+									value={cardName}
+									onChange={changeCardNameHandler}
 									// helperText={cardName.error ? cardName.error : null}
 									// error={cardName.error ? true : false}
 									margin="none"
@@ -46,8 +79,8 @@ export const ProfilePage = () => {
 									label="Номер карты"
 									placeholder="Номер карты"
 									name="cardNumber"
-									// value={cardNumber.value}
-									// onChange={this.handleChange}
+									value={cardNumber}
+									onChange={changeCardNumberHandler}
 									// helperText={cardNumber.error ? cardNumber.error : null}
 									// error={cardNumber.error ? true : false}
 									margin="none"
@@ -61,9 +94,9 @@ export const ProfilePage = () => {
 									customInput={TextField}
 									label="Дата окончания действия"
 									placeholder="мм/гг"
-									name="cardExp"
-									// value={cardExp.value}
-									// onChange={this.handleChange}
+									name="cardExpiry"
+									value={cardExpiry}
+									onChange={changeCardExpiryHandler}
 									// helperText={cardExp.error ? cardExp.error : null}
 									// error={cardExp.error ? true : false}
 									margin="none"
@@ -79,8 +112,8 @@ export const ProfilePage = () => {
 									label="CVV"
 									placeholder="CVV"
 									name="cardCvv"
-									// value={cardCvv.value}
-									// onChange={this.handleChange}
+									value={cardCvv}
+									onChange={changeCardCvvHandler}
 									// helperText={
 									// 	cardCvv.error
 									// 		? cardCvv.error
@@ -93,6 +126,7 @@ export const ProfilePage = () => {
 									required
 									format="###"
 								/>
+								<span className={st('error')}>{error}</span>
 								<Button
 									className={styles.button}
 									type="submit"
@@ -111,4 +145,21 @@ export const ProfilePage = () => {
 	)
 };
 
-export default connect(null, null)(ProfilePage);
+export const mapStateToProps = (state) => {
+	return {
+		cardName: state.profile.cardName,
+		cardNumber: state.profile.cardNumber,
+		cardExpiry: state.profile.cardExpiry,
+		cardCvv: state.profile.cardCvv,
+		isCard: state.profile.isCard,
+		error: state.profile.error,
+	};
+};
+
+export const mapDispatchToProps = (dispatch) => {
+	return {
+		card: bindActionCreators(card, dispatch),
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProfilePage);

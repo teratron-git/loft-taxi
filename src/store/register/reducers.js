@@ -32,7 +32,11 @@ export const registerReducer = (state = initialState, action) => {
 			return { ...state, error: action.payload };
 
 		case regErrorReset.toString():
-			return { ...state, error: '' };
+			return {
+				...state,
+				error: '',
+				isReg: false
+			};
 
 		default:
 			return state;
