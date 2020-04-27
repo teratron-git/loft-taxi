@@ -1,16 +1,13 @@
-.map-page {
-  flex-grow: 1;
-  min-height: calc(100vh - 70px);
-}
+
 
 .container {
 position: absolute;
 width: 600px;
 padding: 24px;
 height: 284px;
-top: 100px;
-left: 100px;
-background-color: aqua;
+top: 120px;
+left: 120px;
+background-color: red;
 
   /* justify-content: center;
   align-items: flex-start;
@@ -18,9 +15,10 @@ background-color: aqua;
   padding: 48px 0;
 
   margin: 0 auto;
+  z-index: 100;
 
 }
-
+/* 
 .paper {
   width: 600px;
   padding: 24px;
@@ -38,9 +36,7 @@ background-color: aqua;
   width: 100%;
 
 }
-/* .form > *:not(:first-child):not(:last-child) {
-  margin-bottom: 24px;
-} */
+
 
 .button {
   composes: button from "../../../index.css";
@@ -54,4 +50,4 @@ background-color: aqua;
   right: 149px;
   width: 30px !important;
   height: 19px !important;
-}
+} */
