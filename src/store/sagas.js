@@ -50,7 +50,7 @@ export const getDataFromServer = async (url) => {
 export function* rootSaga() {
 	yield takeEvery(logIn, logInSaga)
 	yield takeEvery(logInSuccess, getCardSaga)
-	// yield takeEvery(checkIsLogin, getCardSaga)
+	yield takeEvery(checkIsLogin, getCardSaga)
 	yield takeEvery(cardSuccess, getCardSaga)
 	yield takeEvery(reg, regSaga)
 	yield takeEvery(card, cardSaga)
