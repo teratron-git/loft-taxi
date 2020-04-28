@@ -1,9 +1,9 @@
-import { takeEvery, take, call, put, select, delay } from 'redux-saga/effects'
+import { takeEvery, fork, call, put, select, delay, all } from 'redux-saga/effects'
 import { actions as logInActions } from './auth/actions';
 import { actions as registerActions } from './register/actions';
 import { actions as profileActions } from './profile/actions';
 
-let { logIn, logInSuccess, logInFailure, logInErrorReset } = logInActions;
+let { logIn, logInSuccess, logInFailure, logInErrorReset, checkIsLogin } = logInActions;
 let { reg, regSuccess, regFailure, regErrorReset } = registerActions;
 let { card, cardSuccess, cardFailure, cardSuccessUpdate, cardFailureUpdate } = profileActions;
 
@@ -50,6 +50,7 @@ export const getDataFromServer = async (url) => {
 export function* rootSaga() {
 	yield takeEvery(logIn, logInSaga)
 	yield takeEvery(logInSuccess, getCardSaga)
+	// yield takeEvery(checkIsLogin, getCardSaga)
 	yield takeEvery(cardSuccess, getCardSaga)
 	yield takeEvery(reg, regSaga)
 	yield takeEvery(card, cardSaga)

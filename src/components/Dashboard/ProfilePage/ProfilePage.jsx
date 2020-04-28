@@ -21,7 +21,7 @@ const ProfilePage = (props) => {
 	let [cardExpiry, setCardExpiry] = useState(props.cardExpiry);
 	let [cardCvv, setCardCvv] = useState(props.cardCvv);
 
-	let { isCard, card, error } = props;
+	let { card, error } = props;
 
 	const changeCardNameHandler = (e) => {
 		setCardName(e.target.value);
@@ -52,11 +52,9 @@ const ProfilePage = (props) => {
 				<div className={st('profile-page__loginForm-item')} style={{ height: '400px' }}>
 					<div className={st('header-form')}>Профиль</div>
 					<Typography variant="h4" color="inherit" align="center">Способ оплаты</Typography>
-
 					<div className={styles.container}>
 						<Paper elevation={13} className={styles.paper}>
 							<MCIcon className={styles.MCIcon} />
-
 							<form className={styles.form} noValidate onSubmit={submitHandler}>
 								<TextField
 									className={st('font-size')}
@@ -66,8 +64,6 @@ const ProfilePage = (props) => {
 									name="cardName"
 									value={cardName}
 									onChange={changeCardNameHandler}
-									// helperText={cardName.error ? cardName.error : null}
-									// error={cardName.error ? true : false}
 									margin="none"
 									autoComplete="cc-name"
 									fullWidth
@@ -81,8 +77,6 @@ const ProfilePage = (props) => {
 									name="cardNumber"
 									value={cardNumber}
 									onChange={changeCardNumberHandler}
-									// helperText={cardNumber.error ? cardNumber.error : null}
-									// error={cardNumber.error ? true : false}
 									margin="none"
 									autoComplete="cc-number"
 									fullWidth
@@ -97,8 +91,6 @@ const ProfilePage = (props) => {
 									name="cardExpiry"
 									value={cardExpiry}
 									onChange={changeCardExpiryHandler}
-									// helperText={cardExp.error ? cardExp.error : null}
-									// error={cardExp.error ? true : false}
 									margin="none"
 									autoComplete="cc-exp"
 									fullWidth
@@ -114,12 +106,6 @@ const ProfilePage = (props) => {
 									name="cardCvv"
 									value={cardCvv}
 									onChange={changeCardCvvHandler}
-									// helperText={
-									// 	cardCvv.error
-									// 		? cardCvv.error
-									// 		: 'Последние три цифры на обороте карты'
-									// }
-									// error={cardCvv.error ? true : false}
 									margin="none"
 									autoComplete="cc-csc"
 									fullWidth
