@@ -3,14 +3,16 @@ import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { actions } from '../../../store/auth/actions';
+import { actions as authActions } from '../../../store/auth/actions';
+import { actions as profileActions } from '../../../store/profile/actions';
 import { bindActionCreators } from 'redux';
 import styles from './Header.module.css';
 import classNames from 'classnames/bind';
 
 const st = classNames.bind(styles);
 
-let { logOut } = actions;
+let { logOut } = authActions;
+let { cardResetAll } = profileActions;
 
 const list = [
 	{ id: 'map', name: 'Карта' },
@@ -19,12 +21,13 @@ const list = [
 ];
 
 const Header = (props) => {
-	let { logOut } = props;
+	let { logOut, cardResetAll } = props;
 
 	const clickHandler = (e) => {
 		if (e.currentTarget.id === 'logout') {
 			console.log('Я внутри', window.location.pathname);
 			logOut();
+			cardResetAll();
 		}
 	};
 
@@ -51,6 +54,7 @@ export const mapStateToProps = (state) => {
 export const mapDispatchToProps = (dispatch) => {
 	return {
 		logOut: bindActionCreators(logOut, dispatch),
+		cardResetAll: bindActionCreators(cardResetAll, dispatch)
 	};
 };
 

@@ -1,11 +1,14 @@
-import { takeEvery, fork, call, put, select, delay, all } from 'redux-saga/effects'
+import { takeEvery, call, put, select } from 'redux-saga/effects'
 import { actions as logInActions } from './auth/actions';
 import { actions as registerActions } from './register/actions';
 import { actions as profileActions } from './profile/actions';
+import * as authConstants from './auth/constants'
+import * as regConstants from './register/constants'
+import * as profileConstants from './profile/constants'
 
-let { logIn, logInSuccess, logInFailure, logInErrorReset, checkIsLogin } = logInActions;
-let { reg, regSuccess, regFailure, regErrorReset } = registerActions;
-let { card, cardSuccess, cardFailure, cardSuccessUpdate, cardFailureUpdate } = profileActions;
+let { logInSuccess, logInFailure } = logInActions;
+let { regSuccess, regFailure, regErrorReset } = registerActions;
+let { cardSuccess, cardFailure, cardSuccessUpdate } = profileActions;
 
 const stateData = state => state
 
@@ -48,12 +51,12 @@ export const getDataFromServer = async (url) => {
 };
 
 export function* rootSaga() {
-	yield takeEvery(logIn, logInSaga)
-	yield takeEvery(logInSuccess, getCardSaga)
-	yield takeEvery(checkIsLogin, getCardSaga)
-	yield takeEvery(cardSuccess, getCardSaga)
-	yield takeEvery(reg, regSaga)
-	yield takeEvery(card, cardSaga)
+	yield takeEvery(authConstants.LOGIN, logInSaga)
+	yield takeEvery(authConstants.LOGIN_SUCCESS, getCardSaga)
+	yield takeEvery(authConstants.CHECK_IS_LOGIN, getCardSaga)
+	yield takeEvery(profileConstants.CARD_SUCCESS, getCardSaga)
+	yield takeEvery(regConstants.REG, regSaga)
+	yield takeEvery(profileConstants.CARD, cardSaga)
 }
 
 function* logInSaga() {
@@ -76,8 +79,6 @@ function* logInSaga() {
 	} catch (error) {
 		console.log('ОШИБКА saga', error.message)
 		yield put(logInFailure(error.message))
-		yield delay(3000)
-		yield put(logInErrorReset())
 	}
 }
 
@@ -104,8 +105,6 @@ function* regSaga() {
 	} catch (error) {
 		console.log('ОШИБКА saga', error.message)
 		yield put(regFailure(error.message))
-		yield delay(3000)
-		yield put(regErrorReset())
 	}
 }
 
@@ -127,15 +126,12 @@ function* cardSaga() {
 		console.log('res', result.success)
 		if (result.success) {
 			yield put(cardSuccess(result.success))
-			// yield put(regErrorReset())
 		} else {
 			throw new Error(result.error);
 		}
 	} catch (error) {
 		console.log('ОШИБКА saga', error.message)
 		yield put(cardFailure(error.message))
-		yield delay(3000)
-		// yield put(regErrorReset())
 	}
 }
 
@@ -147,16 +143,13 @@ function* getCardSaga() {
 	try {
 		const result = yield call(getDataFromServer, url);
 		console.log('res', result)
-		if (result) {
+		if (!result.success === false || result.success === undefined) {
 			yield put(cardSuccessUpdate(result))
-			// yield put(regErrorReset())
 		} else {
 			throw new Error(result.error);
 		}
 	} catch (error) {
 		console.log('ОШИБКА saga', error.message)
 		yield put(cardFailure(error.message))
-		yield delay(3000)
-		// yield put(regErrorReset())
 	}
 }

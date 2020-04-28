@@ -20,10 +20,6 @@ const RegForm = (props) => {
 	let [name, setName] = useState('');
 	let [surname, setSurname] = useState('');
 
-	useEffect(() => {
-		regErrorReset();
-	});
-
 	let { reg, isReg, error } = props;
 
 	const changeEmailHandler = (e) => {
@@ -47,6 +43,10 @@ const RegForm = (props) => {
 
 		reg({ email, password, name, surname });
 	};
+
+	useEffect(() => {
+		return () => { regErrorReset() }
+	}, [])
 
 	console.log('Пропс из регистрации', props);
 

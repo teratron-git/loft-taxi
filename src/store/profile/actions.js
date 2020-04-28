@@ -8,4 +8,6 @@ export const actions = {
 	cardSuccessUpdate: createAction(constants.CARD_SUCCESS_UPDATE),
 	cardFailureUpdate: createAction(constants.CARD_FAILURE_UPDATE),
 	checkIsCard: createAction(constants.CHECK_IS_CARD),
+	cardResetAll: createAction(constants.CARD_RESET_ALL),
+	cardErrorReset: createAction(constants.CARD_ERROR_RESET),
 };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import styles from './ProfilePage.module.css';
 import classNames from 'classnames/bind';
@@ -11,7 +11,7 @@ import { MCIcon } from 'loft-taxi-mui-theme';
 import { bindActionCreators } from 'redux';
 import { actions } from '../../../store/profile/actions';
 
-let { card } = actions;
+let { card, cardErrorReset } = actions;
 
 const st = classNames.bind(styles);
 
@@ -21,7 +21,7 @@ const ProfilePage = (props) => {
 	let [cardExpiry, setCardExpiry] = useState(props.cardExpiry);
 	let [cardCvv, setCardCvv] = useState(props.cardCvv);
 
-	let { card, error } = props;
+	let { card, cardErrorReset, error } = props;
 
 	const changeCardNameHandler = (e) => {
 		setCardName(e.target.value);
@@ -44,6 +44,11 @@ const ProfilePage = (props) => {
 		card({ cardName, cardNumber, cardExpiry, cardCvv });
 	};
 
+	useEffect(() => {
+		cardErrorReset()
+		return () => { cardErrorReset() }
+	}, [])
+
 	console.log('Пропс из профиля', props);
 
 	return (
@@ -55,7 +60,7 @@ const ProfilePage = (props) => {
 					<div className={styles.container}>
 						<Paper elevation={13} className={styles.paper}>
 							<MCIcon className={styles.MCIcon} />
-							<form className={styles.form} noValidate onSubmit={submitHandler}>
+							<form className={styles.form} onSubmit={submitHandler}>
 								<TextField
 									className={st('font-size')}
 									type="text"
@@ -145,6 +150,7 @@ export const mapStateToProps = (state) => {
 export const mapDispatchToProps = (dispatch) => {
 	return {
 		card: bindActionCreators(card, dispatch),
+		cardErrorReset: bindActionCreators(cardErrorReset, dispatch),
 	};
 };
 

@@ -1,6 +1,6 @@
 import { actions } from './actions';
 let temp;
-let { card, cardSuccess, cardFailure, cardSuccessUpdate, cardFailureUpdate, checkIsCard } = actions;
+let { card, cardSuccess, cardFailure, cardSuccessUpdate, cardFailureUpdate, checkIsCard, cardResetAll, cardErrorReset } = actions;
 
 const sData = JSON.parse(localStorage.getItem('loft-taxi-state')) || {};
 
@@ -12,6 +12,7 @@ const initialState = {
 	cardExpiry: '',
 	cardCvv: '',
 	isCard: false,
+	isCardLoaded: false,
 	error: ''
 };
 
@@ -50,7 +51,8 @@ export const profileReducer = (state = initialState, action) => {
 					cardNumber: action.payload.cardNumber,
 					cardExpiry: action.payload.expiryDate,
 					cardCvv: action.payload.cvc,
-					error: ''
+					error: '',
+					isCardLoaded: true
 				}
 			}));
 
@@ -61,7 +63,8 @@ export const profileReducer = (state = initialState, action) => {
 				cardNumber: action.payload.cardNumber,
 				cardExpiry: action.payload.expiryDate,
 				cardCvv: action.payload.cvc,
-				error: ''
+				error: '',
+				isCardLoaded: true
 			};
 
 		case cardSuccessUpdate.toString():
@@ -76,6 +79,7 @@ export const profileReducer = (state = initialState, action) => {
 					cardCvv: action.payload.cvc,
 					error: '',
 					isCard: true,
+					isCardLoaded: true
 				}
 			}));
 
@@ -87,13 +91,34 @@ export const profileReducer = (state = initialState, action) => {
 				cardCvv: action.payload.cvc,
 				error: '',
 				isCard: true,
+				isCardLoaded: true
 			};
 
 		case cardFailure.toString():
-			return { ...state, error: action.payload };
+			return {
+				...state, error: action.payload,
+				isCardLoaded: true
+			};
 
 		case cardFailureUpdate.toString():
-			return { ...state, error: action.payload };
+			return {
+				...state, error: action.payload,
+				isCardLoaded: true
+			};
+
+		case cardResetAll.toString():
+			return {
+				cardName: '',
+				cardNumber: '',
+				cardExpiry: '',
+				cardCvv: '',
+				isCard: false,
+				isCardLoaded: false,
+				error: ''
+			}
+
+		case cardErrorReset.toString():
+			return { ...state, error: '' };
 
 		default:
 			return state;

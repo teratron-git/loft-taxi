@@ -11,7 +11,7 @@ import { MapRouteLayout } from './MapRouteLayout/'
 const st = classNames.bind(styles);
 
 const MapPage = (props) => {
-	const { isCard } = props;
+	const { isCard, isCardLoaded } = props;
 	console.log('------------', isCard)
 	const myMapRef = useRef();
 	useEffect(() => {
@@ -26,10 +26,23 @@ const MapPage = (props) => {
 			zoom: 15,
 		});
 	});
-	const tempCardData = false;
+
 	return (
 		<>
-			{isCard ? <MapRouteLayout /> : <MapNoCardLayout />}
+
+			{!isCardLoaded ? (
+				<div className={st('overlay-loader')} >
+					<div className={st('loader')} >
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+						<div></div>
+					</div>
+				</div>)
+				: (isCard ? <MapRouteLayout /> : <MapNoCardLayout />)}
 
 			<div className={st('map-page')} ref={myMapRef}>
 
@@ -41,6 +54,7 @@ const MapPage = (props) => {
 export const mapStateToProps = (state) => {
 	return {
 		isCard: state.profile.isCard,
+		isCardLoaded: state.profile.isCardLoaded,
 	};
 };
 

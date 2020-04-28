@@ -6,18 +6,18 @@ import { Link, Redirect } from 'react-router-dom';
 import { actions } from '../../../store/auth/actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './LoginForm.module.css';
 import classNames from 'classnames/bind';
 
 const st = classNames.bind(styles);
 
-let { logIn } = actions;
+let { logIn, logInErrorReset } = actions;
 
 const LoginForm = (props) => {
 	let [email, setEmail] = useState('');
 	let [password, setPassword] = useState('');
-	let { isLoggedIn, logIn, error } = props;
+	let { isLoggedIn, logIn, logInErrorReset, error } = props;
 
 	const changeEmailHandler = (e) => {
 		setEmail(e.target.value);
@@ -31,6 +31,10 @@ const LoginForm = (props) => {
 		e.preventDefault();
 		logIn({ email, password });
 	};
+
+	useEffect(() => {
+		return () => { logInErrorReset() }
+	}, [])
 
 	console.log('Пропс из логинки', props);
 
@@ -105,6 +109,7 @@ export const mapStateToProps = (state) => {
 export const mapDispatchToProps = (dispatch) => {
 	return {
 		logIn: bindActionCreators(logIn, dispatch),
+		logInErrorReset: bindActionCreators(logInErrorReset, dispatch),
 	};
 };
 
