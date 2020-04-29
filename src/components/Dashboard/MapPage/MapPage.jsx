@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import styles from './MapPage.module.css';
 import classNames from 'classnames/bind';
 import { MapNoCardLayout } from './MapNoCardLayout/'
-import { MapRouteLayout } from './MapRouteLayout/'
+import MapRouteLayout from './MapRouteLayout/'
 
 const st = classNames.bind(styles);
 

@@ -2,13 +2,16 @@ import { takeEvery, call, put, select } from 'redux-saga/effects'
 import { actions as logInActions } from './auth/actions';
 import { actions as registerActions } from './register/actions';
 import { actions as profileActions } from './profile/actions';
+import { actions as routeActions } from './route/actions';
 import * as authConstants from './auth/constants'
 import * as regConstants from './register/constants'
 import * as profileConstants from './profile/constants'
+import * as routeConstants from './route/constants'
 
 let { logInSuccess, logInFailure } = logInActions;
 let { regSuccess, regFailure, regErrorReset } = registerActions;
 let { cardSuccess, cardFailure, cardSuccessUpdate } = profileActions;
+let { addressList, addressListSuccess, addressListFailure, routeList } = routeActions;
 
 const stateData = state => state
 
@@ -57,6 +60,9 @@ export function* rootSaga() {
 	yield takeEvery(profileConstants.CARD_SUCCESS, getCardSaga)
 	yield takeEvery(regConstants.REG, regSaga)
 	yield takeEvery(profileConstants.CARD, cardSaga)
+	yield takeEvery(routeConstants.ADDRESS_LIST, getAddressListSaga)
+	yield takeEvery(routeConstants.ROUTE, getRouteSaga)
+
 }
 
 function* logInSaga() {
@@ -136,6 +142,43 @@ function* cardSaga() {
 }
 
 function* getCardSaga() {
+	const data = yield select(stateData)
+	console.log('data', data)
+	const url = `https://loft-taxi.glitch.me/card?token=${data.auth.token}`;
+
+	try {
+		const result = yield call(getDataFromServer, url);
+		console.log('res', result)
+		if (!result.success === false || result.success === undefined) {
+			yield put(cardSuccessUpdate(result))
+		} else {
+			throw new Error(result.error);
+		}
+	} catch (error) {
+		console.log('ОШИБКА saga', error.message)
+		yield put(cardFailure(error.message))
+	}
+}
+function* getAddressListSaga() {
+	const data = yield select(stateData)
+	console.log('data', data)
+	const url = `https://loft-taxi.glitch.me/addressList`;
+
+	try {
+		const result = yield call(getDataFromServer, url);
+		console.log('res', result)
+		if (!result.success === false || result.success === undefined) {
+			yield put(addressListSuccess(result))
+		} else {
+			throw new Error(result.error);
+		}
+	} catch (error) {
+		console.log('ОШИБКА saga', error.message)
+		yield put(addressListFailure(error.message))
+	}
+}
+
+function* getRouteSaga() {
 	const data = yield select(stateData)
 	console.log('data', data)
 	const url = `https://loft-taxi.glitch.me/card?token=${data.auth.token}`;
