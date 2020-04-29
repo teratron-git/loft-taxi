@@ -11,7 +11,8 @@ import * as routeConstants from './route/constants'
 let { logInSuccess, logInFailure } = logInActions;
 let { regSuccess, regFailure, regErrorReset } = registerActions;
 let { cardSuccess, cardFailure, cardSuccessUpdate } = profileActions;
-let { addressList, addressListSuccess, addressListFailure, routeList } = routeActions;
+let { addressList, addressListSuccess, addressListFailure, routeList,
+	routeSuccess, routeFailure, } = routeActions;
 
 const stateData = state => state
 
@@ -181,18 +182,18 @@ function* getAddressListSaga() {
 function* getRouteSaga() {
 	const data = yield select(stateData)
 	console.log('data', data)
-	const url = `https://loft-taxi.glitch.me/card?token=${data.auth.token}`;
+	const url = `https://loft-taxi.glitch.me/route?address1=${data.route.from}&address2=${data.route.to}`;
 
 	try {
 		const result = yield call(getDataFromServer, url);
 		console.log('res', result)
 		if (!result.success === false || result.success === undefined) {
-			yield put(cardSuccessUpdate(result))
+			yield put(routeSuccess(result))
 		} else {
 			throw new Error(result.error);
 		}
 	} catch (error) {
 		console.log('ОШИБКА saga', error.message)
-		yield put(cardFailure(error.message))
+		yield put(routeFailure(error.message))
 	}
 }

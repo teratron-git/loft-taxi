@@ -6,7 +6,7 @@ let { route, addressList, isRoute, isAddress, routeSuccess, routeFailure, addres
 // console.log('1', sData)
 
 const initialState = {
-	myAddressList: '',
+	myAddressList: [],
 	myRouteList: [],
 	from: '',
 	to: '',
@@ -26,6 +26,8 @@ export const routeReducer = (state = initialState, action) => {
 			return {
 				...state,
 				isRouteLoading: true,
+				from: action.payload.from,
+				to: action.payload.to,
 				error: ''
 			};
 

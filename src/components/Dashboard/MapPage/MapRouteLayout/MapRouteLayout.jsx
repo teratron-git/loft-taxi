@@ -39,8 +39,6 @@ const MapRouteLayout = (props) => {
 
 	const submitHandler = (e) => {
 		e.preventDefault();
-		const from = 'fromTest';
-		const to = 'toTest';
 		route({ from, to });
 	};
 
@@ -48,24 +46,19 @@ const MapRouteLayout = (props) => {
 		addressList();
 	}, []);
 
-	const test = ["0", "1", "2", "3", "4", "5"]
 	console.log('myAddressList', myAddressList)
-	console.log('test', test)
-	myAddressList = Array.from(myAddressList);
+	console.log('myRouteList', myRouteList)
 
-	// myAddressList.forEach(place => {
-	// 	console.log(place);
-	// })
 
 	return (
 
 		<div className={styles.container}>
-			<form className={styles.form} >
+			<form className={styles.form} onSubmit={submitHandler}>
 				<Typography variant="h4" color="inherit">
 					Вызов такси
         </Typography>
 				<FormControl required className={styles.formControl}>
-					<InputLabel htmlFor="age-native-required">Age</InputLabel>
+					<InputLabel htmlFor="age-native-required">Откуда</InputLabel>
 					<Select
 						native
 						value={from}
@@ -77,13 +70,13 @@ const MapRouteLayout = (props) => {
 					>
 						<option aria-label="None" value="" />
 						{myAddressList.map((place, i) => (
-							<option key={i} value={i} >{place}</option>
+							<option key={i} value={place} >{place}</option>
 						))}
 					</Select>
 					<FormHelperText>Required</FormHelperText>
 				</FormControl>
 				<FormControl required className={styles.formControl}>
-					<InputLabel htmlFor="age-native-required">Age</InputLabel>
+					<InputLabel htmlFor="age-native-required">Куда</InputLabel>
 					<Select
 						native
 						value={to}
@@ -95,7 +88,7 @@ const MapRouteLayout = (props) => {
 					>
 						<option aria-label="None" value="" />
 						{myAddressList.map((place, i) => (
-							<option key={i} value={i} >{place}</option>
+							<option key={i} value={place} >{place}</option>
 						))}
 					</Select>
 					<FormHelperText>Required</FormHelperText>
@@ -106,7 +99,7 @@ const MapRouteLayout = (props) => {
 					variant="outlined"
 					size="medium"
 					color="primary"
-				// disabled={!from || !to}
+					disabled={!from || !to}
 				>
 					Вызвать такси
         </Button>
