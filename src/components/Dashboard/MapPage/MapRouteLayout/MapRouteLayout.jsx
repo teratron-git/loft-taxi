@@ -1,36 +1,26 @@
 import React, { useState } from 'react';
-import mapboxgl from 'mapbox-gl';
 import { useEffect } from 'react';
-import { useRef } from 'react';
 import { connect } from 'react-redux';
 import styles from './MapRouteLayout.module.css';
 import classNames from 'classnames/bind';
-import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-// import SelectField from '../SelectField';
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import NativeSelect from '@material-ui/core/NativeSelect';
 import { actions } from '../../../../store/route/actions';
 import { bindActionCreators } from 'redux';
 
 const st = classNames.bind(styles);
-
-let { addressList, route, routeReset } = actions;
+const { addressList, route, routeReset } = actions;
 
 const MapRouteLayout = (props) => {
 	let [from, setFrom] = useState('');
 	let [to, setTo] = useState('');
-	let { myAddressList, myRouteList, route, addressList, error, isRoute, routeReset } = props;
-
+	let { myAddressList, route, addressList, isRoute, routeReset } = props;
 
 	const changeFromHandler = (e) => {
 		setFrom(e.target.value);
-		console.log('e.target.value', e.target.value)
 	};
 
 	const changeToHandler = (e) => {
@@ -40,6 +30,8 @@ const MapRouteLayout = (props) => {
 	const submitHandler = (e) => {
 		e.preventDefault();
 		route({ from, to });
+		setFrom('');
+		setTo('');
 	};
 
 	const submitHandlerReset = (e) => {
@@ -51,19 +43,14 @@ const MapRouteLayout = (props) => {
 		addressList();
 	}, []);
 
-	console.log('myAddressList', myAddressList)
-	console.log('myRouteList', myRouteList)
-
-
 	return (
 		<>
-
 			{!isRoute ? (
 				<div className={styles.container} >
 					<form className={styles.form} onSubmit={submitHandler}>
 						<Typography variant="h4" color="inherit">
 							Вызов такси
-        </Typography>
+        		</Typography>
 						<FormControl required className={styles.formControl}>
 							<InputLabel htmlFor="age-native-required">Откуда</InputLabel>
 							<Select
@@ -71,16 +58,12 @@ const MapRouteLayout = (props) => {
 								value={from}
 								onChange={changeFromHandler}
 								name="from"
-							// inputProps={{
-							// 	id: 'age-native-required',
-							// }}
 							>
 								<option aria-label="None" value="" />
-								{myAddressList.map((place, i) => (
+								{myAddressList.filter(place => place !== to).map((place, i) => (
 									<option key={i} value={place} >{place}</option>
 								))}
 							</Select>
-							<FormHelperText>Required</FormHelperText>
 						</FormControl>
 						<FormControl required className={styles.formControl}>
 							<InputLabel htmlFor="age-native-required">Куда</InputLabel>
@@ -89,18 +72,13 @@ const MapRouteLayout = (props) => {
 								value={to}
 								onChange={changeToHandler}
 								name="to"
-								inputProps={{
-									id: 'age-native-required',
-								}}
 							>
 								<option aria-label="None" value="" />
-								{myAddressList.map((place, i) => (
+								{myAddressList.filter(place => place !== from).map((place, i) => (
 									<option key={i} value={place} >{place}</option>
 								))}
 							</Select>
-							<FormHelperText>Required</FormHelperText>
 						</FormControl>
-
 						<Button
 							type="submit"
 							variant="outlined"
@@ -123,7 +101,6 @@ const MapRouteLayout = (props) => {
 								variant="outlined"
 								size="medium"
 								color="primary"
-
 							>
 								Заказать ещё
 						</Button>
@@ -138,7 +115,6 @@ const MapRouteLayout = (props) => {
 export const mapStateToProps = (state) => {
 	return {
 		myAddressList: state.route.myAddressList,
-		myRouteList: state.route.myRouteList,
 		isRoute: state.route.isRoute,
 		error: state.route.error,
 	};
