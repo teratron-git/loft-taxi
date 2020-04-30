@@ -1,6 +1,6 @@
 import { actions } from './actions';
 let temp;
-let { route, addressList, isRoute, isAddress, routeSuccess, routeFailure, addressListSuccess, addressListFailure } = actions;
+let { route, addressList, isRoute, isAddress, routeReset, routeSuccess, routeFailure, addressListSuccess, addressListFailure } = actions;
 
 // const sData = JSON.parse(localStorage.getItem('loft-taxi-state')) || {};
 // console.log('1', sData)
@@ -70,7 +70,16 @@ export const routeReducer = (state = initialState, action) => {
 				...state,
 				isAddress: false,
 				error: action.payload,
-				isRouteLoading: false,
+				isRouteLoading: false
+			};
+
+		case routeReset.toString():
+			return {
+				...state,
+				isRoute: false,
+				myRouteList: [],
+				from: '',
+				to: ''
 			};
 
 		default:

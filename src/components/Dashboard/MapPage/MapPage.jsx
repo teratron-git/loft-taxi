@@ -59,7 +59,7 @@ const MapPage = (props) => {
 			zoom: 15,
 		});
 
-		drawRoute(map, test)
+		map.on('style.load', () => drawRoute(map, coordinates))
 	});
 
 	return (

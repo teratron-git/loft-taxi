@@ -10,4 +10,5 @@ export const actions = {
 	routeFailure: createAction(constants.ROUTE_FAILURE),
 	addressListSuccess: createAction(constants.ADDRESS_LIST_SUCCESS),
 	addressListFailure: createAction(constants.ADDRESS_LIST_FAILURE),
+	routeReset: createAction(constants.ROUTE_RESET),
 };

@@ -20,12 +20,12 @@ import { bindActionCreators } from 'redux';
 
 const st = classNames.bind(styles);
 
-let { addressList, route } = actions;
+let { addressList, route, routeReset } = actions;
 
 const MapRouteLayout = (props) => {
 	let [from, setFrom] = useState('');
 	let [to, setTo] = useState('');
-	let { myAddressList, myRouteList, route, addressList, error } = props;
+	let { myAddressList, myRouteList, route, addressList, error, isRoute, routeReset } = props;
 
 
 	const changeFromHandler = (e) => {
@@ -42,6 +42,11 @@ const MapRouteLayout = (props) => {
 		route({ from, to });
 	};
 
+	const submitHandlerReset = (e) => {
+		e.preventDefault();
+		routeReset();
+	};
+
 	useEffect(() => {
 		addressList();
 	}, []);
@@ -51,60 +56,81 @@ const MapRouteLayout = (props) => {
 
 
 	return (
+		<>
 
-		<div className={styles.container}>
-			<form className={styles.form} onSubmit={submitHandler}>
-				<Typography variant="h4" color="inherit">
-					Вызов такси
+			{!isRoute ? (
+				<div className={styles.container} >
+					<form className={styles.form} onSubmit={submitHandler}>
+						<Typography variant="h4" color="inherit">
+							Вызов такси
         </Typography>
-				<FormControl required className={styles.formControl}>
-					<InputLabel htmlFor="age-native-required">Откуда</InputLabel>
-					<Select
-						native
-						value={from}
-						onChange={changeFromHandler}
-						name="from"
-					// inputProps={{
-					// 	id: 'age-native-required',
-					// }}
-					>
-						<option aria-label="None" value="" />
-						{myAddressList.map((place, i) => (
-							<option key={i} value={place} >{place}</option>
-						))}
-					</Select>
-					<FormHelperText>Required</FormHelperText>
-				</FormControl>
-				<FormControl required className={styles.formControl}>
-					<InputLabel htmlFor="age-native-required">Куда</InputLabel>
-					<Select
-						native
-						value={to}
-						onChange={changeToHandler}
-						name="to"
-						inputProps={{
-							id: 'age-native-required',
-						}}
-					>
-						<option aria-label="None" value="" />
-						{myAddressList.map((place, i) => (
-							<option key={i} value={place} >{place}</option>
-						))}
-					</Select>
-					<FormHelperText>Required</FormHelperText>
-				</FormControl>
+						<FormControl required className={styles.formControl}>
+							<InputLabel htmlFor="age-native-required">Откуда</InputLabel>
+							<Select
+								native
+								value={from}
+								onChange={changeFromHandler}
+								name="from"
+							// inputProps={{
+							// 	id: 'age-native-required',
+							// }}
+							>
+								<option aria-label="None" value="" />
+								{myAddressList.map((place, i) => (
+									<option key={i} value={place} >{place}</option>
+								))}
+							</Select>
+							<FormHelperText>Required</FormHelperText>
+						</FormControl>
+						<FormControl required className={styles.formControl}>
+							<InputLabel htmlFor="age-native-required">Куда</InputLabel>
+							<Select
+								native
+								value={to}
+								onChange={changeToHandler}
+								name="to"
+								inputProps={{
+									id: 'age-native-required',
+								}}
+							>
+								<option aria-label="None" value="" />
+								{myAddressList.map((place, i) => (
+									<option key={i} value={place} >{place}</option>
+								))}
+							</Select>
+							<FormHelperText>Required</FormHelperText>
+						</FormControl>
 
-				<Button
-					type="submit"
-					variant="outlined"
-					size="medium"
-					color="primary"
-					disabled={!from || !to}
-				>
-					Вызвать такси
+						<Button
+							type="submit"
+							variant="outlined"
+							size="medium"
+							color="primary"
+							disabled={!from || !to}
+						>
+							Вызвать такси
         </Button>
-			</form>
-		</div >
+					</form >
+				</div >)
+				: (
+					<div className={styles.container}>
+						<Typography variant="h4" color="inherit">
+							Вы вызвали такси!
+        </Typography>
+						<form className={styles.form} onSubmit={submitHandlerReset}>
+							<Button
+								type="submit"
+								variant="outlined"
+								size="medium"
+								color="primary"
+
+							>
+								Заказать ещё
+						</Button>
+						</form>
+					</div>
+				)}
+		</>
 
 	);
 };
@@ -113,6 +139,7 @@ export const mapStateToProps = (state) => {
 	return {
 		myAddressList: state.route.myAddressList,
 		myRouteList: state.route.myRouteList,
+		isRoute: state.route.isRoute,
 		error: state.route.error,
 	};
 };
@@ -121,6 +148,7 @@ export const mapDispatchToProps = (dispatch) => {
 	return {
 		addressList: bindActionCreators(addressList, dispatch),
 		route: bindActionCreators(route, dispatch),
+		routeReset: bindActionCreators(routeReset, dispatch)
 	};
 };
 
