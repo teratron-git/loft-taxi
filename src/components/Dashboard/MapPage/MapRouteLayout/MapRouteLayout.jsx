@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
+import Paper from '@material-ui/core/Paper';
 import { actions } from '../../../../store/route/actions';
 import { bindActionCreators } from 'redux';
 
@@ -46,9 +47,9 @@ const MapRouteLayout = (props) => {
 	return (
 		<>
 			{!isRoute ? (
-				<div className={styles.container} >
+				<Paper elevation={13} className={styles.container} >
 					<form className={styles.form} onSubmit={submitHandler}>
-						<Typography variant="h4" color="inherit">
+						<Typography variant="h4" color="inherit" className={st('header')}>
 							Вызов такси
         		</Typography>
 						<FormControl required className={styles.formControl}>
@@ -58,6 +59,7 @@ const MapRouteLayout = (props) => {
 								value={from}
 								onChange={changeFromHandler}
 								name="from"
+								className={st('select')}
 							>
 								<option aria-label="None" value="" />
 								{myAddressList.filter(place => place !== to).map((place, i) => (
@@ -72,6 +74,7 @@ const MapRouteLayout = (props) => {
 								value={to}
 								onChange={changeToHandler}
 								name="to"
+								className={st('select')}
 							>
 								<option aria-label="None" value="" />
 								{myAddressList.filter(place => place !== from).map((place, i) => (
@@ -85,13 +88,14 @@ const MapRouteLayout = (props) => {
 							size="medium"
 							color="primary"
 							disabled={!from || !to}
+							className={st('button')}
 						>
 							Вызвать такси
         </Button>
 					</form >
-				</div >)
+				</Paper >)
 				: (
-					<div className={styles.container}>
+					<Paper elevation={13} className={styles.container}>
 						<Typography variant="h4" color="inherit">
 							Вы вызвали такси!
         </Typography>
@@ -101,11 +105,12 @@ const MapRouteLayout = (props) => {
 								variant="outlined"
 								size="medium"
 								color="primary"
+								className={st('button')}
 							>
 								Заказать ещё
 						</Button>
 						</form>
-					</div>
+					</Paper>
 				)}
 		</>
 

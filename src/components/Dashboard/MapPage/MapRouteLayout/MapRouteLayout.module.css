@@ -1,7 +1,7 @@
 .container {
 position: absolute;
 width: 600px;
-/* padding: 24px; */
+padding: 24px;
 height: 284px;
 top: 100px;
 left: 30px;
@@ -10,14 +10,23 @@ background-color: ivory;
   /* justify-content: center;
   align-items: flex-start;
   min-height: calc(100vh - 64px); */
-  /* padding: 48px 0; */
+padding-top: 48px;
 
   margin: 0 auto;
   z-index: 100;
   font-size: 2rem;
+  text-align: center;
 
 }
-/* 
+
+.formControl {
+  display: block !important;
+  padding: 0px !important;
+  margin: 30px auto !important;
+
+}
+
+ 
 .paper {
   width: 600px;
   padding: 24px;
@@ -31,22 +40,16 @@ background-color: ivory;
 
 }
 
-.form *:first-child {
+.header {
   width: 100%;
 
 }
 
 
 .button {
-  composes: button from "../../../index.css";
-  top: 530px;
-  left: 150px;
-}
+  composes: button from "../../../../index.css";
+  top: 155px;
+  left: 200px;
 
-.MCIcon {
-  position: absolute;
-  top: 220px;
-  right: 149px;
-  width: 30px !important;
-  height: 19px !important;
-} */
+
+}
