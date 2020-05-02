@@ -3,10 +3,11 @@ import mapboxgl from 'mapbox-gl';
 import { useEffect } from 'react';
 import { useRef } from 'react';
 import { connect } from 'react-redux';
-import styles from './MapPage.module.css';
 import classNames from 'classnames/bind';
 import { MapNoCardLayout } from './MapNoCardLayout/'
 import MapRouteLayout from './MapRouteLayout/'
+import styles from './MapPage.module.css';
+import { Preloader } from '../../shared/Preloader';
 
 const st = classNames.bind(styles);
 
@@ -64,18 +65,7 @@ const MapPage = (props) => {
 	return (
 		<>
 
-			{!isCardLoaded ? (
-				<div className={st('overlay-loader')} >
-					<div className={st('loader')} >
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
-					</div>
-				</div>)
+			{!isCardLoaded ? (<Preloader />)
 				: (isCard ? <MapRouteLayout /> : <MapNoCardLayout />)}
 
 			<div className={st('map-page')} ref={myMapRef}>
