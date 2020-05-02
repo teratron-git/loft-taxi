@@ -20,25 +20,9 @@
 	width: 90px;
 	height: 90px;
 	animation-name: rotateAnim;
-		-o-animation-name: rotateAnim;
-		-ms-animation-name: rotateAnim;
-		-webkit-animation-name: rotateAnim;
-		-moz-animation-name: rotateAnim;
 	animation-duration: 0.72s;
-		-o-animation-duration: 0.72s;
-		-ms-animation-duration: 0.72s;
-		-webkit-animation-duration: 0.72s;
-		-moz-animation-duration: 0.72s;
 	animation-iteration-count: infinite;
-		-o-animation-iteration-count: infinite;
-		-ms-animation-iteration-count: infinite;
-		-webkit-animation-iteration-count: infinite;
-		-moz-animation-iteration-count: infinite;
 	animation-timing-function: linear;
-		-o-animation-timing-function: linear;
-		-ms-animation-timing-function: linear;
-		-webkit-animation-timing-function: linear;
-		-moz-animation-timing-function: linear;
 }
 .loader div {
 	width: 7px;
@@ -110,41 +94,5 @@
 	}
 	to {
 		transform: rotate(0deg);
-	}
-}
-
-@-o-keyframes rotateAnim {
-	from {
-		-o-transform: rotate(360deg);
-	}
-	to {
-		-o-transform: rotate(0deg);
-	}
-}
-
-@-ms-keyframes rotateAnim {
-	from {
-		-ms-transform: rotate(360deg);
-	}
-	to {
-		-ms-transform: rotate(0deg);
-	}
-}
-
-@-webkit-keyframes rotateAnim {
-	from {
-		-webkit-transform: rotate(360deg);
-	}
-	to {
-		-webkit-transform: rotate(0deg);
-	}
-}
-
-@-moz-keyframes rotateAnim {
-	from {
-		-moz-transform: rotate(360deg);
-	}
-	to {
-		-moz-transform: rotate(0deg);
 	}
 }

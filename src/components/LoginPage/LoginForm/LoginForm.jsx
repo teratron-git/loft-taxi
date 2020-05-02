@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
 import { Link, Redirect } from 'react-router-dom';
-import { actions } from '../../../store/auth/actions';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { useState, useEffect } from 'react';
-import styles from './LoginForm.module.css';
 import classNames from 'classnames/bind';
+import { actions } from '../../../store/auth/actions';
+import styles from './LoginForm.module.css';
+import { Preloader } from '../../shared/Preloader';
 
 const st = classNames.bind(styles);
 
@@ -17,7 +18,7 @@ let { logIn, logInErrorReset } = actions;
 const LoginForm = (props) => {
 	let [email, setEmail] = useState('');
 	let [password, setPassword] = useState('');
-	let { isLoggedIn, logIn, logInErrorReset, error } = props;
+	let { isLoggedIn, logIn, logInErrorReset, isLogging, error } = props;
 
 	const changeEmailHandler = (e) => {
 		setEmail(e.target.value);
@@ -79,15 +80,19 @@ const LoginForm = (props) => {
 						autoComplete="off"
 					/>
 					<span className={st('error')}>{error}</span>
-					<Button
-						type="submit"
-						variant="contained"
-						color="primary"
-						className={st('button')}
-						style={{ width: '100px' }}
-					>
-						Войти
-					</Button>
+					{isLogging ? <Preloader />
+						: (
+							<Button
+								type="submit"
+								variant="contained"
+								color="primary"
+								className={st('button')}
+								style={{ width: '100px' }}
+								disabled={!email || !password}
+							>
+								Войти
+							</Button>
+						)}
 				</form>
 			</div>
 		</div>
@@ -103,6 +108,7 @@ export const mapStateToProps = (state) => {
 	return {
 		isLoggedIn: state.auth.isLoggedIn,
 		error: state.auth.error,
+		isLogging: state.auth.isLogging,
 	};
 };
 

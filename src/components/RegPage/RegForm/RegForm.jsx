@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
 import { Link, Redirect } from 'react-router-dom';
-import { actions } from '../../../store/register/actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { useState, useEffect } from 'react';
 import styles from './RegForm.module.css';
 import classNames from 'classnames/bind';
+import { Preloader } from '../../shared/Preloader';
+import { actions } from '../../../store/register/actions';
 
 const st = classNames.bind(styles);
 
@@ -20,7 +21,7 @@ const RegForm = (props) => {
 	let [name, setName] = useState('');
 	let [surname, setSurname] = useState('');
 
-	let { reg, isReg, error } = props;
+	let { reg, isReg, error, isRegistrating } = props;
 
 	const changeEmailHandler = (e) => {
 		setEmail(e.target.value);
@@ -50,9 +51,9 @@ const RegForm = (props) => {
 
 	console.log('Пропс из регистрации', props);
 
-	if (isReg) {
-		return <Redirect to="/" />;
-	}
+	// if (isReg) {
+	// 	return <Redirect to="/" />;
+	// }
 
 	return (
 		<div className={st('login-page__loginForm')}>
@@ -114,10 +115,19 @@ const RegForm = (props) => {
 						required
 						autoComplete="off"
 					/>
-					<span className={st('error')}>{error}</span>
-					<Button type="submit" variant="contained" color="primary" className={st('button')}>
-						Зарегистрироваться
-					</Button>
+					<span className={st({ 'error': !isReg, 'no-error': isReg })}>{error}</span>
+					{isRegistrating ? (<Preloader />)
+						: (
+							<Button
+								type="submit"
+								variant="contained"
+								color="primary"
+								className={st('button')}
+								disabled={!email || !password || !name || !surname}
+							>
+								Зарегистрироваться
+							</Button>
+						)}
 				</form>
 			</div>
 		</div>
@@ -133,6 +143,7 @@ export const mapStateToProps = (state) => {
 	return {
 		isReg: state.register.isReg,
 		error: state.register.error,
+		isRegistrating: state.register.isRegistrating,
 	};
 };
 

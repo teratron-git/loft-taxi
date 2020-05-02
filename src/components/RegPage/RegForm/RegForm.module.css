@@ -50,11 +50,15 @@
 .error {
   position: absolute;
   color: red;
-  top: 513px;
+  top: 520px;
   left: 50px;
   overflow: hidden;
-  max-width: 100%;
-  max-height: 90px;
+  max-width: 450px;
+  max-height: 65px;
   display: inline-block;
-  transition: all 0.3s ease
+}
+
+.no-error {
+  composes: error;
+  color: green;
 }
