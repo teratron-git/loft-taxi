@@ -40,12 +40,10 @@ export const drawRoute = (map, coordinates) => {
 			"line-width": 8
 		}
 	});
-	console.log('----Функция отработала', coordinates)
 };
 
 const MapPage = (props) => {
 	const { isCard, isCardLoading, coordinates } = props;
-	console.log('------------', isCard)
 	const myMapRef = useRef();
 
 	useEffect(() => {

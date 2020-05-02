@@ -38,8 +38,6 @@ export const profileReducer = (state = initialState, action) => {
 
 		case cardSuccess.toString():
 			temp = JSON.parse(localStorage.getItem('loft-taxi-state'));
-			console.log('temp!', temp)
-			console.log('state!', state)
 			localStorage.setItem('loft-taxi-state', JSON.stringify({
 				...temp, profile: {
 					cardName: action.payload.cardName,
@@ -65,8 +63,6 @@ export const profileReducer = (state = initialState, action) => {
 
 		case cardSuccessUpdate.toString():
 			temp = JSON.parse(localStorage.getItem('loft-taxi-state'));
-			console.log('temp!', temp)
-			console.log('state!', state)
 			localStorage.setItem('loft-taxi-state', JSON.stringify({
 				...temp, profile: {
 					cardName: action.payload.cardName,

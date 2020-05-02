@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Input from '@material-ui/core/Input';
 import Button from '@material-ui/core/Button';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { useState, useEffect } from 'react';
-import styles from './RegForm.module.css';
 import classNames from 'classnames/bind';
+import styles from './RegForm.module.css';
 import { Preloader } from '../../shared/Preloader';
 import { actions } from '../../../store/register/actions';
 
@@ -48,12 +48,6 @@ const RegForm = (props) => {
 	useEffect(() => {
 		return () => { regErrorReset() }
 	}, [])
-
-	console.log('Пропс из регистрации', props);
-
-	// if (isReg) {
-	// 	return <Redirect to="/" />;
-	// }
 
 	return (
 		<div className={st('login-page__loginForm')}>

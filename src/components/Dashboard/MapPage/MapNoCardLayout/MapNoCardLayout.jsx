@@ -1,9 +1,9 @@
 import React from 'react';
-import styles from './MapNoCardLayout.module.css';
 import classNames from 'classnames/bind';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import { Link } from 'react-router-dom';
+import styles from './MapNoCardLayout.module.css';
 
 const st = classNames.bind(styles);
 

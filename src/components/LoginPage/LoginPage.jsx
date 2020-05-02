@@ -1,8 +1,8 @@
 import React from 'react';
-import { Logo } from '../shared/Logo';
-import LoginForm from './LoginForm';
-import styles from './LoginPage.module.css';
 import classNames from 'classnames/bind';
+import LoginForm from './LoginForm';
+import { Logo } from '../shared/Logo';
+import styles from './LoginPage.module.css';
 
 const st = classNames.bind(styles);
 

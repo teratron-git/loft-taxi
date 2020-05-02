@@ -1,6 +1,6 @@
 import React from 'react';
-import styles from './Preloader.module.css';
 import classNames from 'classnames/bind';
+import styles from './Preloader.module.css';
 
 const st = classNames.bind(styles);
 

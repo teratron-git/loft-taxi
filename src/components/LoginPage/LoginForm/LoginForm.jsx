@@ -37,8 +37,6 @@ const LoginForm = (props) => {
 		return () => { logInErrorReset() }
 	}, [])
 
-	console.log('Пропс из логинки', props);
-
 	if (isLoggedIn) {
 		return <Redirect to="/dashboard/map" />;
 	}

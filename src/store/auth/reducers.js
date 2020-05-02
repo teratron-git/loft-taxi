@@ -3,7 +3,6 @@ import { actions } from './actions';
 let { logIn, logOut, logInSuccess, logInFailure, checkIsLogin, logInErrorReset } = actions;
 
 const sData = JSON.parse(localStorage.getItem('loft-taxi-state')) || { isLoggedIn: false };
-console.log('1', sData)
 
 const initialState = {
 	email: '',
@@ -35,7 +34,6 @@ export const authReducer = (state = initialState, action) => {
 			};
 
 		case checkIsLogin.toString():
-			console.log('4', action)
 			if (sData.isLoggedIn) {
 				return {
 					...state,
