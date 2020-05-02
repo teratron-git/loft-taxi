@@ -1,13 +1,13 @@
 .overlay-loader {
 	display: block;
 	/* margin: auto; */
-	width: 90px;
+	/* width: 90px; */
 	/* height: 90px; */
-	position: relative;
+	/* position: relative;
 	top: 100px;
 	left: 80px;
 	right: 0;
-  bottom: 0;
+  bottom: 0; */
   z-index: 999;
 }
 .loader {

@@ -4,22 +4,17 @@ let { card, cardSuccess, cardFailure, cardSuccessUpdate, cardFailureUpdate, chec
 
 const sData = JSON.parse(localStorage.getItem('loft-taxi-state')) || {};
 
-console.log('1', sData)
-
 const initialState = {
 	cardName: '',
 	cardNumber: '',
 	cardExpiry: '',
 	cardCvv: '',
 	isCard: false,
-	isCardLoaded: false,
+	isCardLoading: true,
 	error: ''
 };
 
 export const profileReducer = (state = initialState, action) => {
-	console.log('2', sData)
-	console.log('весь стейт', state)
-
 	switch (action.type) {
 		case card.toString():
 			return {
@@ -28,7 +23,8 @@ export const profileReducer = (state = initialState, action) => {
 				cardNumber: action.payload.cardNumber,
 				cardExpiry: action.payload.cardExpiry,
 				cardCvv: action.payload.cardCvv,
-				error: ''
+				isCardLoading: true,
+				error: '',
 			};
 
 		case checkIsCard.toString():
@@ -46,25 +42,25 @@ export const profileReducer = (state = initialState, action) => {
 			console.log('state!', state)
 			localStorage.setItem('loft-taxi-state', JSON.stringify({
 				...temp, profile: {
-					isCard: true,
 					cardName: action.payload.cardName,
 					cardNumber: action.payload.cardNumber,
 					cardExpiry: action.payload.expiryDate,
 					cardCvv: action.payload.cvc,
 					error: '',
-					isCardLoaded: true
+					isCard: true,
+					isCardLoading: false
 				}
 			}));
 
 			return {
 				...state,
-				isCard: true,
 				cardName: action.payload.cardName,
 				cardNumber: action.payload.cardNumber,
 				cardExpiry: action.payload.expiryDate,
 				cardCvv: action.payload.cvc,
 				error: '',
-				isCardLoaded: true
+				isCard: true,
+				isCardLoading: false
 			};
 
 		case cardSuccessUpdate.toString():
@@ -77,9 +73,9 @@ export const profileReducer = (state = initialState, action) => {
 					cardNumber: action.payload.cardNumber,
 					cardExpiry: action.payload.expiryDate,
 					cardCvv: action.payload.cvc,
-					error: '',
+					error: 'Данные успешно сохранены',
 					isCard: true,
-					isCardLoaded: true
+					isCardLoading: false
 				}
 			}));
 
@@ -89,21 +85,21 @@ export const profileReducer = (state = initialState, action) => {
 				cardNumber: action.payload.cardNumber,
 				cardExpiry: action.payload.expiryDate,
 				cardCvv: action.payload.cvc,
-				error: '',
+				error: 'Данные успешно сохранены',
 				isCard: true,
-				isCardLoaded: true
+				isCardLoading: false
 			};
 
 		case cardFailure.toString():
 			return {
 				...state, error: action.payload,
-				isCardLoaded: true
+				isCardLoading: false
 			};
 
 		case cardFailureUpdate.toString():
 			return {
 				...state, error: action.payload,
-				isCardLoaded: true
+				isCardLoading: false
 			};
 
 		case cardResetAll.toString():
@@ -113,7 +109,7 @@ export const profileReducer = (state = initialState, action) => {
 				cardExpiry: '',
 				cardCvv: '',
 				isCard: false,
-				isCardLoaded: false,
+				isCardLoading: true,
 				error: ''
 			}
 

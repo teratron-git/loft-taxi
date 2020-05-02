@@ -61,6 +61,11 @@
   text-align: center;
 }
 
+.no-error {
+  composes: error;
+  color: green;
+}
+
 .font-size {
   margin-top: 20px!important;
 }
@@ -94,10 +99,10 @@
 
 }
 
-.form *:first-child {
+/* .form *:first-child {
   width: 100%;
 
-}
+} */
 /* .form > *:not(:first-child):not(:last-child) {
   margin-bottom: 24px;
 } */
@@ -114,4 +119,10 @@
   right: 149px;
   width: 30px !important;
   height: 19px !important;
+}
+
+.preloader-position {
+	position: relative;
+  top: 150px;
+  left: -175px;
 }

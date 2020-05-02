@@ -10,6 +10,7 @@ import NumberFormat from 'react-number-format';
 import { MCIcon } from 'loft-taxi-mui-theme';
 import { bindActionCreators } from 'redux';
 import { actions } from '../../../store/profile/actions';
+import { Preloader } from '../../shared/Preloader';
 
 let { card, cardErrorReset } = actions;
 
@@ -21,7 +22,7 @@ const ProfilePage = (props) => {
 	let [cardExpiry, setCardExpiry] = useState(props.cardExpiry);
 	let [cardCvv, setCardCvv] = useState(props.cardCvv);
 
-	let { card, cardErrorReset, error } = props;
+	let { card, cardErrorReset, error, isCardLoading, isCard } = props;
 
 	const changeCardNameHandler = (e) => {
 		setCardName(e.target.value);
@@ -48,8 +49,6 @@ const ProfilePage = (props) => {
 		cardErrorReset()
 		return () => { cardErrorReset() }
 	}, [])
-
-	console.log('Пропс из профиля', props);
 
 	return (
 		<div className={st('profile-page')}>
@@ -117,16 +116,21 @@ const ProfilePage = (props) => {
 									required
 									format="###"
 								/>
-								<span className={st('error')}>{error}</span>
-								<Button
-									className={styles.button}
-									type="submit"
-									variant="contained"
-									size="medium"
-									color="primary"
-								>
-									Сохранить
-            </Button>
+								<span className={st({ 'error': !isCard, 'no-error': isCard })}>{error}</span>
+								{isCardLoading ? (<div className={st('preloader-position')}><Preloader /></div>)
+									: (
+										<Button
+											className={styles.button}
+											type="submit"
+											variant="contained"
+											size="medium"
+											color="primary"
+											disabled={!cardName || !cardNumber || !cardExpiry || !cardCvv ||
+												(cardName === props.cardName && cardNumber === props.cardNumber &&
+													cardExpiry === props.cardExpiry && cardCvv === props.cardCvv)}
+										>
+											{!isCard ? "Сохранить" : "Обновить"}
+										</Button>)}
 							</form>
 						</Paper>
 					</div>
@@ -143,6 +147,7 @@ export const mapStateToProps = (state) => {
 		cardExpiry: state.profile.cardExpiry,
 		cardCvv: state.profile.cardCvv,
 		isCard: state.profile.isCard,
+		isCardLoading: state.profile.isCardLoading,
 		error: state.profile.error,
 	};
 };

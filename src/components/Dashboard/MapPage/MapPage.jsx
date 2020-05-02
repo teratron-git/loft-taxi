@@ -44,7 +44,7 @@ export const drawRoute = (map, coordinates) => {
 };
 
 const MapPage = (props) => {
-	const { isCard, isCardLoaded, coordinates } = props;
+	const { isCard, isCardLoading, coordinates } = props;
 	console.log('------------', isCard)
 	const myMapRef = useRef();
 
@@ -65,7 +65,7 @@ const MapPage = (props) => {
 	return (
 		<>
 
-			{!isCardLoaded ? (<Preloader />)
+			{isCardLoading ? (<Preloader />)
 				: (isCard ? <MapRouteLayout /> : <MapNoCardLayout />)}
 
 			<div className={st('map-page')} ref={myMapRef}>
@@ -78,7 +78,7 @@ const MapPage = (props) => {
 export const mapStateToProps = (state) => {
 	return {
 		isCard: state.profile.isCard,
-		isCardLoaded: state.profile.isCardLoaded,
+		isCardLoading: state.profile.isCardLoading,
 		coordinates: state.route.myRouteList,
 	};
 };

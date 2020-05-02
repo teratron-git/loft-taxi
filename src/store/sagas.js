@@ -117,7 +117,6 @@ function* regSaga() {
 
 function* cardSaga() {
 	const data = yield select(stateData)
-	console.log('data', data)
 
 	const dataProfile = {
 		cardName: data.profile.cardName,
@@ -144,20 +143,22 @@ function* cardSaga() {
 
 function* getCardSaga() {
 	const data = yield select(stateData)
-	console.log('data', data)
-	const url = `https://loft-taxi.glitch.me/card?token=${data.auth.token}`;
 
-	try {
-		const result = yield call(getDataFromServer, url);
-		console.log('res', result)
-		if (!result.success === false || result.success === undefined) {
-			yield put(cardSuccessUpdate(result))
-		} else {
-			throw new Error(result.error);
+	if (data.auth.isLoggedIn) {
+		const url = `https://loft-taxi.glitch.me/card?token=${data.auth.token}`;
+
+		try {
+			const result = yield call(getDataFromServer, url);
+			console.log('res', result)
+			if (!result.success === false || result.success === undefined) {
+				yield put(cardSuccessUpdate(result))
+			} else {
+				throw new Error(result.error);
+			}
+		} catch (error) {
+			console.log('ОШИБКА saga', error.message)
+			yield put(cardFailure(error.message))
 		}
-	} catch (error) {
-		console.log('ОШИБКА saga', error.message)
-		yield put(cardFailure(error.message))
 	}
 }
 function* getAddressListSaga() {
