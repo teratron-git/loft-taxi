@@ -6,9 +6,13 @@ import { Link, Redirect } from 'react-router-dom';
 import { actions } from '../../../store/register/actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import styles from './RegForm.module.css';
+import classNames from 'classnames/bind';
 
-let { reg } = actions;
+const st = classNames.bind(styles);
+
+let { reg, regErrorReset } = actions;
 
 const RegForm = (props) => {
 	let [email, setEmail] = useState('');
@@ -16,7 +20,7 @@ const RegForm = (props) => {
 	let [name, setName] = useState('');
 	let [surname, setSurname] = useState('');
 
-	let { reg, isReg } = props;
+	let { reg, isReg, error } = props;
 
 	const changeEmailHandler = (e) => {
 		setEmail(e.target.value);
@@ -40,6 +44,10 @@ const RegForm = (props) => {
 		reg({ email, password, name, surname });
 	};
 
+	useEffect(() => {
+		return () => { regErrorReset() }
+	}, [])
+
 	console.log('Пропс из регистрации', props);
 
 	if (isReg) {
@@ -47,10 +55,10 @@ const RegForm = (props) => {
 	}
 
 	return (
-		<div className="login-page__loginForm">
-			<div className="login-page__loginForm-item">
-				<div className="header-form">Регистрация</div>
-				<div className="header-form__add">
+		<div className={st('login-page__loginForm')}>
+			<div className={st('login-page__loginForm-item')}>
+				<div className={st('header-form')}>Регистрация</div>
+				<div className={st('header-form__add')}>
 					Уже зарегистрированы?
 					<Link to="/logout">
 						<span>Войти</span>
@@ -62,33 +70,33 @@ const RegForm = (props) => {
 						type="text"
 						id="email"
 						name="email"
-						className="input"
+						className={st('input')}
 						value={email}
 						onChange={changeEmailHandler}
 						required
 						autoComplete="off"
 						autoFocus
 					/>
-					<div id="name-div">
+					<div id="name-div" className={st('name-div')}>
 						<label htmlFor="name">Имя*:</label>
 						<Input
 							type="text"
 							id="name"
 							name="name"
-							className="input"
+							className={st('input')}
 							value={name}
 							onChange={changeNameHandler}
 							required
 							autoComplete="off"
 						/>
 					</div>
-					<div id="surname-div">
+					<div id="surname-div" className={st('surname-div')}>
 						<label htmlFor="surname">Фамилия*:</label>
 						<Input
 							type="text"
 							id="surname"
 							name="surname"
-							className="input"
+							className={st('input')}
 							value={surname}
 							onChange={changeSurnameHandler}
 							required
@@ -100,13 +108,14 @@ const RegForm = (props) => {
 						type="password"
 						id="password"
 						name="password"
-						className="input"
+						className={st('input')}
 						value={password}
 						onChange={changePasswordHandler}
 						required
 						autoComplete="off"
 					/>
-					<Button type="submit" variant="contained" color="primary" className="button">
+					<span className={st('error')}>{error}</span>
+					<Button type="submit" variant="contained" color="primary" className={st('button')}>
 						Зарегистрироваться
 					</Button>
 				</form>
@@ -123,12 +132,14 @@ RegForm.propTypes = {
 export const mapStateToProps = (state) => {
 	return {
 		isReg: state.register.isReg,
+		error: state.register.error,
 	};
 };
 
 export const mapDispatchToProps = (dispatch) => {
 	return {
 		reg: bindActionCreators(reg, dispatch),
+		regErrorReset: bindActionCreators(regErrorReset, dispatch),
 	};
 };
 

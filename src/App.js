@@ -7,7 +7,10 @@ import { actions } from './store/auth/actions';
 import AppRouter from './components/AppRouter';
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
-import './index.css';
+import styles from './App.module.css';
+import classNames from 'classnames/bind';
+
+const st = classNames.bind(styles);
 
 const App = (props) => {
 	let { isLoggedIn, checkIsLogin } = props;
@@ -17,14 +20,14 @@ const App = (props) => {
 	}, []);
 
 	return (
-		<>
+		<div className={st('app')}>
 			<Switch>
 				<PrivateRoute path="/dashboard" permited={isLoggedIn} component={AppRouter} />
 				<Route path="/" component={LoginPage} exact />
 				<Route path="/reg" component={RegPage} exact />
 				<Redirect to="/" />
 			</Switch>
-		</>
+		</div>
 	);
 };
 

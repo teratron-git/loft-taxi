@@ -3,10 +3,16 @@ import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { actions } from '../../../store/auth/actions';
+import { actions as authActions } from '../../../store/auth/actions';
+import { actions as profileActions } from '../../../store/profile/actions';
 import { bindActionCreators } from 'redux';
+import styles from './Header.module.css';
+import classNames from 'classnames/bind';
 
-let { logOut } = actions;
+const st = classNames.bind(styles);
+
+let { logOut } = authActions;
+let { cardResetAll } = profileActions;
 
 const list = [
 	{ id: 'map', name: 'Карта' },
@@ -15,25 +21,22 @@ const list = [
 ];
 
 const Header = (props) => {
-	let { logOut } = props;
+	let { logOut, cardResetAll } = props;
 
 	const clickHandler = (e) => {
 		if (e.currentTarget.id === 'logout') {
 			console.log('Я внутри', window.location.pathname);
 			logOut();
+			cardResetAll();
 		}
-		console.log('Я ', window.location);
-		console.log(e.currentTarget.id);
 	};
 
-	console.log('Хэдер', props);
-
 	return (
-		<div className="header">
-			<div className="header-logo"></div>
+		<div className={st('header')}>
+			<div className={st('header-logo')}></div>
 			{list.map((item) => (
 				<Link to={item.id} key={item.id} id={item.id} onClick={(e) => clickHandler(e)}>
-					<Button className="header-item">{item.name}</Button>
+					<Button className={st('header-item')}>{item.name}</Button>
 				</Link>
 			))}
 		</div>
@@ -51,6 +54,7 @@ export const mapStateToProps = (state) => {
 export const mapDispatchToProps = (dispatch) => {
 	return {
 		logOut: bindActionCreators(logOut, dispatch),
+		cardResetAll: bindActionCreators(cardResetAll, dispatch)
 	};
 };
 

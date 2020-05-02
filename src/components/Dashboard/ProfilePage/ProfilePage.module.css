@@ -1,0 +1,117 @@
+.profile-page {
+  flex-grow: 1;
+  background-image: url("../../shared/img/login-background.jpg");
+  background-size: cover;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-page__loginForm {
+  /* width: 100%; */
+}
+
+.profile-page__loginForm-item {
+  background-color: ivory;
+  width: 450px;
+  height: 600px !important;
+  font-size: 1.6em;
+  padding: 50px;
+  text-align: left;
+  position: relative;
+  border-radius: 1%;
+}
+
+.profile-page__paper {
+  padding: 10px;
+}
+
+
+
+
+
+.header-form {
+  font-size: 3em;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.header-form__add {
+  margin-bottom: 20px;
+}
+
+.header-form__add span {
+  cursor: pointer;
+  color: royalblue;
+  margin-left: 5px;
+}
+
+.error {
+  position: absolute;
+  color: red;
+  top: 554px;
+  left: 0;
+  overflow: hidden;
+  max-width: 100%;
+  max-height: 90px;
+  display: block;
+  min-width: 100%;
+  text-align: center;
+}
+
+.font-size {
+  margin-top: 20px!important;
+}
+
+.font-size label, .font-size div {
+  font-size: 1.5rem;
+}
+
+
+.container {
+  display: flex;
+  max-width: 300px;
+  /* justify-content: center;
+  align-items: flex-start;
+  min-height: calc(100vh - 64px); */
+  padding: 48px 0;
+
+  margin: 0 auto;
+}
+
+.paper {
+  width: 600px;
+  padding: 24px;
+  height: 284px;
+}
+
+.form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+}
+
+.form *:first-child {
+  width: 100%;
+
+}
+/* .form > *:not(:first-child):not(:last-child) {
+  margin-bottom: 24px;
+} */
+
+.button {
+  composes: button from "../../../index.css";
+  top: 530px;
+  left: 150px;
+}
+
+.MCIcon {
+  position: absolute;
+  top: 220px;
+  right: 149px;
+  width: 30px !important;
+  height: 19px !important;
+}
