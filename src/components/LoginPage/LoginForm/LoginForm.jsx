@@ -10,6 +10,7 @@ import classNames from 'classnames/bind';
 import { actions } from '../../../store/auth/actions';
 import styles from './LoginForm.module.css';
 import { Preloader } from '../../shared/Preloader';
+import { getIsLoggedIn, getError, getIsLogging } from '../../../store/auth/selectors'
 
 const st = classNames.bind(styles);
 
@@ -99,14 +100,15 @@ const LoginForm = (props) => {
 
 LoginForm.propTypes = {
 	isLoggedIn: PropTypes.bool,
-	logIn: PropTypes.func,
+	error: PropTypes.string,
+	isLogging: PropTypes.bool,
 };
 
 export const mapStateToProps = (state) => {
 	return {
-		isLoggedIn: state.auth.isLoggedIn,
-		error: state.auth.error,
-		isLogging: state.auth.isLogging,
+		isLoggedIn: getIsLoggedIn(state),
+		error: getError(state),
+		isLogging: getIsLogging(state),
 	};
 };
 

@@ -8,6 +8,8 @@ import { MapNoCardLayout } from './MapNoCardLayout/'
 import MapRouteLayout from './MapRouteLayout/'
 import styles from './MapPage.module.css';
 import { Preloader } from '../../shared/Preloader';
+import { getIsCard, getIsCardLoading } from '../../../store/profile/selectors'
+import { getMyRouteList } from '../../../store/route/selectors'
 
 const st = classNames.bind(styles);
 
@@ -62,22 +64,19 @@ const MapPage = (props) => {
 
 	return (
 		<>
-
-			{isCardLoading ? (<Preloader />)
+			{isCardLoading
+				? (<Preloader />)
 				: (isCard ? <MapRouteLayout /> : <MapNoCardLayout />)}
-
-			<div className={st('map-page')} ref={myMapRef}>
-
-			</div>
+			<div className={st('map-page')} ref={myMapRef}></div>
 		</>
 	);
 };
 
 export const mapStateToProps = (state) => {
 	return {
-		isCard: state.profile.isCard,
-		isCardLoading: state.profile.isCardLoading,
-		coordinates: state.route.myRouteList,
+		isCard: getIsCard(state),
+		isCardLoading: getIsCardLoading(state),
+		coordinates: getMyRouteList(state),
 	};
 };
 

@@ -11,6 +11,7 @@ import { MCIcon } from 'loft-taxi-mui-theme';
 import { bindActionCreators } from 'redux';
 import { actions } from '../../../store/profile/actions';
 import { Preloader } from '../../shared/Preloader';
+import { getCardName, getCardNumber, getError, getCardCvv, getIsCard, getIsCardLoading, getCardExpiry } from '../../../store/profile/selectors'
 
 let { card, cardErrorReset } = actions;
 
@@ -142,13 +143,13 @@ const ProfilePage = (props) => {
 
 export const mapStateToProps = (state) => {
 	return {
-		cardName: state.profile.cardName,
-		cardNumber: state.profile.cardNumber,
-		cardExpiry: state.profile.cardExpiry,
-		cardCvv: state.profile.cardCvv,
-		isCard: state.profile.isCard,
-		isCardLoading: state.profile.isCardLoading,
-		error: state.profile.error,
+		cardName: getCardName(state),
+		cardNumber: getCardNumber(state),
+		cardExpiry: getCardExpiry(state),
+		cardCvv: getCardCvv(state),
+		isCard: getIsCard(state),
+		isCardLoading: getIsCardLoading(state),
+		error: getError(state),
 	};
 };
 

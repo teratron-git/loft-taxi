@@ -56,7 +56,6 @@ export function* rootSaga() {
 	yield takeEvery(profileConstants.CARD, cardSaga)
 	yield takeEvery(routeConstants.ADDRESS_LIST, getAddressListSaga)
 	yield takeEvery(routeConstants.ROUTE, getRouteSaga)
-
 }
 
 function* logInSaga() {
@@ -145,8 +144,8 @@ function* getCardSaga() {
 		}
 	}
 }
+
 function* getAddressListSaga() {
-	const data = yield select(stateData)
 	const url = `https://loft-taxi.glitch.me/addressList`;
 
 	try {
@@ -161,9 +160,9 @@ function* getAddressListSaga() {
 	}
 }
 
-function* getRouteSaga() {
-	const data = yield select(stateData)
-	const url = `https://loft-taxi.glitch.me/route?address1=${data.route.from}&address2=${data.route.to}`;
+function* getRouteSaga(action) {
+	const { payload: { from, to } } = action;
+	const url = `https://loft-taxi.glitch.me/route?address1=${from}&address2=${to}`;
 
 	try {
 		const result = yield call(getDataFromServer, url);

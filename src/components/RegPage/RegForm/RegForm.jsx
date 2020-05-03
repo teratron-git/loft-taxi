@@ -10,6 +10,7 @@ import classNames from 'classnames/bind';
 import styles from './RegForm.module.css';
 import { Preloader } from '../../shared/Preloader';
 import { actions } from '../../../store/register/actions';
+import { getIsReg, getError, getIsRegistrating } from '../../../store/register/selectors'
 
 const st = classNames.bind(styles);
 
@@ -131,13 +132,14 @@ const RegForm = (props) => {
 RegForm.propTypes = {
 	isReg: PropTypes.bool,
 	Reg: PropTypes.func,
+	isRegistrating: PropTypes.bool,
 };
 
 export const mapStateToProps = (state) => {
 	return {
-		isReg: state.register.isReg,
-		error: state.register.error,
-		isRegistrating: state.register.isRegistrating,
+		isReg: getIsReg(state),
+		error: getError(state),
+		isRegistrating: getIsRegistrating(state),
 	};
 };
 

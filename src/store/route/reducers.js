@@ -1,5 +1,5 @@
 import { actions } from './actions';
-let { route, addressList, isRoute, isAddress, routeReset, routeSuccess, routeFailure, addressListSuccess, addressListFailure } = actions;
+let { route, addressList, routeReset, routeSuccess, routeFailure, addressListSuccess, addressListFailure } = actions;
 
 const initialState = {
 	myAddressList: [],

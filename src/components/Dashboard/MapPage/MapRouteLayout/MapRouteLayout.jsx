@@ -12,6 +12,7 @@ import { bindActionCreators } from 'redux';
 import styles from './MapRouteLayout.module.css';
 import { actions } from '../../../../store/route/actions';
 import { Preloader } from '../../../shared/Preloader';
+import { getMyAddressList, getError, getIsRoute, getIsRouteLoading } from '../../../../store/route/selectors'
 
 const st = classNames.bind(styles);
 const { addressList, route, routeReset } = actions;
@@ -123,10 +124,10 @@ const MapRouteLayout = (props) => {
 
 export const mapStateToProps = (state) => {
 	return {
-		myAddressList: state.route.myAddressList,
-		isRoute: state.route.isRoute,
-		isRouteLoading: state.route.isRouteLoading,
-		error: state.route.error,
+		myAddressList: getMyAddressList(state),
+		isRoute: getIsRoute(state),
+		isRouteLoading: getIsRouteLoading(state),
+		error: getError(state),
 	};
 };
 

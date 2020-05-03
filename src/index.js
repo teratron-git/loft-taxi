@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
 import { theme } from 'loft-taxi-mui-theme';
 import { MuiThemeProvider } from '@material-ui/core/styles';
 import { BrowserRouter } from 'react-router-dom';
 import { createStore, compose, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import rootReducer from './store/reducers';
 import createSagaMiddleware from 'redux-saga';
+import rootReducer from './store/reducers';
 import { rootSaga } from './store/sagas'
+import App from './App';
 import './index.css';
 
 const sagaMiddleware = createSagaMiddleware()
