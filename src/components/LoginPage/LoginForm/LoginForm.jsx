@@ -11,15 +11,34 @@ import { actions } from '../../../store/auth/actions';
 import styles from './LoginForm.module.css';
 import { Preloader } from '../../shared/Preloader';
 import { getIsLoggedIn, getError, getIsLogging } from '../../../store/auth/selectors'
+import { Field, reduxForm } from 'redux-form'
 
 const st = classNames.bind(styles);
 
 let { logIn, logInErrorReset } = actions;
 
+const emailCheck = value =>
+	value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
+		? 'Введите корректный email'
+		: undefined
+
+const passwordCheck = value =>
+value && value.length < 6
+		? 'Введите пароль не менее 6 символов'
+		: undefined
+
+const customField = ({ input, type, placeholder, id, className, meta: { touched, error }, ...rest }) => {
+	return (<><Input {...input} placeholder={placeholder} type={type} id={id} className={className} />
+		<span className={st('validateError')}>{touched && error}</span>
+
+	</>)
+}
+
 const LoginForm = (props) => {
 	let [email, setEmail] = useState('');
 	let [password, setPassword] = useState('');
-	let { isLoggedIn, logIn, logInErrorReset, isLogging, error } = props;
+	let { isLoggedIn, logIn, logInErrorReset, isLogging, serverError } = props;
+	let { valid } = props;
 
 	const changeEmailHandler = (e) => {
 		setEmail(e.target.value);
@@ -42,6 +61,8 @@ const LoginForm = (props) => {
 		return <Redirect to="/dashboard/map" />;
 	}
 
+	console.log(props)
+
 	return (
 		<div className={st('login-page__loginForm')}>
 			<div className={st('login-page__loginForm-item')} style={{ height: '400px' }}>
@@ -54,7 +75,7 @@ const LoginForm = (props) => {
 				</div>
 				<form onSubmit={submitHandler}>
 					<label htmlFor="email">Адрес эл. почты*:</label>
-					<Input
+					<Field
 						type="text"
 						id="email"
 						name="email"
@@ -64,11 +85,14 @@ const LoginForm = (props) => {
 						required
 						autoComplete="off"
 						autoFocus
+						component={customField}
+						validate={emailCheck}
+
 					/>
-					<label htmlFor="password" style={{ marginTop: '50px' }}>
+					<label htmlFor="password">
 						Пароль*:
 					</label>
-					<Input
+					<Field
 						type="password"
 						id="password"
 						name="password"
@@ -77,8 +101,11 @@ const LoginForm = (props) => {
 						onChange={changePasswordHandler}
 						required
 						autoComplete="off"
+						autoFocus
+						component={customField}
+						validate={passwordCheck}
 					/>
-					<span className={st('error')}>{error}</span>
+					<span className={st('error')}>{serverError}</span>
 					{isLogging ? <Preloader />
 						: (
 							<Button
@@ -87,7 +114,7 @@ const LoginForm = (props) => {
 								color="primary"
 								className={st('button')}
 								style={{ width: '100px' }}
-								disabled={!email || !password}
+								disabled={!email || !password || !valid}
 							>
 								Войти
 							</Button>
@@ -100,14 +127,14 @@ const LoginForm = (props) => {
 
 LoginForm.propTypes = {
 	isLoggedIn: PropTypes.bool,
-	error: PropTypes.string,
+	serverError: PropTypes.string,
 	isLogging: PropTypes.bool,
 };
 
 export const mapStateToProps = (state) => {
 	return {
 		isLoggedIn: getIsLoggedIn(state),
-		error: getError(state),
+		serverError: getError(state),
 		isLogging: getIsLogging(state),
 	};
 };
@@ -119,4 +146,6 @@ export const mapDispatchToProps = (dispatch) => {
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
+	form: 'LoginForm'
+})(LoginForm));

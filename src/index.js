@@ -11,6 +11,7 @@ import { rootSaga } from './store/sagas'
 import App from './App';
 import './index.css';
 
+
 const sagaMiddleware = createSagaMiddleware()
 
 const store = createStore(
