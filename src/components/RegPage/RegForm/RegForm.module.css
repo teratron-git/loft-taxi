@@ -35,7 +35,7 @@
   margin: 0 auto;
   position: absolute;
   right: 50px;
-  margin-top: 80px;
+  /* margin-top: 80px; */
 }
 
 .name-div {
@@ -44,7 +44,7 @@
   margin: 0 auto;
   position: absolute;
   left: 50px;
-  margin-top: 80px;
+  /* margin-top: 80px; */
 }
 
 .error {
@@ -61,4 +61,22 @@
 .no-error {
   composes: error;
   color: green;
+}
+
+.password {
+	margin-top: 75px !important;
+	display: block;
+}
+
+.button {
+  composes: button from "../../../index.css";
+  margin-top: 30px !important;
+}
+
+
+.validateError {
+  font-size:1rem;
+  color: red;
+  display: block;
+  min-height: 25px;
 }

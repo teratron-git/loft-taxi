@@ -7,11 +7,11 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { useState, useEffect } from 'react';
 import classNames from 'classnames/bind';
+import { Field, reduxForm } from 'redux-form';
 import { actions } from '../../../store/auth/actions';
 import styles from './LoginForm.module.css';
 import { Preloader } from '../../shared/Preloader';
 import { getIsLoggedIn, getError, getIsLogging } from '../../../store/auth/selectors'
-import { Field, reduxForm } from 'redux-form'
 
 const st = classNames.bind(styles);
 
