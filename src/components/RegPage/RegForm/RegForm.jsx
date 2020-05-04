@@ -33,8 +33,6 @@ const namesCheck = value => {
 		: (/^.*[^A-zА-яЁё].*$/i.test(value)
 			? 'Используйте только буквы без пробелов'
 			: undefined)
-
-
 }
 
 const customField = ({ input, type, placeholder, id, className, meta: { touched, error }, ...rest }) => {
