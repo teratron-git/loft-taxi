@@ -14,7 +14,7 @@ import './index.css';
 
 const sagaMiddleware = createSagaMiddleware()
 
-const store = createStore(
+export const store = createStore(
 	rootReducer,
 	compose(
 		applyMiddleware(sagaMiddleware),

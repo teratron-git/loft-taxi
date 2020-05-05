@@ -1,19 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import styles from './ProfilePage.module.css';
 import classNames from 'classnames/bind';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
-// import NumberFormat from 'react-number-format';
-// import Input from '@material-ui/core/Input';
 import { MCIcon } from 'loft-taxi-mui-theme';
 import { bindActionCreators } from 'redux';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, reset } from 'redux-form';
 import { actions } from '../../../store/profile/actions';
 import { Preloader } from '../../shared/Preloader';
+import styles from './ProfilePage.module.css';
 import { getCardName, getCardNumber, getError, getCardCvv, getIsCard, getIsCardLoading, getCardExpiry } from '../../../store/profile/selectors'
+import { store } from '../../../index'
 
 let { card, cardErrorReset } = actions;
 const st = classNames.bind(styles);
@@ -85,7 +84,8 @@ const ProfilePage = (props) => {
 	};
 
 	useEffect(() => {
-		cardErrorReset()
+		cardErrorReset();
+		store.dispatch(reset('ProfilePage'));
 		return () => { cardErrorReset() }
 	}, [])
 
