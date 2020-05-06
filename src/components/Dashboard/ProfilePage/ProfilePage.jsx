@@ -7,7 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import { MCIcon } from 'loft-taxi-mui-theme';
 import { bindActionCreators } from 'redux';
-import { Field, reduxForm, reset } from 'redux-form';
+import { Field, reduxForm, change } from 'redux-form';
 import { actions } from '../../../store/profile/actions';
 import { Preloader } from '../../shared/Preloader';
 import styles from './ProfilePage.module.css';
@@ -19,7 +19,7 @@ const st = classNames.bind(styles);
 
 const validate = values => {
 	const errors = {}
-	console.log('values', values)
+
 	!values.cardName
 		? (errors.cardName = 'Поле не должно быть пустым')
 		: (/^.*[^A-zА-яЁё\s].*$/i.test(values.cardName)
@@ -47,9 +47,9 @@ const validate = values => {
 	return errors;
 }
 
-const customTextField = ({ input, type, placeholder, id, className, label, fullWidth, inputProps, meta: { touched, error }, ...rest }) => {
-	return (<><TextField {...input} placeholder={placeholder} type={type} id={id} className={className} label={label} fullWidth={fullWidth} inputProps={inputProps} />
-		<span className={st('validateError')}>{touched && error}</span>
+const customTextField = ({ input, type, placeholder, id, className, label, fullWidth, inputProps, isCard, meta: { touched, error, dirty }, ...rest }) => {
+	return (<><TextField {...input} placeholder={placeholder} type={type} id={id} className={className} label={label} fullWidth={fullWidth} inputProps={inputProps} isCard={isCard} />
+		<span className={st('validateError')}>{isCard ? (error) : (touched && error)}</span>
 	</>)
 }
 
@@ -58,9 +58,9 @@ const ProfilePage = (props) => {
 	let [cardNumber, setCardNumber] = useState(props.cardNumber);
 	let [cardExpiry, setCardExpiry] = useState(props.cardExpiry);
 	let [cardCvv, setCardCvv] = useState(props.cardCvv);
-	console.log('props', props)
 
 	let { card, cardErrorReset, serverError, isCardLoading, isCard } = props;
+	let { valid } = props;
 
 	const changeCardNameHandler = (e) => {
 		setCardName(e.target.value);
@@ -85,7 +85,10 @@ const ProfilePage = (props) => {
 
 	useEffect(() => {
 		cardErrorReset();
-		store.dispatch(reset('ProfilePage'));
+		store.dispatch(change('ProfilePage', 'cardName', cardName));
+		store.dispatch(change('ProfilePage', 'cardNumber', cardNumber));
+		store.dispatch(change('ProfilePage', 'cardExpiry', cardExpiry));
+		store.dispatch(change('ProfilePage', 'cardCvv', cardCvv));
 		return () => { cardErrorReset() }
 	}, [])
 
@@ -113,6 +116,7 @@ const ProfilePage = (props) => {
 									required
 									component={customTextField}
 									inputProps={{ value: cardName }}
+									isCard={isCard}
 								/>
 								<Field
 									className={st('font-size')}
@@ -128,6 +132,7 @@ const ProfilePage = (props) => {
 									required
 									component={customTextField}
 									inputProps={{ maxLength: "16", value: cardNumber }}
+									isCard={isCard}
 								/>
 								<Field
 									className={st('font-size')}
@@ -143,6 +148,7 @@ const ProfilePage = (props) => {
 									required
 									component={customTextField}
 									inputProps={{ maxLength: "4", value: cardExpiry }}
+									isCard={isCard}
 								/>
 								<Field
 									className={st('font-size')}
@@ -159,6 +165,7 @@ const ProfilePage = (props) => {
 									required
 									component={customTextField}
 									inputProps={{ maxLength: "3", value: cardCvv }}
+									isCard={isCard}
 								/>
 								<span className={st({ 'error': !isCard, 'no-error': isCard })}>{serverError}</span>
 								{isCardLoading ? (<div className={st('preloader-position')}><Preloader /></div>)
@@ -169,7 +176,7 @@ const ProfilePage = (props) => {
 											variant="contained"
 											size="medium"
 											color="primary"
-											disabled={!cardName || !cardNumber || !cardExpiry || !cardCvv ||
+											disabled={!valid || !cardName || !cardNumber || !cardExpiry || !cardCvv ||
 												(cardName === props.cardName && cardNumber === props.cardNumber &&
 													cardExpiry === props.cardExpiry && cardCvv === props.cardCvv)}
 										>
