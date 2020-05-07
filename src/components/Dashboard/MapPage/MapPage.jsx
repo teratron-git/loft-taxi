@@ -3,10 +3,13 @@ import mapboxgl from 'mapbox-gl';
 import { useEffect } from 'react';
 import { useRef } from 'react';
 import { connect } from 'react-redux';
-import styles from './MapPage.module.css';
 import classNames from 'classnames/bind';
 import { MapNoCardLayout } from './MapNoCardLayout/'
 import MapRouteLayout from './MapRouteLayout/'
+import styles from './MapPage.module.css';
+import { Preloader } from '../../shared/Preloader';
+import { getIsCard, getIsCardLoading } from '../../../store/profile/selectors'
+import { getMyRouteList } from '../../../store/route/selectors'
 
 const st = classNames.bind(styles);
 
@@ -39,12 +42,10 @@ export const drawRoute = (map, coordinates) => {
 			"line-width": 8
 		}
 	});
-	console.log('----Функция отработала', coordinates)
 };
 
 const MapPage = (props) => {
-	const { isCard, isCardLoaded, coordinates } = props;
-	console.log('------------', isCard)
+	const { isCard, isCardLoading, coordinates } = props;
 	const myMapRef = useRef();
 
 	useEffect(() => {
@@ -63,33 +64,19 @@ const MapPage = (props) => {
 
 	return (
 		<>
-
-			{!isCardLoaded ? (
-				<div className={st('overlay-loader')} >
-					<div className={st('loader')} >
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
-						<div></div>
-					</div>
-				</div>)
+			{isCardLoading
+				? (<Preloader />)
 				: (isCard ? <MapRouteLayout /> : <MapNoCardLayout />)}
-
-			<div className={st('map-page')} ref={myMapRef}>
-
-			</div>
+			<div className={st('map-page')} ref={myMapRef}></div>
 		</>
 	);
 };
 
 export const mapStateToProps = (state) => {
 	return {
-		isCard: state.profile.isCard,
-		isCardLoaded: state.profile.isCardLoaded,
-		coordinates: state.route.myRouteList,
+		isCard: getIsCard(state),
+		isCardLoading: getIsCardLoading(state),
+		coordinates: getMyRouteList(state),
 	};
 };
 

@@ -1,9 +1,5 @@
 import { actions } from './actions';
-let temp;
-let { route, addressList, isRoute, isAddress, routeReset, routeSuccess, routeFailure, addressListSuccess, addressListFailure } = actions;
-
-// const sData = JSON.parse(localStorage.getItem('loft-taxi-state')) || {};
-// console.log('1', sData)
+let { route, addressList, routeReset, routeSuccess, routeFailure, addressListSuccess, addressListFailure } = actions;
 
 const initialState = {
 	myAddressList: [],
@@ -18,9 +14,6 @@ const initialState = {
 };
 
 export const routeReducer = (state = initialState, action) => {
-	// console.log('2', sData)
-	console.log('весь стейт', state)
-
 	switch (action.type) {
 		case route.toString():
 			return {

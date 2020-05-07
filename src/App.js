@@ -1,14 +1,15 @@
 import React from 'react';
-import { LoginPage } from './components/LoginPage';
-import { RegPage } from './components/RegPage';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { actions } from './store/auth/actions';
-import AppRouter from './components/AppRouter';
 import PropTypes from 'prop-types';
 import { useEffect } from 'react';
-import styles from './App.module.css';
 import classNames from 'classnames/bind';
+import { LoginPage } from './components/LoginPage';
+import { RegPage } from './components/RegPage';
+import AppRouter from './components/AppRouter';
+import styles from './App.module.css';
+import { actions } from './store/auth/actions';
+import { getIsLoggedIn } from './store/auth/selectors'
 
 const st = classNames.bind(styles);
 
@@ -45,7 +46,7 @@ App.propTypes = {
 
 export const mapStateToProps = (state) => {
 	return {
-		isLoggedIn: state.auth.isLoggedIn,
+		isLoggedIn: getIsLoggedIn(state),
 	};
 };
 

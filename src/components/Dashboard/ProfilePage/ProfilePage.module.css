@@ -61,6 +61,11 @@
   text-align: center;
 }
 
+.no-error {
+  composes: error;
+  color: green;
+}
+
 .font-size {
   margin-top: 20px!important;
 }
@@ -76,7 +81,7 @@
   /* justify-content: center;
   align-items: flex-start;
   min-height: calc(100vh - 64px); */
-  padding: 48px 0;
+  padding: 28px 0;
 
   margin: 0 auto;
 }
@@ -84,7 +89,7 @@
 .paper {
   width: 600px;
   padding: 24px;
-  height: 284px;
+  height: 320px;
 }
 
 .form {
@@ -94,10 +99,10 @@
 
 }
 
-.form *:first-child {
+/* .form *:first-child {
   width: 100%;
 
-}
+} */
 /* .form > *:not(:first-child):not(:last-child) {
   margin-bottom: 24px;
 } */
@@ -110,8 +115,27 @@
 
 .MCIcon {
   position: absolute;
-  top: 220px;
+  /* top: 220px; */
   right: 149px;
   width: 30px !important;
   height: 19px !important;
 }
+
+.preloader-position {
+	position: relative;
+  top: 110px;
+  left: -175px;
+}
+
+.validateError {
+  font-size: 1rem;
+  color: red;
+  /* letter-spacing: 1rem; */
+  /* line-height: 1rem; */
+  display: block;
+  width: 100%;
+  height: 10px;
+  /* background: beige; */
+
+}
+

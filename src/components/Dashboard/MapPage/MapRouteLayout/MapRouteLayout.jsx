@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
-import styles from './MapRouteLayout.module.css';
 import classNames from 'classnames/bind';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -9,8 +8,11 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import Paper from '@material-ui/core/Paper';
-import { actions } from '../../../../store/route/actions';
 import { bindActionCreators } from 'redux';
+import styles from './MapRouteLayout.module.css';
+import { actions } from '../../../../store/route/actions';
+import { Preloader } from '../../../shared/Preloader';
+import { getMyAddressList, getError, getIsRoute, getIsRouteLoading } from '../../../../store/route/selectors'
 
 const st = classNames.bind(styles);
 const { addressList, route, routeReset } = actions;
@@ -18,7 +20,7 @@ const { addressList, route, routeReset } = actions;
 const MapRouteLayout = (props) => {
 	let [from, setFrom] = useState('');
 	let [to, setTo] = useState('');
-	let { myAddressList, route, addressList, isRoute, routeReset } = props;
+	let { myAddressList, route, addressList, isRoute, isRouteLoading, routeReset } = props;
 
 	const changeFromHandler = (e) => {
 		setFrom(e.target.value);
@@ -82,16 +84,19 @@ const MapRouteLayout = (props) => {
 								))}
 							</Select>
 						</FormControl>
-						<Button
-							type="submit"
-							variant="outlined"
-							size="medium"
-							color="primary"
-							disabled={!from || !to}
-							className={st('button')}
-						>
-							Вызвать такси
-        </Button>
+						{isRouteLoading ? (<div className={st('preloader-position')}><Preloader /></div>)
+							: (
+								<Button
+									type="submit"
+									variant="outlined"
+									size="medium"
+									color="primary"
+									disabled={!from || !to}
+									className={st('button')}
+								>
+									Вызвать такси
+								</Button>
+							)}
 					</form >
 				</Paper >)
 				: (
@@ -119,9 +124,10 @@ const MapRouteLayout = (props) => {
 
 export const mapStateToProps = (state) => {
 	return {
-		myAddressList: state.route.myAddressList,
-		isRoute: state.route.isRoute,
-		error: state.route.error,
+		myAddressList: getMyAddressList(state),
+		isRoute: getIsRoute(state),
+		isRouteLoading: getIsRouteLoading(state),
+		error: getError(state),
 	};
 };
 

@@ -55,7 +55,7 @@ label {
 }
 
 label[for="password"] {
-	margin-top: 150px;
+	margin-top: 10px !important;
 	display: block;
 }
 

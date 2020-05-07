@@ -1,19 +1,57 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import styles from './ProfilePage.module.css';
 import classNames from 'classnames/bind';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
-import NumberFormat from 'react-number-format';
 import { MCIcon } from 'loft-taxi-mui-theme';
 import { bindActionCreators } from 'redux';
+import { Field, reduxForm, change } from 'redux-form';
 import { actions } from '../../../store/profile/actions';
+import { Preloader } from '../../shared/Preloader';
+import styles from './ProfilePage.module.css';
+import { getCardName, getCardNumber, getError, getCardCvv, getIsCard, getIsCardLoading, getCardExpiry } from '../../../store/profile/selectors'
+import { store } from '../../../index'
 
 let { card, cardErrorReset } = actions;
-
 const st = classNames.bind(styles);
+
+const validate = values => {
+	const errors = {}
+
+	!values.cardName
+		? (errors.cardName = 'Поле не должно быть пустым')
+		: (/^.*[^A-zА-яЁё\s].*$/i.test(values.cardName)
+			? errors.cardName = 'Используйте только буквы'
+			: errors.cardName = null)
+
+	!values.cardNumber
+		? (errors.cardNumber = 'Поле не должно быть пустым')
+		: (!/^\d{16}$/i.test(values.cardNumber)
+			? errors.cardNumber = 'Введите 16 цифр'
+			: errors.cardNumber = null)
+
+	!values.cardExpiry
+		? (errors.cardExpiry = 'Поле не должно быть пустым')
+		: (!/^\d{4}$/i.test(values.cardExpiry)
+			? errors.cardExpiry = 'Введите 4 цифры'
+			: errors.cardExpiry = null)
+
+	!values.cardCvv
+		? (errors.cardCvv = 'Поле не должно быть пустым')
+		: (!/^\d{3}$/i.test(values.cardCvv)
+			? errors.cardCvv = 'Введите 3 цифры'
+			: errors.cardCvv = null)
+
+	return errors;
+}
+
+const customTextField = ({ input, type, placeholder, id, className, label, fullWidth, inputProps, isCard, meta: { touched, error, dirty }, ...rest }) => {
+	return (<><TextField {...input} placeholder={placeholder} type={type} id={id} className={className} label={label} fullWidth={fullWidth} inputProps={inputProps} isCard={isCard} />
+		<span className={st('validateError')}>{isCard ? (error) : (touched && error)}</span>
+	</>)
+}
 
 const ProfilePage = (props) => {
 	let [cardName, setCardName] = useState(props.cardName);
@@ -21,7 +59,8 @@ const ProfilePage = (props) => {
 	let [cardExpiry, setCardExpiry] = useState(props.cardExpiry);
 	let [cardCvv, setCardCvv] = useState(props.cardCvv);
 
-	let { card, cardErrorReset, error } = props;
+	let { card, cardErrorReset, serverError, isCardLoading, isCard } = props;
+	let { valid } = props;
 
 	const changeCardNameHandler = (e) => {
 		setCardName(e.target.value);
@@ -45,11 +84,13 @@ const ProfilePage = (props) => {
 	};
 
 	useEffect(() => {
-		cardErrorReset()
+		cardErrorReset();
+		store.dispatch(change('ProfilePage', 'cardName', cardName));
+		store.dispatch(change('ProfilePage', 'cardNumber', cardNumber));
+		store.dispatch(change('ProfilePage', 'cardExpiry', cardExpiry));
+		store.dispatch(change('ProfilePage', 'cardCvv', cardCvv));
 		return () => { cardErrorReset() }
 	}, [])
-
-	console.log('Пропс из профиля', props);
 
 	return (
 		<div className={st('profile-page')}>
@@ -61,10 +102,10 @@ const ProfilePage = (props) => {
 						<Paper elevation={13} className={styles.paper}>
 							<MCIcon className={styles.MCIcon} />
 							<form className={styles.form} onSubmit={submitHandler}>
-								<TextField
+								<Field
 									className={st('font-size')}
 									type="text"
-									label="Имя владельца"
+									label="Имя владельца*"
 									placeholder="Имя владельца"
 									name="cardName"
 									value={cardName}
@@ -73,11 +114,14 @@ const ProfilePage = (props) => {
 									autoComplete="cc-name"
 									fullWidth
 									required
+									component={customTextField}
+									inputProps={{ value: cardName }}
+									isCard={isCard}
 								/>
-								<NumberFormat
+								<Field
 									className={st('font-size')}
 									customInput={TextField}
-									label="Номер карты"
+									label="Номер карты*"
 									placeholder="Номер карты"
 									name="cardNumber"
 									value={cardNumber}
@@ -86,12 +130,14 @@ const ProfilePage = (props) => {
 									autoComplete="cc-number"
 									fullWidth
 									required
-									format="#### #### #### ####"
+									component={customTextField}
+									inputProps={{ maxLength: "16", value: cardNumber }}
+									isCard={isCard}
 								/>
-								<NumberFormat
+								<Field
 									className={st('font-size')}
 									customInput={TextField}
-									label="Дата окончания действия"
+									label="Дата окончания действия*"
 									placeholder="мм/гг"
 									name="cardExpiry"
 									value={cardExpiry}
@@ -100,13 +146,15 @@ const ProfilePage = (props) => {
 									autoComplete="cc-exp"
 									fullWidth
 									required
-									format="##/##"
+									component={customTextField}
+									inputProps={{ maxLength: "4", value: cardExpiry }}
+									isCard={isCard}
 								/>
-								<NumberFormat
+								<Field
 									className={st('font-size')}
 									type="password"
 									customInput={TextField}
-									label="CVV"
+									label="CVV*"
 									placeholder="CVV"
 									name="cardCvv"
 									value={cardCvv}
@@ -115,18 +163,25 @@ const ProfilePage = (props) => {
 									autoComplete="cc-csc"
 									fullWidth
 									required
-									format="###"
+									component={customTextField}
+									inputProps={{ maxLength: "3", value: cardCvv }}
+									isCard={isCard}
 								/>
-								<span className={st('error')}>{error}</span>
-								<Button
-									className={styles.button}
-									type="submit"
-									variant="contained"
-									size="medium"
-									color="primary"
-								>
-									Сохранить
-            </Button>
+								<span className={st({ 'error': !isCard, 'no-error': isCard })}>{serverError}</span>
+								{isCardLoading ? (<div className={st('preloader-position')}><Preloader /></div>)
+									: (
+										<Button
+											className={styles.button}
+											type="submit"
+											variant="contained"
+											size="medium"
+											color="primary"
+											disabled={!valid || !cardName || !cardNumber || !cardExpiry || !cardCvv ||
+												(cardName === props.cardName && cardNumber === props.cardNumber &&
+													cardExpiry === props.cardExpiry && cardCvv === props.cardCvv)}
+										>
+											{!isCard ? "Сохранить" : "Обновить"}
+										</Button>)}
 							</form>
 						</Paper>
 					</div>
@@ -138,12 +193,13 @@ const ProfilePage = (props) => {
 
 export const mapStateToProps = (state) => {
 	return {
-		cardName: state.profile.cardName,
-		cardNumber: state.profile.cardNumber,
-		cardExpiry: state.profile.cardExpiry,
-		cardCvv: state.profile.cardCvv,
-		isCard: state.profile.isCard,
-		error: state.profile.error,
+		cardName: getCardName(state),
+		cardNumber: getCardNumber(state),
+		cardExpiry: getCardExpiry(state),
+		cardCvv: getCardCvv(state),
+		isCard: getIsCard(state),
+		isCardLoading: getIsCardLoading(state),
+		serverError: getError(state),
 	};
 };
 
@@ -154,4 +210,6 @@ export const mapDispatchToProps = (dispatch) => {
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProfilePage);
+export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
+	form: 'ProfilePage', validate
+})(ProfilePage));

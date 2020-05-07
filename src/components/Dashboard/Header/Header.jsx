@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import classNames from 'classnames/bind';
+import styles from './Header.module.css';
 import { actions as authActions } from '../../../store/auth/actions';
 import { actions as profileActions } from '../../../store/profile/actions';
-import { bindActionCreators } from 'redux';
-import styles from './Header.module.css';
-import classNames from 'classnames/bind';
 
 const st = classNames.bind(styles);
 
@@ -25,7 +25,6 @@ const Header = (props) => {
 
 	const clickHandler = (e) => {
 		if (e.currentTarget.id === 'logout') {
-			console.log('Я внутри', window.location.pathname);
 			logOut();
 			cardResetAll();
 		}
@@ -47,10 +46,6 @@ Header.propTypes = {
 	logOut: PropTypes.func,
 };
 
-export const mapStateToProps = (state) => {
-	return {};
-};
-
 export const mapDispatchToProps = (dispatch) => {
 	return {
 		logOut: bindActionCreators(logOut, dispatch),
@@ -58,4 +53,4 @@ export const mapDispatchToProps = (dispatch) => {
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default connect(null, mapDispatchToProps)(Header);
