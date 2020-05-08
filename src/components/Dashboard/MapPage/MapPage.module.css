@@ -1,57 +1,46 @@
 .map-page {
-  flex-grow: 1;
-  min-height: calc(100vh - 70px);
+	flex-grow: 1;
+	min-height: calc(100vh - 70px);
 }
 
 .container {
-position: absolute;
-width: 600px;
-padding: 24px;
-height: 284px;
-top: 100px;
-left: 100px;
-background-color: aqua;
-
-  /* justify-content: center;
-  align-items: flex-start;
-  min-height: calc(100vh - 64px); */
-  padding: 48px 0;
-
-  margin: 0 auto;
-
+	position: absolute;
+	width: 600px;
+	padding: 24px;
+	height: 284px;
+	top: 100px;
+	left: 100px;
+	background-color: aqua;
+	padding: 48px 0;
+	margin: 0 auto;
 }
 
 .paper {
-  width: 600px;
-  padding: 24px;
-  height: 284px;
+	width: 600px;
+	padding: 24px;
+	height: 284px;
 }
 
 .form {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
 }
 
 .form *:first-child {
-  width: 100%;
-
+	width: 100%;
 }
-/* .form > *:not(:first-child):not(:last-child) {
-  margin-bottom: 24px;
-} */
 
 .button {
-  composes: button from "../../../index.css";
-  top: 530px;
-  left: 150px;
+	composes: button from "../../../index.css";
+	top: 530px;
+	left: 150px;
 }
 
 .MCIcon {
-  position: absolute;
-  top: 220px;
-  right: 149px;
-  width: 30px !important;
-  height: 19px !important;
+	position: absolute;
+	top: 220px;
+	right: 149px;
+	width: 30px !important;
+	height: 19px !important;
 }
