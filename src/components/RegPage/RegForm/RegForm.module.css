@@ -1,66 +1,64 @@
 .login-page__loginForm {
-  width: 50%;
+	width: 50%;
 }
 
 .login-page__loginForm-item {
-  background-color: ivory;
-  width: 450px;
-  height: 507px;
-  font-size: 1.6em;
-  padding: 50px;
-  text-align: left;
-  position: relative;
-  border-radius: 1%;
+	background-color: ivory;
+	width: 450px;
+	height: 507px;
+	font-size: 1.6em;
+	padding: 50px;
+	text-align: left;
+	position: relative;
+	border-radius: 1%;
 }
 
 .header-form {
-  font-size: 3em;
-  font-weight: bold;
-  margin-bottom: 20px;
+	font-size: 3em;
+	font-weight: bold;
+	margin-bottom: 20px;
 }
 
 .header-form__add {
-  margin-bottom: 20px;
+	margin-bottom: 20px;
 }
 
 .header-form__add span {
-  cursor: pointer;
-  color: royalblue;
-  margin-left: 5px;
+	cursor: pointer;
+	color: royalblue;
+	margin-left: 5px;
 }
 
 .surname-div {
-  width: 210px;
-  display: inline-block;
-  margin: 0 auto;
-  position: absolute;
-  right: 50px;
-  /* margin-top: 80px; */
+	width: 210px;
+	display: inline-block;
+	margin: 0 auto;
+	position: absolute;
+	right: 50px;
 }
 
 .name-div {
-  width: 210px;
-  display: inline-block;
-  margin: 0 auto;
-  position: absolute;
-  left: 50px;
-  /* margin-top: 80px; */
+	width: 210px;
+	display: inline-block;
+	margin: 0 auto;
+	position: absolute;
+	left: 50px;
 }
 
 .error {
-  position: absolute;
-  color: red;
-  top: 520px;
-  left: 50px;
-  overflow: hidden;
-  max-width: 450px;
-  max-height: 65px;
-  display: inline-block;
+	position: absolute;
+	color: red;
+	top: 520px;
+	left: 50px;
+	overflow: hidden;
+	max-width: 450px;
+	max-height: 65px;
+	display: inline-block;
 }
 
 .no-error {
-  composes: error;
-  color: green;
+	composes: error;
+	color: green;
 }
 
 .password {
@@ -69,14 +67,13 @@
 }
 
 .button {
-  composes: button from "../../../index.css";
-  margin-top: 30px !important;
+	composes: button from "../../../index.css";
+	margin-top: 30px !important;
 }
 
-
 .validateError {
-  font-size:1rem;
-  color: red;
-  display: block;
-  min-height: 25px;
+	font-size: 1rem;
+	color: red;
+	display: block;
+	min-height: 25px;
 }
