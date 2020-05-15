@@ -8,10 +8,6 @@
   justify-content: center;
 }
 
-.profile-page__loginForm {
-  /* width: 100%; */
-}
-
 .profile-page__loginForm-item {
   background-color: ivory;
   width: 450px;
@@ -26,10 +22,6 @@
 .profile-page__paper {
   padding: 10px;
 }
-
-
-
-
 
 .header-form {
   font-size: 3em;
@@ -74,15 +66,10 @@
   font-size: 1.5rem;
 }
 
-
 .container {
   display: flex;
   max-width: 300px;
-  /* justify-content: center;
-  align-items: flex-start;
-  min-height: calc(100vh - 64px); */
   padding: 28px 0;
-
   margin: 0 auto;
 }
 
@@ -96,16 +83,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-
 }
-
-/* .form *:first-child {
-  width: 100%;
-
-} */
-/* .form > *:not(:first-child):not(:last-child) {
-  margin-bottom: 24px;
-} */
 
 .button {
   composes: button from "../../../index.css";
@@ -115,7 +93,6 @@
 
 .MCIcon {
   position: absolute;
-  /* top: 220px; */
   right: 149px;
   width: 30px !important;
   height: 19px !important;
@@ -130,12 +107,7 @@
 .validateError {
   font-size: 1rem;
   color: red;
-  /* letter-spacing: 1rem; */
-  /* line-height: 1rem; */
   display: block;
   width: 100%;
   height: 10px;
-  /* background: beige; */
-
 }
-
