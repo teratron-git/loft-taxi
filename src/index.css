@@ -50,22 +50,6 @@ body {
 }
 
 label {
-	display: block;
-	font-size: 0.7em;
+	font-size: 0.7em !important;
+	margin-top: 5px !important;
 }
-
-label[for="password"] {
-	margin-top: 10px !important;
-	display: block;
-}
-
-.input {
-	display: block;
-	box-sizing: content-box;
-	width: 100%;
-	font-size: 2rem !important;
-	color: rgba(0, 0, 0, 1);
-	text-overflow: clip;
-	box-shadow: 0 0 0 0 rgb(0, 0, 0) inset;
-	transition: all 200ms cubic-bezier(0.42, 0, 0.58, 1);
-}  
