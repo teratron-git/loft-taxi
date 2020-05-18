@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Input from '@material-ui/core/Input';
+import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -17,15 +17,21 @@ const st = classNames.bind(styles);
 
 let { reg, regErrorReset } = actions;
 
-const emailCheck = value =>
-	value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
-		? 'Введите корректный email'
-		: undefined
+const emailCheck = value => {
+	return !value
+		? ('Поле не должно быть пустым')
+		: value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
+			? 'Введите корректный email'
+			: undefined
+}
 
-const passwordCheck = value =>
-	value && value.length < 6
-		? 'Введите пароль не менее 6 символов'
-		: undefined
+const passwordCheck = value => {
+	return !value
+		? ('Поле не должно быть пустым')
+		: value && value.length < 6
+			? 'Введите пароль не менее 6 символов'
+			: undefined
+}
 
 const namesCheck = value => {
 	return !value
@@ -35,11 +41,13 @@ const namesCheck = value => {
 			: undefined)
 }
 
-const customField = ({ input, type, placeholder, id, className, meta: { touched, error }, ...rest }) => {
-	return (<><Input {...input} placeholder={placeholder} type={type} id={id} className={className} />
-		<span className={st('validateError')}>{touched && error}</span>
-
-	</>)
+const customField = ({ input, type, label, placeholder, id, className, fullWidth, inputProps, meta: { touched, error }, ...rest }) => {
+	return (
+		<>
+			<TextField {...input} label={label} placeholder={placeholder} type={type} id={id} className={className} fullWidth={fullWidth} inputProps={inputProps} />
+			<span className={st('validateError')}>{touched && error}</span>
+		</>
+	)
 }
 
 const RegForm = (props) => {
@@ -88,63 +96,71 @@ const RegForm = (props) => {
 					</Link>
 				</div>
 				<form onSubmit={submitHandler}>
-					<label htmlFor="email">Адрес эл. почты*:</label>
 					<Field
 						type="text"
 						id="email"
 						name="email"
+						label="Адрес эл. почты*:"
 						className={st('input')}
 						value={email}
 						onChange={changeEmailHandler}
 						required
+						fullWidth
 						autoComplete="off"
 						autoFocus
 						component={customField}
 						validate={emailCheck}
+						inputProps={{ className: st('input') }}
 					/>
 					<div id="name-div" className={st('name-div')}>
-						<label htmlFor="name">Имя*:</label>
 						<Field
 							type="text"
 							id="name"
 							name="name"
+							label="Имя*:"
 							className={st('input')}
 							value={name}
 							onChange={changeNameHandler}
 							required
+							fullWidth
 							autoComplete="off"
 							component={customField}
 							validate={namesCheck}
+							inputProps={{ className: st('input') }}
 						/>
 					</div>
 					<div id="surname-div" className={st('surname-div')}>
-						<label htmlFor="surname">Фамилия*:</label>
 						<Field
 							type="text"
 							id="surname"
 							name="surname"
+							label="Фамилия*:"
 							className={st('input')}
 							value={surname}
 							onChange={changeSurnameHandler}
 							required
+							fullWidth
 							autoComplete="off"
 							component={customField}
 							validate={namesCheck}
+							inputProps={{ className: st('input') }}
 						/>
 					</div>
 					<div className={st('password')}>
-						<label htmlFor="password">Пароль*:</label>
 						<Field
 							type="password"
 							id="password"
 							name="password"
+							label="Пароль*:"
 							className={st('input')}
 							value={password}
 							onChange={changePasswordHandler}
 							required
+							fullWidth
 							autoComplete="off"
 							component={customField}
 							validate={passwordCheck}
+							inputProps={{ className: st('input') }}
 						/>
 					</div>
 					<span className={st({ 'error': !isReg, 'no-error': isReg })}>{serverError}</span>
