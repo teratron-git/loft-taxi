@@ -91,6 +91,11 @@
   left: 150px;
 }
 
+label {
+	font-size: 0.7em !important;
+	margin-top: 5px !important;
+}
+
 .MCIcon {
   position: absolute;
   right: 149px;

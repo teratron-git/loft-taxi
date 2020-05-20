@@ -38,6 +38,11 @@
 	font-size: 2rem !important;
 }
 
+label {
+	font-size: 0.7em !important;
+	margin-top: 5px !important;
+}
+
 .error {
 	position: absolute;
 	color: red;
