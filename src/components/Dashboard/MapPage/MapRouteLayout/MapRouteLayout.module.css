@@ -20,8 +20,14 @@
 }
 
 .select{
-	min-width:200px !important;
-	max-width:200px !important;
+	min-width:255px !important;
+	max-width:255px !important;
+	font-size: 1.3rem !important;
+}
+
+label {
+	font-size: 0.7em !important;
+	margin-top: 0px !important;
 }
 
 .paper {

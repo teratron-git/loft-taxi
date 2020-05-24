@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Input from '@material-ui/core/Input';
+import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { Link, Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
@@ -23,15 +23,16 @@ const emailCheck = value =>
 		: undefined
 
 const passwordCheck = value =>
-value && value.length < 6
+	value && value.length < 6
 		? 'Введите пароль не менее 6 символов'
 		: undefined
 
-const customField = ({ input, type, placeholder, id, className, meta: { touched, error }, ...rest }) => {
-	return (<><Input {...input} placeholder={placeholder} type={type} id={id} className={className} />
-		<span className={st('validateError')}>{touched && error}</span>
-
-	</>)
+const customField = ({ input, type, label, placeholder, id, className, fullWidth, inputProps, inputLabelProps, meta: { touched, error }, ...rest }) => {
+	return (
+		<><TextField {...input} label={label} placeholder={placeholder} type={type} id={id} className={className} fullWidth={fullWidth} inputProps={inputProps} inputLabelProps={inputLabelProps} />
+			<span className={st('validateError')}>{touched && error}</span>
+		</>
+	)
 }
 
 const LoginForm = (props) => {
@@ -61,8 +62,6 @@ const LoginForm = (props) => {
 		return <Redirect to="/dashboard/map" />;
 	}
 
-	console.log(props)
-
 	return (
 		<div className={st('login-page__loginForm')}>
 			<div className={st('login-page__loginForm-item')} style={{ height: '400px' }}>
@@ -74,36 +73,37 @@ const LoginForm = (props) => {
 					</Link>
 				</div>
 				<form onSubmit={submitHandler}>
-					<label htmlFor="email">Адрес эл. почты*:</label>
 					<Field
 						type="text"
 						id="email"
 						name="email"
+						label="Адрес эл. почты*:"
 						className={st('input')}
 						value={email}
 						onChange={changeEmailHandler}
 						required
 						autoComplete="off"
 						autoFocus
+						fullWidth
 						component={customField}
 						validate={emailCheck}
-
+						inputProps={{ className: st('input') }}
 					/>
-					<label htmlFor="password">
-						Пароль*:
-					</label>
 					<Field
 						type="password"
 						id="password"
 						name="password"
+						label="Пароль*:"
 						className={st('input')}
 						value={password}
 						onChange={changePasswordHandler}
 						required
 						autoComplete="off"
 						autoFocus
+						fullWidth
 						component={customField}
 						validate={passwordCheck}
+						inputProps={{ className: st('input') }}
 					/>
 					<span className={st('error')}>{serverError}</span>
 					{isLogging ? <Preloader />

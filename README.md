@@ -1,3 +1,5 @@
+## Сервис заказа такси | SPA, React, Redux, Redux-Saga, Hooks, CSS-modules, Router
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
