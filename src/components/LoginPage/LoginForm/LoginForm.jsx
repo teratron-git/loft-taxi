@@ -1,45 +1,26 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField/';
+import classNames from 'classnames/bind';
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { useState, useEffect } from 'react';
-import classNames from 'classnames/bind';
-import { Field, reduxForm } from 'redux-form';
 import { actions } from '../../../store/auth/actions';
-import styles from './LoginForm.module.css';
+import { getError, getIsLoggedIn, getIsLogging } from '../../../store/auth/selectors';
 import { Preloader } from '../../shared/Preloader';
-import { getIsLoggedIn, getError, getIsLogging } from '../../../store/auth/selectors'
+import styles from './LoginForm.module.css';
 
 const st = classNames.bind(styles);
-
 let { logIn, logInErrorReset } = actions;
 
-const emailCheck = value =>
-	value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
-		? 'Введите корректный email'
-		: undefined
-
-const passwordCheck = value =>
-	value && value.length < 6
-		? 'Введите пароль не менее 6 символов'
-		: undefined
-
-const customField = ({ input, type, label, placeholder, id, className, fullWidth, inputProps, inputLabelProps, meta: { touched, error }, ...rest }) => {
-	return (
-		<><TextField {...input} label={label} placeholder={placeholder} type={type} id={id} className={className} fullWidth={fullWidth} inputProps={inputProps} inputLabelProps={inputLabelProps} />
-			<span className={st('validateError')}>{touched && error}</span>
-		</>
-	)
-}
-
 const LoginForm = (props) => {
+	let { handleSubmit, control, formState, errors } = useForm();
+
 	let [email, setEmail] = useState('');
 	let [password, setPassword] = useState('');
 	let { isLoggedIn, logIn, logInErrorReset, isLogging, serverError } = props;
-	let { valid } = props;
 
 	const changeEmailHandler = (e) => {
 		setEmail(e.target.value);
@@ -50,13 +31,14 @@ const LoginForm = (props) => {
 	};
 
 	const submitHandler = (e) => {
-		e.preventDefault();
-		logIn({ email, password });
+		logIn({ email: e.email, password: e.password });
 	};
 
 	useEffect(() => {
-		return () => { logInErrorReset() }
-	}, [])
+		return () => {
+			logInErrorReset();
+		};
+	}, [logInErrorReset]);
 
 	if (isLoggedIn) {
 		return <Redirect to="/dashboard/map" />;
@@ -72,53 +54,71 @@ const LoginForm = (props) => {
 						<span>Зарегистрироваться</span>
 					</Link>
 				</div>
-				<form onSubmit={submitHandler}>
-					<Field
+				<form onSubmit={handleSubmit(submitHandler)}>
+					<Controller
+						as={TextField}
+						control={control}
+						defaultValue={email}
 						type="text"
 						id="email"
 						name="email"
 						label="Адрес эл. почты*:"
-						className={st('input')}
+						inputProps={{ className: st('input') }}
 						value={email}
 						onChange={changeEmailHandler}
-						required
 						autoComplete="off"
 						autoFocus
 						fullWidth
-						component={customField}
-						validate={emailCheck}
-						inputProps={{ className: st('input') }}
+						rules={{
+							required: 'Введите адрес эл. почты',
+							pattern: {
+								value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+								message: 'Введите корректный адрес эл. почты',
+							},
+						}}
 					/>
-					<Field
+					<span className={st('validateError')}>{errors.email && errors.email.message}</span>
+
+					<Controller
+						as={TextField}
+						control={control}
+						defaultValue={password}
 						type="password"
 						id="password"
 						name="password"
 						label="Пароль*:"
-						className={st('input')}
+						inputProps={{ className: st('input') }}
 						value={password}
 						onChange={changePasswordHandler}
-						required
 						autoComplete="off"
-						autoFocus
 						fullWidth
-						component={customField}
-						validate={passwordCheck}
-						inputProps={{ className: st('input') }}
+						rules={{
+							required: 'Введите пароль',
+							minLength: {
+								value: 6,
+								message: 'Введите пароль не менее 6 символов',
+							},
+						}}
 					/>
+					<span className={st('validateError')}>{errors.password && errors.password.message}</span>
 					<span className={st('error')}>{serverError}</span>
-					{isLogging ? <Preloader />
-						: (
-							<Button
-								type="submit"
-								variant="contained"
-								color="primary"
-								className={st('button')}
-								style={{ width: '100px' }}
-								disabled={!email || !password || !valid}
-							>
-								Войти
-							</Button>
-						)}
+					{isLogging ? (
+						<Preloader />
+					) : (
+						<Button
+							type="submit"
+							variant="contained"
+							color="primary"
+							className={st('button')}
+							style={{ width: '100px' }}
+							disabled={
+								!(formState.dirtyFields.email && formState.dirtyFields.password) ||
+								(formState.isSubmitted && !formState.isValid)
+							}
+						>
+							Войти
+						</Button>
+					)}
 				</form>
 			</div>
 		</div>
@@ -146,6 +146,4 @@ export const mapDispatchToProps = (dispatch) => {
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
-	form: 'LoginForm'
-})(LoginForm));
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
