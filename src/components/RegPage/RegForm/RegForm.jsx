@@ -1,63 +1,29 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import { useState, useEffect } from 'react';
+import TextField from '@material-ui/core/TextField';
 import classNames from 'classnames/bind';
-import { Field, reduxForm } from 'redux-form'
-import styles from './RegForm.module.css';
-import { Preloader } from '../../shared/Preloader';
+import PropTypes from 'prop-types';
+import React, { useEffect, useState } from 'react';
+import { Controller, useForm } from 'react-hook-form';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
 import { actions } from '../../../store/register/actions';
-import { getIsReg, getError, getIsRegistrating } from '../../../store/register/selectors'
+import { getError, getIsReg, getIsRegistrating } from '../../../store/register/selectors';
+import { Preloader } from '../../shared/Preloader';
+import styles from './RegForm.module.css';
 
 const st = classNames.bind(styles);
-
 let { reg, regErrorReset } = actions;
 
-const emailCheck = value => {
-	return !value
-		? ('Поле не должно быть пустым')
-		: value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)
-			? 'Введите корректный email'
-			: undefined
-}
-
-const passwordCheck = value => {
-	return !value
-		? ('Поле не должно быть пустым')
-		: value && value.length < 6
-			? 'Введите пароль не менее 6 символов'
-			: undefined
-}
-
-const namesCheck = value => {
-	return !value
-		? ('Поле не должно быть пустым')
-		: (/^.*[^A-zА-яЁё].*$/i.test(value)
-			? 'Используйте только буквы без пробелов'
-			: undefined)
-}
-
-const customField = ({ input, type, label, placeholder, id, className, fullWidth, inputProps, meta: { touched, error }, ...rest }) => {
-	return (
-		<>
-			<TextField {...input} label={label} placeholder={placeholder} type={type} id={id} className={className} fullWidth={fullWidth} inputProps={inputProps} />
-			<span className={st('validateError')}>{touched && error}</span>
-		</>
-	)
-}
-
 const RegForm = (props) => {
+	let { handleSubmit, control, formState, errors } = useForm();
+
 	let [email, setEmail] = useState('');
 	let [password, setPassword] = useState('');
 	let [name, setName] = useState('');
 	let [surname, setSurname] = useState('');
 
 	let { reg, isReg, serverError, isRegistrating } = props;
-	let { valid } = props;
 
 	const changeEmailHandler = (e) => {
 		setEmail(e.target.value);
@@ -76,14 +42,14 @@ const RegForm = (props) => {
 	};
 
 	const submitHandler = (e) => {
-		e.preventDefault();
-
-		reg({ email, password, name, surname });
+		reg({ email: e.email, password: e.password, name: e.name, surname: e.surname });
 	};
 
 	useEffect(() => {
-		return () => { regErrorReset() }
-	}, [])
+		return () => {
+			regErrorReset();
+		};
+	}, []);
 
 	return (
 		<div className={st('login-page__loginForm')}>
@@ -95,25 +61,37 @@ const RegForm = (props) => {
 						<span>Войти</span>
 					</Link>
 				</div>
-				<form onSubmit={submitHandler}>
-					<Field
+				<form onSubmit={handleSubmit(submitHandler)}>
+					<Controller
+						as={TextField}
+						control={control}
+						defaultValue={email}
 						type="text"
 						id="email"
 						name="email"
 						label="Адрес эл. почты*:"
-						className={st('input')}
 						value={email}
 						onChange={changeEmailHandler}
+						className={st('input')}
 						required
 						fullWidth
 						autoComplete="off"
 						autoFocus
-						component={customField}
-						validate={emailCheck}
+						rules={{
+							required: 'Введите адрес эл. почты',
+							pattern: {
+								value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+								message: 'Введите корректный адрес эл. почты',
+							},
+						}}
 						inputProps={{ className: st('input') }}
 					/>
+					<span className={st('validateError')}>{errors.email && errors.email.message}</span>
 					<div id="name-div" className={st('name-div')}>
-						<Field
+						<Controller
+							as={TextField}
+							control={control}
+							defaultValue={name}
 							type="text"
 							id="name"
 							name="name"
@@ -121,16 +99,24 @@ const RegForm = (props) => {
 							className={st('input')}
 							value={name}
 							onChange={changeNameHandler}
-							required
 							fullWidth
 							autoComplete="off"
-							component={customField}
-							validate={namesCheck}
+							rules={{
+								required: 'Введите имя',
+								pattern: {
+									value: /^[а-яА-ЯёЁa-zA-Z]+$/i,
+									message: 'Используйте только буквы (без пробелов)',
+								},
+							}}
 							inputProps={{ className: st('input') }}
 						/>
+						<span className={st('validateError')}>{errors.name && errors.name.message}</span>
 					</div>
 					<div id="surname-div" className={st('surname-div')}>
-						<Field
+						<Controller
+							as={TextField}
+							control={control}
+							defaultValue={surname}
 							type="text"
 							id="surname"
 							name="surname"
@@ -138,16 +124,24 @@ const RegForm = (props) => {
 							className={st('input')}
 							value={surname}
 							onChange={changeSurnameHandler}
-							required
 							fullWidth
 							autoComplete="off"
-							component={customField}
-							validate={namesCheck}
+							rules={{
+								required: 'Введите фамилию',
+								pattern: {
+									value: /^[а-яА-ЯёЁa-zA-Z]+$/i,
+									message: 'Используйте только буквы (без пробелов)',
+								},
+							}}
 							inputProps={{ className: st('input') }}
 						/>
+						<span className={st('validateError')}>{errors.surname && errors.surname.message}</span>
 					</div>
 					<div className={st('password')}>
-						<Field
+						<Controller
+							as={TextField}
+							control={control}
+							defaultValue={password}
 							type="password"
 							id="password"
 							name="password"
@@ -158,24 +152,39 @@ const RegForm = (props) => {
 							required
 							fullWidth
 							autoComplete="off"
-							component={customField}
-							validate={passwordCheck}
+							rules={{
+								required: 'Введите пароль',
+								minLength: {
+									value: 6,
+									message: 'Введите пароль не менее 6 символов',
+								},
+							}}
 							inputProps={{ className: st('input') }}
 						/>
 					</div>
-					<span className={st({ 'error': !isReg, 'no-error': isReg })}>{serverError}</span>
-					{isRegistrating ? (<Preloader />)
-						: (
-							<Button
-								type="submit"
-								variant="contained"
-								color="primary"
-								className={st('button')}
-								disabled={!email || !password || !name || !surname || !valid}
-							>
-								Зарегистрироваться
-							</Button>
-						)}
+					<span className={st('validateError')}>{errors.password && errors.password.message}</span>
+					<span className={st({ error: !isReg, 'no-error': isReg })}>{serverError}</span>
+					{isRegistrating ? (
+						<Preloader />
+					) : (
+						<Button
+							type="submit"
+							variant="contained"
+							color="primary"
+							className={st('button')}
+							disabled={
+								!(
+									formState.dirtyFields.email &&
+									formState.dirtyFields.password &&
+									formState.dirtyFields.name &&
+									formState.dirtyFields.surname
+								) ||
+								(formState.isSubmitted && !formState.isValid)
+							}
+						>
+							Зарегистрироваться
+						</Button>
+					)}
 				</form>
 			</div>
 		</div>
@@ -203,6 +212,4 @@ export const mapDispatchToProps = (dispatch) => {
 	};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(reduxForm({
-	form: 'RegForm'
-})(RegForm));
+export default connect(mapStateToProps, mapDispatchToProps)(RegForm);
