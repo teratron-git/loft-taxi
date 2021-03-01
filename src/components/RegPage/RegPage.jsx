@@ -1,4 +1,3 @@
-import React from 'react';
 import classNames from 'classnames/bind';
 import { Logo } from '../shared/Logo';
 import RegForm from './RegForm';

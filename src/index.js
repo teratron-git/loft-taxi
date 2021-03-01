@@ -1,4 +1,4 @@
-import React from 'react';
+import { StrictMode } from 'react';
 import ReactDOM from 'react-dom';
 import { theme } from 'loft-taxi-mui-theme';
 import { MuiThemeProvider } from '@material-ui/core/styles';
@@ -7,11 +7,11 @@ import { createStore, compose, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 import rootReducer from './store/reducers';
-import { rootSaga } from './store/sagas'
+import { rootSaga } from './store/sagas';
 import App from './App';
 import './index.css';
 
-const sagaMiddleware = createSagaMiddleware()
+const sagaMiddleware = createSagaMiddleware();
 
 export const store = createStore(
 	rootReducer,
@@ -23,7 +23,7 @@ export const store = createStore(
 sagaMiddleware.run(rootSaga);
 
 ReactDOM.render(
-	<React.StrictMode>
+	<StrictMode>
 		<MuiThemeProvider theme={theme}>
 			<BrowserRouter>
 				<Provider store={store}>
@@ -31,6 +31,6 @@ ReactDOM.render(
 				</Provider>
 			</BrowserRouter>
 		</MuiThemeProvider>
-	</React.StrictMode>,
+	</StrictMode>,
 	document.getElementById('root')
 );

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -9,7 +8,7 @@ import { RegPage } from './components/RegPage';
 import AppRouter from './components/AppRouter';
 import styles from './App.module.css';
 import { actions } from './store/auth/actions';
-import { getIsLoggedIn } from './store/auth/selectors'
+import { getIsLoggedIn } from './store/auth/selectors';
 
 const st = classNames.bind(styles);
 

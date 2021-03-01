@@ -1,4 +1,3 @@
-import React from 'react';
 import { Redirect, Switch, Route, withRouter } from 'react-router-dom';
 import Header from '../../components/Dashboard/Header';
 import { Dashboard } from '../../components/Dashboard';
