@@ -18,7 +18,7 @@
 }
 
 .button {
-	composes: button from "../../../../index.css";
+	composes: button from '../../../../index.css';
 	left: 192px;
 	position: absolute !important;
 }

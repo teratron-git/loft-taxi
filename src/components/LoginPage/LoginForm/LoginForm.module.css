@@ -30,7 +30,7 @@
 }
 
 .button {
-	composes: button from "../../../index.css";
+	composes: button from '../../../index.css';
 	margin-top: 20px !important;
 }
 
