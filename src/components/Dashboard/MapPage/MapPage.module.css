@@ -32,7 +32,7 @@
 }
 
 .button {
-	composes: button from "../../../index.css";
+	composes: button from '../../../index.css';
 	top: 530px;
 	left: 150px;
 }

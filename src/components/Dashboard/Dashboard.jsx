@@ -1,4 +1,3 @@
-import React from 'react';
 import MapPage from './MapPage';
 import ProfilePage from './ProfilePage';
 import { Switch, Route } from 'react-router-dom';

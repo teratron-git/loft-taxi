@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames/bind';
@@ -12,7 +12,12 @@ import { bindActionCreators } from 'redux';
 import styles from './MapRouteLayout.module.css';
 import { actions } from '../../../../store/route/actions';
 import { Preloader } from '../../../shared/Preloader';
-import { getMyAddressList, getError, getIsRoute, getIsRouteLoading } from '../../../../store/route/selectors'
+import {
+	getMyAddressList,
+	getError,
+	getIsRoute,
+	getIsRouteLoading,
+} from '../../../../store/route/selectors';
 
 const st = classNames.bind(styles);
 const { addressList, route, routeReset } = actions;
@@ -49,11 +54,11 @@ const MapRouteLayout = (props) => {
 	return (
 		<>
 			{!isRoute ? (
-				<Paper elevation={13} className={styles.container} >
+				<Paper elevation={13} className={styles.container}>
 					<form className={styles.form} onSubmit={submitHandler}>
 						<Typography variant="h4" color="inherit" className={st('header')}>
 							Вызов такси
-        		</Typography>
+						</Typography>
 						<FormControl required className={styles.formControl}>
 							<InputLabel htmlFor="age-native-required">Откуда</InputLabel>
 							<Select
@@ -64,9 +69,13 @@ const MapRouteLayout = (props) => {
 								className={st('select')}
 							>
 								<option aria-label="None" value="" />
-								{myAddressList.filter(place => place !== to).map((place, i) => (
-									<option key={i} value={place} >{place}</option>
-								))}
+								{myAddressList
+									.filter((place) => place !== to)
+									.map((place, i) => (
+										<option key={i} value={place}>
+											{place}
+										</option>
+									))}
 							</Select>
 						</FormControl>
 						<FormControl required className={styles.formControl}>
@@ -79,46 +88,52 @@ const MapRouteLayout = (props) => {
 								className={st('select')}
 							>
 								<option aria-label="None" value="" />
-								{myAddressList.filter(place => place !== from).map((place, i) => (
-									<option key={i} value={place} >{place}</option>
-								))}
+								{myAddressList
+									.filter((place) => place !== from)
+									.map((place, i) => (
+										<option key={i} value={place}>
+											{place}
+										</option>
+									))}
 							</Select>
 						</FormControl>
-						{isRouteLoading ? (<div className={st('preloader-position')}><Preloader /></div>)
-							: (
-								<Button
-									type="submit"
-									variant="outlined"
-									size="medium"
-									color="primary"
-									disabled={!from || !to}
-									className={st('button')}
-								>
-									Вызвать такси
-								</Button>
-							)}
-					</form >
-				</Paper >)
-				: (
-					<Paper elevation={13} className={styles.container}>
-						<Typography variant="h4" color="inherit">
-							Вы вызвали такси!
-        </Typography>
-						<form className={styles.form} onSubmit={submitHandlerReset}>
+						{isRouteLoading ? (
+							<div className={st('preloader-position')}>
+								<Preloader />
+							</div>
+						) : (
 							<Button
 								type="submit"
 								variant="outlined"
 								size="medium"
 								color="primary"
+								disabled={!from || !to}
 								className={st('button')}
 							>
-								Заказать ещё
+								Вызвать такси
+							</Button>
+						)}
+					</form>
+				</Paper>
+			) : (
+				<Paper elevation={13} className={styles.container}>
+					<Typography variant="h4" color="inherit">
+						Вы вызвали такси!
+					</Typography>
+					<form className={styles.form} onSubmit={submitHandlerReset}>
+						<Button
+							type="submit"
+							variant="outlined"
+							size="medium"
+							color="primary"
+							className={st('button')}
+						>
+							Заказать ещё
 						</Button>
-						</form>
-					</Paper>
-				)}
+					</form>
+				</Paper>
+			)}
 		</>
-
 	);
 };
 
@@ -135,7 +150,7 @@ export const mapDispatchToProps = (dispatch) => {
 	return {
 		addressList: bindActionCreators(addressList, dispatch),
 		route: bindActionCreators(route, dispatch),
-		routeReset: bindActionCreators(routeReset, dispatch)
+		routeReset: bindActionCreators(routeReset, dispatch),
 	};
 };
 

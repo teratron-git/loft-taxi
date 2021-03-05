@@ -4,7 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import classNames from 'classnames/bind';
 import { MCIcon } from 'loft-taxi-mui-theme';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import NumberFormat from 'react-number-format';
 import { connect } from 'react-redux';

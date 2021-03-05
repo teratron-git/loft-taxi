@@ -1,62 +1,65 @@
 {
-  "name": "loft-taxi",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@material-ui/core": "^4.11.3",
-    "@testing-library/jest-dom": "^5.11.9",
-    "@testing-library/react": "^11.2.5",
-    "@testing-library/user-event": "^12.7.1",
-    "classnames": "^2.2.6",
-    "loft-taxi-mui-theme": "^1.2.0",
-    "mapbox-gl": "^2.1.1",
-    "prop-types": "^15.7.2",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-hook-form": "^6.15.1",
-    "react-number-format": "^4.4.4",
-    "react-redux": "^7.2.2",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "^4.0.2",
-    "redux": "^4.0.5",
-    "redux-actions": "^2.6.5",
-    "redux-saga": "^1.1.3"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "cz-customizable": "^6.3.0",
-    "eslint-config-prettier": "^7.2.0",
-    "eslint-plugin-prettier": "^3.3.1",
-    "eslint-plugin-react-app": "^6.2.2",
-    "prettier": "^2.2.1"
-  },
-  "config": {
-    "commitizen": {
-      "path": "node_modules/cz-customizable"
-    },
-    "cz-customizable": {
-      "config": "config/git/commitizen.js"
-    }
-  },
-  "homepage": "."
+	"name": "loft-taxi",
+	"version": "0.1.0",
+	"private": true,
+	"engines": {
+		"node": "14.x"
+	},
+	"dependencies": {
+		"@material-ui/core": "^4.11.3",
+		"@testing-library/jest-dom": "^5.11.9",
+		"@testing-library/react": "^11.2.5",
+		"@testing-library/user-event": "^12.8.0",
+		"classnames": "^2.2.6",
+		"loft-taxi-mui-theme": "^1.2.0",
+		"mapbox-gl": "^1.9.1",
+		"prop-types": "^15.7.2",
+		"react": "^17.0.1",
+		"react-dom": "^17.0.1",
+		"react-hook-form": "^6.15.4",
+		"react-number-format": "^4.4.4",
+		"react-redux": "^7.2.2",
+		"react-router-dom": "^5.2.0",
+		"react-scripts": "^4.0.3",
+		"redux": "^4.0.5",
+		"redux-actions": "^2.6.5",
+		"redux-saga": "^1.1.3"
+	},
+	"scripts": {
+		"start": "react-scripts start",
+		"build": "react-scripts build",
+		"test": "react-scripts test",
+		"eject": "react-scripts eject"
+	},
+	"eslintConfig": {
+		"extends": "react-app"
+	},
+	"browserslist": {
+		"production": [
+			">0.2%",
+			"not dead",
+			"not op_mini all"
+		],
+		"development": [
+			"last 1 chrome version",
+			"last 1 firefox version",
+			"last 1 safari version"
+		]
+	},
+	"devDependencies": {
+		"cz-customizable": "^6.3.0",
+		"eslint-config-prettier": "^7.2.0",
+		"eslint-plugin-prettier": "^3.3.1",
+		"eslint-plugin-react-app": "^6.2.2",
+		"prettier": "^2.2.1"
+	},
+	"config": {
+		"commitizen": {
+			"path": "node_modules/cz-customizable"
+		},
+		"cz-customizable": {
+			"config": "config/git/commitizen.js"
+		}
+	},
+	"homepage": "."
 }

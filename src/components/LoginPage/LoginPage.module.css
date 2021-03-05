@@ -1,6 +1,6 @@
 .login-page {
 	flex-grow: 1;
-	background-image: url("../shared/img/login-background.jpg");
+	background-image: url('../shared/img/login-background.jpg');
 	background-size: cover;
 	display: flex;
 	flex-direction: row;

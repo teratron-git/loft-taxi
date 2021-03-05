@@ -1,4 +1,3 @@
-import React from 'react';
 import classNames from 'classnames/bind';
 import LoginForm from './LoginForm';
 import { Logo } from '../shared/Logo';

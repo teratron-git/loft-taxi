@@ -1,46 +1,45 @@
-import React from 'react';
 import mapboxgl from 'mapbox-gl';
 import { useEffect } from 'react';
 import { useRef } from 'react';
 import { connect } from 'react-redux';
 import classNames from 'classnames/bind';
-import { MapNoCardLayout } from './MapNoCardLayout/'
-import MapRouteLayout from './MapRouteLayout/'
+import { MapNoCardLayout } from './MapNoCardLayout/';
+import MapRouteLayout from './MapRouteLayout/';
 import styles from './MapPage.module.css';
 import { Preloader } from '../../shared/Preloader';
-import { getIsCard, getIsCardLoading } from '../../../store/profile/selectors'
-import { getMyRouteList } from '../../../store/route/selectors'
+import { getIsCard, getIsCardLoading } from '../../../store/profile/selectors';
+import { getMyRouteList } from '../../../store/route/selectors';
 
 const st = classNames.bind(styles);
 
 export const drawRoute = (map, coordinates) => {
 	map.flyTo({
 		center: coordinates[0],
-		zoom: 15
+		zoom: 15,
 	});
 
 	map.addLayer({
-		id: "route",
-		type: "line",
+		id: 'route',
+		type: 'line',
 		source: {
-			type: "geojson",
+			type: 'geojson',
 			data: {
-				type: "Feature",
+				type: 'Feature',
 				properties: {},
 				geometry: {
-					type: "LineString",
-					coordinates
-				}
-			}
+					type: 'LineString',
+					coordinates,
+				},
+			},
 		},
 		layout: {
-			"line-join": "round",
-			"line-cap": "round"
+			'line-join': 'round',
+			'line-cap': 'round',
 		},
 		paint: {
-			"line-color": "#ffc617",
-			"line-width": 8
-		}
+			'line-color': '#ffc617',
+			'line-width': 8,
+		},
 	});
 };
 
@@ -59,14 +58,12 @@ const MapPage = (props) => {
 			zoom: 15,
 		});
 
-		map.on('style.load', () => drawRoute(map, coordinates))
+		map.on('style.load', () => drawRoute(map, coordinates));
 	});
 
 	return (
 		<>
-			{isCardLoading
-				? (<Preloader />)
-				: (isCard ? <MapRouteLayout /> : <MapNoCardLayout />)}
+			{isCardLoading ? <Preloader /> : isCard ? <MapRouteLayout /> : <MapNoCardLayout />}
 			<div className={st('map-page')} ref={myMapRef}></div>
 		</>
 	);
