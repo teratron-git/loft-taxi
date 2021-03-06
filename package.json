@@ -7,9 +7,9 @@
 	},
 	"dependencies": {
 		"@material-ui/core": "^4.11.3",
-		"@testing-library/jest-dom": "^5.11.9",
-		"@testing-library/react": "^11.2.5",
-		"@testing-library/user-event": "^12.8.0",
+		"@testing-library/jest-dom": "^5.11.10",
+		"@testing-library/react": "^11.2.6",
+		"@testing-library/user-event": "^13.1.1",
 		"classnames": "^2.2.6",
 		"loft-taxi-mui-theme": "^1.2.0",
 		"mapbox-gl": "^1.9.1",
