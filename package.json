@@ -10,7 +10,7 @@
 		"@testing-library/jest-dom": "^5.11.10",
 		"@testing-library/react": "^11.2.6",
 		"@testing-library/user-event": "^13.1.1",
-		"classnames": "^2.2.6",
+		"classnames": "^2.3.0",
 		"loft-taxi-mui-theme": "^1.2.0",
 		"mapbox-gl": "^1.9.1",
 		"prop-types": "^15.7.2",
